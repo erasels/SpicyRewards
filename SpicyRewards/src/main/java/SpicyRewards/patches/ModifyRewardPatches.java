@@ -28,17 +28,25 @@ public class ModifyRewardPatches {
 
     @SpirePatch2(clz = AbstractRoom.class, method = "update")
     public static class PreserveSeedsOnReload {
-        private static int treasureRng;
+        private static int treasureRng; //Gold
+        private static int potionRng; //Potions
+        private static int relicRng; //Relics
+        //Card rng is handled by basegame
 
         //Sets the savefile seed to its pre-modification state because it will diverge on reload otherwise
         @SpireInsertPatch(locator = SavefileModLoc.class, localvars = {"saveFile"})
         public static void setSeed(SaveFile saveFile) {
             saveFile.treasure_seed_count = treasureRng;
+            saveFile.relic_seed_count = relicRng;
+            saveFile.potion_seed_count = potionRng;
         }
 
+        //Capture pre-modification seeds
         @SpireInsertPatch(locator = BeforeRollLoc.class)
         public static void getSeed() {
             treasureRng = AbstractDungeon.treasureRng.counter;
+            relicRng = AbstractDungeon.relicRng.counter;
+            potionRng = AbstractDungeon.potionRng.counter;
         }
 
         private static class SavefileModLoc extends SpireInsertLocator {
