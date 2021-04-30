@@ -1,0 +1,7 @@
+{
+  "${ModID}:Config": {
+    "TEXT_DICT": {
+      "AlwaysShuffle": "Rewards are always replaced by Shuffle Time."
+    }
+  }
+}
