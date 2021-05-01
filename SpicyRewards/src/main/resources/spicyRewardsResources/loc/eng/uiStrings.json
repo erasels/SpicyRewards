@@ -8,5 +8,10 @@
     "TEXT": [
       "Heal %d HP."
     ]
+  },
+  "${ModID}:MaxHpReward": {
+    "TEXT": [
+      "Gain %d max HP."
+    ]
   }
 }

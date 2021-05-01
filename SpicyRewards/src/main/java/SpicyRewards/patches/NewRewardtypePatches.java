@@ -6,4 +6,6 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 public class NewRewardtypePatches {
     @SpireEnum
     public static RewardItem.RewardType SR_HEALREWARD;
+    @SpireEnum
+    public static RewardItem.RewardType SR_MAXHPREWARD;
 }

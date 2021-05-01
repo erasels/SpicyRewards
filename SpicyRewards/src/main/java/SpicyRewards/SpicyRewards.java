@@ -78,6 +78,11 @@ EditStringsSubscriber{
                 customReward -> new RewardSave(NewRewardtypePatches.SR_HEALREWARD.toString(), null, ((HealReward)customReward).amount, 0)
         );
 
+        BaseMod.registerCustomReward(NewRewardtypePatches.SR_MAXHPREWARD,
+                rewardSave -> new HealReward(rewardSave.amount),
+                customReward -> new RewardSave(NewRewardtypePatches.SR_MAXHPREWARD.toString(), null, ((HealReward)customReward).amount, 0)
+        );
+
         BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/images/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);
     }
 
