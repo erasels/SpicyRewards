@@ -1,21 +1,28 @@
 package SpicyRewards.patches;
 
+import SpicyRewards.rewards.HealReward;
+import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import com.megacrit.cardcrawl.screens.CombatRewardScreen;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 
+import java.util.ArrayList;
+
 public class ModifyRewardPatches {
     @SpirePatch2(clz = CombatRewardScreen.class, method = "setupItemReward")
     public static class ModifyRoomRewards {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(CombatRewardScreen __instance) {
+            ArrayList<RewardItem> rew = __instance.rewards;
             /*__instance.rewards.clear();
             __instance.rewards.add(new RewardItem(900+ AbstractDungeon.relicRng.random(10000000)));*/
+            rew.add(new HealReward((int) (UC.p().maxHealth*0.1f + AbstractDungeon.treasureRng.random(10))));
         }
 
         private static class Locator extends SpireInsertLocator {

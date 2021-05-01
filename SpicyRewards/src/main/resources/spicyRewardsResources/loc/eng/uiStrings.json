@@ -3,5 +3,10 @@
     "TEXT_DICT": {
       "AlwaysShuffle": "Rewards are always replaced by Shuffle Time."
     }
+  },
+  "${ModID}:HealReward": {
+    "TEXT": [
+      "Heal %d HP."
+    ]
   }
 }

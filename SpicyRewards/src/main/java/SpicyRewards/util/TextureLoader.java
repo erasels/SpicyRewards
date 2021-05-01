@@ -47,7 +47,7 @@ public class TextureLoader {
 
     /**
      * @param - String path to the texture you want to load relative to resources,
-     *          * Example: "img/ui/missingtexture.png"
+     *          * Example: "images/ui/missingtexture.png"
      * @return <b>com.badlogic.gdx.graphics.TextureAtlas.AtlasRegion</b> - The texture is returned as an AtlasRegion
      */
     public static TextureAtlas.AtlasRegion getTextureAsAtlasRegion(String textureString) {
@@ -59,7 +59,7 @@ public class TextureLoader {
      * Creates an instance of the texture, applies a linear filter to it, and places it in the HashMap
      *
      * @param textureString - String path to the texture you want to load relative to resources,
-     *                      Example: "img/ui/missingtexture.png"
+     *                      Example: "images/ui/missingtexture.png"
      * @throws GdxRuntimeException
      */
     private static void loadTexture(final String textureString) throws GdxRuntimeException {

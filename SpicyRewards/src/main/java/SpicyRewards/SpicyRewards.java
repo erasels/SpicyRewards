@@ -1,5 +1,7 @@
 package SpicyRewards;
 
+import SpicyRewards.patches.NewRewardtypePatches;
+import SpicyRewards.rewards.HealReward;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
@@ -11,6 +13,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.rewards.RewardSave;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -49,6 +52,7 @@ EditStringsSubscriber{
 
     @Override
     public void receivePostInitialize() {
+        //Config
         ModPanel settingsPanel = new ModPanel();
 
         UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("Config"));
@@ -68,7 +72,13 @@ EditStringsSubscriber{
                 });
         settingsPanel.addUIElement(ASBtn);
 
-        BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/img/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);
+        //Rewards
+        BaseMod.registerCustomReward(NewRewardtypePatches.SR_HEALREWARD,
+                rewardSave -> new HealReward(rewardSave.amount),
+                customReward -> new RewardSave(NewRewardtypePatches.SR_HEALREWARD.toString(), null, ((HealReward)customReward).amount, 0)
+        );
+
+        BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/images/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);
     }
 
     @Override
