@@ -2,26 +2,24 @@ package SpicyRewards.rewards;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.patches.NewRewardtypePatches;
+import SpicyRewards.rewards.selectCardsRewards.AbstractSelectCardReward;
 import SpicyRewards.util.TextureLoader;
 import SpicyRewards.util.UC;
-import SpicyRewards.vfx.RemoveRewardItemEffect;
-import basemod.abstracts.CustomReward;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 
 import static SpicyRewards.SpicyRewards.makeID;
 
-public class UpgradeReward extends CustomReward {
+public class UpgradeReward extends AbstractSelectCardReward {
     private static final String[] text = CardCrawlGame.languagePack.getUIString(makeID("UpgradeReward")).TEXT;
     private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("upgrade.png"));
 
     public AbstractCard.CardType type;
-
-    //The reward has been clicked and the select screen has been opened
-    private boolean capture;
 
     public UpgradeReward() {
         super(ICON, text[0], NewRewardtypePatches.SR_UPGRADEREWARD);
@@ -50,9 +48,7 @@ public class UpgradeReward extends CustomReward {
 
     @Override
     public boolean claimReward() {
-        CardGroup cards = new CardGroup(UC.p().masterDeck, CardGroup.CardGroupType.UNSPECIFIED);
-        //Remove non-upgradeable cards from the group
-        cards.group.removeIf(c -> !c.canUpgrade());
+        CardGroup cards = new CardGroup(UC.p().masterDeck.getUpgradableCards(), CardGroup.CardGroupType.UNSPECIFIED);
 
         //Filter for relevant type
         if (type != null) {
@@ -71,24 +67,8 @@ public class UpgradeReward extends CustomReward {
     }
 
     @Override
-    public void update() {
-        super.update();
-        if(AbstractDungeon.screen == AbstractDungeon.CurrentScreen.COMBAT_REWARD && capture) {
-            //Check if a card was selected
-            if(!AbstractDungeon.gridSelectScreen.selectedCards.isEmpty()) {
-                //Find the equivalent card in the masterdeck (makeSameInstanceOf can't be found by masterDeck.getSpecificCard because of contains check)
-                for (AbstractCard c : AbstractDungeon.gridSelectScreen.selectedCards) {
-                    for (AbstractCard card : UC.p().masterDeck.group) {
-                        if (c.uuid == card.uuid) {
-                            card.upgrade();
-                        }
-                    }
-                }
-
-                //Effect that removes the reward from the CombatRewardScreen after this update cycle to prevent concurrent modification exception
-                AbstractDungeon.effectList.add(new RemoveRewardItemEffect(this));
-            }
-            capture = false;
-        }
+    protected void modifySelectedCard(AbstractCard c) {
+        AbstractDungeon.effectsQueue.add(new UpgradeShineEffect(Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F));
+        c.upgrade();
     }
 }
