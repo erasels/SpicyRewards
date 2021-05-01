@@ -8,4 +8,6 @@ public class NewRewardtypePatches {
     public static RewardItem.RewardType SR_HEALREWARD;
     @SpireEnum
     public static RewardItem.RewardType SR_MAXHPREWARD;
+    @SpireEnum
+    public static RewardItem.RewardType SR_UPGRADEREWARD;
 }

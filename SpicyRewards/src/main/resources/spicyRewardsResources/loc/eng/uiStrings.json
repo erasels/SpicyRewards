@@ -6,12 +6,19 @@
   },
   "${ModID}:HealReward": {
     "TEXT": [
-      "Heal %d HP."
+      "Heal %d HP"
     ]
   },
   "${ModID}:MaxHpReward": {
     "TEXT": [
-      "Gain %d max HP."
+      "Gain %d max HP"
+    ]
+  },
+  "${ModID}:UpgradeReward": {
+    "TEXT": [
+      "Upgrade a card",
+      "Select card to upgrade",
+      "Upgrade a %s"
     ]
   }
 }

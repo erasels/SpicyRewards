@@ -2,9 +2,11 @@ package SpicyRewards.patches;
 
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
+import SpicyRewards.rewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -25,6 +27,10 @@ public class ModifyRewardPatches {
             __instance.rewards.add(new RewardItem(900+ AbstractDungeon.relicRng.random(10000000)));*/
             rew.add(new HealReward((int) (UC.p().maxHealth*0.1f + AbstractDungeon.treasureRng.random(10))));
             rew.add(new MaxHpReward((int) (UC.p().maxHealth*0.1f + AbstractDungeon.treasureRng.random(10))));
+            rew.add(new UpgradeReward());
+            rew.add(new UpgradeReward(AbstractCard.CardType.ATTACK));
+            rew.add(new UpgradeReward(AbstractCard.CardType.SKILL));
+            rew.add(new UpgradeReward(AbstractCard.CardType.POWER));
         }
 
         private static class Locator extends SpireInsertLocator {
