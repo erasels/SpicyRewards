@@ -1,4 +1,4 @@
-package SpicyRewards.rewards;
+package SpicyRewards.rewards.selectCardsRewards;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.patches.NewRewardtypePatches;
