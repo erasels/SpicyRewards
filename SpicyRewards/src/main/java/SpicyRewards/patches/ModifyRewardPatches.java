@@ -2,7 +2,7 @@ package SpicyRewards.patches;
 
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
-import SpicyRewards.rewards.UpgradeReward;
+import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;

@@ -2,7 +2,7 @@ package SpicyRewards;
 
 import SpicyRewards.patches.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
-import SpicyRewards.rewards.UpgradeReward;
+import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
