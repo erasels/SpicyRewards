@@ -33,6 +33,7 @@ public abstract class AbstractSelectCardReward extends CustomReward {
 
                 //Effect that removes the reward from the CombatRewardScreen after this update cycle to prevent concurrent modification exception
                 AbstractDungeon.effectList.add(new RemoveRewardItemEffect(this));
+                AbstractDungeon.gridSelectScreen.selectedCards.clear();
             }
             capture = false;
         }

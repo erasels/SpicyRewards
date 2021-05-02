@@ -20,5 +20,12 @@
       "Select card to upgrade",
       "Upgrade a %s"
     ]
+  },
+  "${ModID}:RemoveReward": {
+    "TEXT": [
+      "Remove a card",
+      "Remove a %s %s",
+      "card"
+    ]
   }
 }

@@ -2,6 +2,7 @@ package SpicyRewards.patches;
 
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
+import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.modthespire.lib.*;
@@ -31,6 +32,10 @@ public class ModifyRewardPatches {
             rew.add(new UpgradeReward(AbstractCard.CardType.ATTACK));
             rew.add(new UpgradeReward(AbstractCard.CardType.SKILL));
             rew.add(new UpgradeReward(AbstractCard.CardType.POWER));
+            rew.add(new RemoveReward());
+            rew.add(new RemoveReward(null, AbstractCard.CardRarity.BASIC));
+            rew.add(new RemoveReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.BASIC));
+            rew.add(new RemoveReward(AbstractCard.CardType.ATTACK, null));
         }
 
         private static class Locator extends SpireInsertLocator {
