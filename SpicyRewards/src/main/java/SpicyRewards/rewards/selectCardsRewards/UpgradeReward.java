@@ -2,7 +2,6 @@ package SpicyRewards.rewards.selectCardsRewards;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.patches.NewRewardtypePatches;
-import SpicyRewards.rewards.selectCardsRewards.AbstractSelectCardReward;
 import SpicyRewards.util.TextureLoader;
 import SpicyRewards.util.UC;
 import com.badlogic.gdx.graphics.Texture;
