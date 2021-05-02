@@ -29,8 +29,8 @@ public class ModifyRewardPatches {
             __instance.rewards.add(new RewardItem(900+ AbstractDungeon.relicRng.random(10000000)));*/
             rew.add(new HealReward((int) (UC.p().maxHealth*0.1f + AbstractDungeon.treasureRng.random(10))));
             rew.add(new MaxHpReward((int) (UC.p().maxHealth*0.1f + AbstractDungeon.treasureRng.random(10))));
-            rew.add(new UpgradeReward(AbstractCard.CardType.SKILL, AbstractCard.CardRarity.BASIC));
-            rew.add(new UpgradeReward(null, AbstractCard.CardRarity.BASIC));
+            rew.add(new UpgradeReward(AbstractCard.CardType.SKILL, null));
+            rew.add(new UpgradeReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.BASIC));
             rew.add(new RemoveReward(null, AbstractCard.CardRarity.BASIC));
             rew.add(new TransformReward());
         }
