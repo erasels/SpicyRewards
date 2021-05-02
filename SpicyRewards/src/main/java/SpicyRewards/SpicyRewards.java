@@ -2,8 +2,7 @@ package SpicyRewards;
 
 import SpicyRewards.patches.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
-import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
+import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
@@ -14,7 +13,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.localization.*;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardSave;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.apache.logging.log4j.LogManager;
@@ -86,28 +85,18 @@ EditStringsSubscriber{
         );
 
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_UPGRADEREWARD,
-                rewardSave -> new UpgradeReward(rewardSave.id),
-                customReward -> new RewardSave(NewRewardtypePatches.SR_UPGRADEREWARD.toString(), ((UpgradeReward)customReward).type==null ? "null" : ((UpgradeReward)customReward).type.toString())
+                RewardSaveLoader::onLoadUpgrade,
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_UPGRADEREWARD, customReward)
         );
 
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_REMOVEREWARD,
-                rewardSave -> new RemoveReward().onLoad(rewardSave),
-                customReward -> {
-                    String s;
-                    if (((RemoveReward) customReward).type != null) {
-                        s = ((RemoveReward) customReward).type.toString();
-                    } else {
-                        s = "null";
-                    }
-                    s += "|";
+                RewardSaveLoader::onLoadRemove,
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_REMOVEREWARD, customReward)
+        );
 
-                    if (((RemoveReward) customReward).rarity != null) {
-                        s += ((RemoveReward) customReward).rarity.toString();
-                    } else {
-                        s += "null";
-                    }
-                    return new RewardSave(NewRewardtypePatches.SR_REMOVEREWARD.toString(), s);
-                }
+        BaseMod.registerCustomReward(NewRewardtypePatches.SR_TRANSFORMREWARD,
+                RewardSaveLoader::onLoadRemove,
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_TRANSFORMREWARD, customReward)
         );
 
         BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/images/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);

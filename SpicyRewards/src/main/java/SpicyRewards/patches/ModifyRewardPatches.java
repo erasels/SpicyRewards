@@ -3,6 +3,7 @@ package SpicyRewards.patches;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.modthespire.lib.*;
@@ -29,13 +30,14 @@ public class ModifyRewardPatches {
             rew.add(new HealReward((int) (UC.p().maxHealth*0.1f + AbstractDungeon.treasureRng.random(10))));
             rew.add(new MaxHpReward((int) (UC.p().maxHealth*0.1f + AbstractDungeon.treasureRng.random(10))));
             rew.add(new UpgradeReward());
-            rew.add(new UpgradeReward(AbstractCard.CardType.ATTACK));
-            rew.add(new UpgradeReward(AbstractCard.CardType.SKILL));
-            rew.add(new UpgradeReward(AbstractCard.CardType.POWER));
+            rew.add(new UpgradeReward(AbstractCard.CardType.ATTACK, null));
+            rew.add(new UpgradeReward(AbstractCard.CardType.SKILL, AbstractCard.CardRarity.BASIC));
+            rew.add(new UpgradeReward(null, AbstractCard.CardRarity.BASIC));
             rew.add(new RemoveReward());
             rew.add(new RemoveReward(null, AbstractCard.CardRarity.BASIC));
             rew.add(new RemoveReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.BASIC));
             rew.add(new RemoveReward(AbstractCard.CardType.ATTACK, null));
+            rew.add(new TransformReward());
         }
 
         private static class Locator extends SpireInsertLocator {

@@ -12,30 +12,33 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
-import com.megacrit.cardcrawl.vfx.cardManip.PurgeCardEffect;
+import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 
 import static SpicyRewards.SpicyRewards.makeID;
 
-public class RemoveReward extends AbstractSelectCardReward {
-    private static final UIStrings uiTEXT = CardCrawlGame.languagePack.getUIString(makeID("RemoveReward"));
-    private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("remove.png"));
+public class TransformReward extends AbstractSelectCardReward {
+    private static final UIStrings uiTEXT = CardCrawlGame.languagePack.getUIString(makeID("TransformReward"));
+    private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("transform.png"));
 
-    public RemoveReward() {
-        super(ICON, uiTEXT, NewRewardtypePatches.SR_REMOVEREWARD, null, null);
+    public TransformReward() {
+        super(ICON, uiTEXT, NewRewardtypePatches.SR_TRANSFORMREWARD, null, null);
     }
 
-    public RemoveReward(AbstractCard.CardType type, AbstractCard.CardRarity rarity) {
-        super(ICON, uiTEXT, NewRewardtypePatches.SR_REMOVEREWARD, type, rarity);
+    public TransformReward(AbstractCard.CardType type, AbstractCard.CardRarity rarity) {
+        super(ICON, uiTEXT, NewRewardtypePatches.SR_TRANSFORMREWARD, type, rarity);
     }
 
     @Override
     protected void openScreen(CardGroup cards) {
-        AbstractDungeon.gridSelectScreen.open(cards, 1, uiTEXT.TEXT[0], false, false, true, true);
+        cards = cards.getPurgeableCards();
+        AbstractDungeon.gridSelectScreen.open(cards, 1, uiTEXT.TEXT[0], false, true, true, false);
     }
 
     @Override
     protected void modifySelectedCard(AbstractCard c) {
-        AbstractDungeon.topLevelEffects.add(new PurgeCardEffect(c, Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F));
+        AbstractDungeon.transformCard(c, false, AbstractDungeon.miscRng);
+        AbstractCard transCard = AbstractDungeon.getTransformedCard();
+        AbstractDungeon.effectsQueue.add(new ShowCardAndObtainEffect(transCard, Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F));
         AbstractDungeon.topLevelEffectsQueue.add(new AbstractGameEffect() {
             public void update() {
                 isDone = true;

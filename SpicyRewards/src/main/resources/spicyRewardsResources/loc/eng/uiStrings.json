@@ -16,16 +16,32 @@
   },
   "${ModID}:UpgradeReward": {
     "TEXT": [
-      "Upgrade a card",
-      "Select card to upgrade",
-      "Upgrade a %s"
-    ]
+      "Select a card to upgrade"
+    ],
+    "TEXT_DICT": {
+      "FullText": "Upgrade a card",
+      "ModText": "Upgrade a %s %s",
+      "NoType": "card"
+    }
   },
   "${ModID}:RemoveReward": {
     "TEXT": [
-      "Remove a card",
-      "Remove a %s %s",
-      "card"
-    ]
+      "Select a card to remove"
+    ],
+    "TEXT_DICT": {
+      "FullText": "Remove a card",
+      "ModText": "Remove a %s %s",
+      "NoType": "card"
+    }
+  },
+  "${ModID}:TransformReward": {
+    "TEXT": [
+      "Select a card to transform"
+    ],
+    "TEXT_DICT": {
+      "FullText": "Transform a card",
+      "ModText": "Transform a %s %s",
+      "NoType": "card"
+    }
   }
 }
