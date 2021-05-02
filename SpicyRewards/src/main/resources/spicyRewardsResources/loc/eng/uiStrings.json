@@ -11,7 +11,7 @@
   },
   "${ModID}:MaxHpReward": {
     "TEXT": [
-      "Gain %d max HP"
+      "Raise your Max HP by %d"
     ]
   },
   "${ModID}:UpgradeReward": {
