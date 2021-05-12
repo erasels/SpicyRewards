@@ -1,16 +1,8 @@
 package SpicyRewards.patches;
 
-import SpicyRewards.rewards.HealReward;
-import SpicyRewards.rewards.MaxHpReward;
-import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
-import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
-import SpicyRewards.rewards.selectCardsRewards.TransformReward;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
-import SpicyRewards.util.UC;
-import com.badlogic.gdx.graphics.Color;
+import SpicyRewards.challenges.ChallengeSystem;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -29,16 +21,7 @@ public class ModifyRewardPatches {
         public static void patch(CombatRewardScreen __instance) {
             ArrayList<RewardItem> rew = __instance.rewards;
             if(!CardCrawlGame.loadingSave) {
-            /*__instance.rewards.clear();
-            __instance.rewards.add(new RewardItem(900+ AbstractDungeon.relicRng.random(10000000)));*/
-                rew.add(new HealReward((int) (UC.p().maxHealth * 0.1f + AbstractDungeon.treasureRng.random(10))));
-                rew.add(new MaxHpReward((int) (UC.p().maxHealth * 0.1f + AbstractDungeon.treasureRng.random(10))));
-                rew.add(new UpgradeReward(AbstractCard.CardType.SKILL, null));
-                rew.add(new UpgradeReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.BASIC));
-                rew.add(new RemoveReward(null, AbstractCard.CardRarity.BASIC));
-                rew.add(new TransformReward());
-                rew.add(new ModifiedCardReward(null, 2, AbstractCard.CardRarity.UNCOMMON, false));
-                rew.add(new ModifiedCardReward(Color.GOLD, -1, AbstractCard.CardRarity.RARE, true));
+                ChallengeSystem.claimRewards(rew);
             }
         }
 

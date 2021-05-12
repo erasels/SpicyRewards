@@ -1,5 +1,6 @@
 package SpicyRewards;
 
+import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
@@ -98,6 +99,8 @@ EditStringsSubscriber{
                 RewardSaveLoader::onLoadRemove,
                 customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_TRANSFORMREWARD, customReward)
         );
+
+        ChallengeSystem.populateTieredMaps();
 
         BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/images/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);
     }

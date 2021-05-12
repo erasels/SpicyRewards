@@ -4,6 +4,16 @@
       "AlwaysShuffle": "Rewards are always replaced by Shuffle Time."
     }
   },
+  "${ModID}:Screen": {
+    "TEXT": [
+      "Start",
+      "Close"
+    ],
+    "TEXT_DICT": {
+      "norm": "Side-Challenges:",
+      "optin": "Opt-In Challenges:"
+    }
+  },
   "${ModID}:HealReward": {
     "TEXT": [
       "Heal %d HP"
@@ -42,6 +52,15 @@
       "FullText": "Transform a card",
       "ModText": "Transform a %s %s",
       "NoType": "card"
+    }
+  },
+  "${ModID}:RushChallenge": {
+    "TEXT": [
+      "Select a card to transform"
+    ],
+    "TEXT_DICT": {
+      "desc": "End the combat before turn %d.",
+      "name": "Rush"
     }
   }
 }

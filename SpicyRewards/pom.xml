@@ -7,7 +7,7 @@
     <artifactId>spicyRewards</artifactId>
     <name>Spicy Rewards</name>
     <version>1.0.0</version>
-    <description>This mod changes the post combat rewards to be similar to the Shuffle system of Persona 4.</description>
+    <description>Makes combat rewards spicy.</description>
 
     <properties>
         <maven.compiler.source>1.8</maven.compiler.source>
@@ -43,6 +43,14 @@
             <scope>system</scope>
             <systemPath>${Steam.path}/workshop/content/646570/1605833019/BaseMod.jar</systemPath>
             <!--<systemPath>${basedir}/../lib/BaseMod.jar</systemPath>-->
+        </dependency>
+        <dependency>
+            <groupId>com.evacipated.cardcrawl.mod</groupId>
+            <artifactId>StSLib</artifactId>
+            <version>1.21.3</version>
+            <scope>system</scope>
+            <systemPath>${Steam.path}/workshop/content/646570/1609158507/StSLib.jar</systemPath>
+            <!--<systemPath>${basedir}/../lib/StSLib.jar</systemPath>-->
         </dependency>
     </dependencies>
 
