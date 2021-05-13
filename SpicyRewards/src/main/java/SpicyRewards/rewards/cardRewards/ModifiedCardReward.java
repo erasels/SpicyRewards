@@ -19,27 +19,35 @@ import com.megacrit.cardcrawl.relics.QuestionCard;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
+import java.util.function.Predicate;
+
 public class ModifiedCardReward extends CustomReward {
     private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("cards.png"));
 
     public static int additionalCards;
     public static AbstractCard.CardRarity fixedRarity;
     public static boolean allUpgraded;
+    public static Predicate<AbstractCard> filter;
 
     protected Color col;
 
-    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg) {
+    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
         super(ICON, TEXT[2], RewardType.CARD);
 
         col = c;
         additionalCards = cAmt;
         fixedRarity = rar;
         allUpgraded = upg;
+        ModifiedCardReward.filter = filter;
         cards = AbstractDungeon.getRewardCards();
-        if(allUpgraded) {
+        if (allUpgraded) {
             cards.stream().filter(AbstractCard::canUpgrade).forEach(AbstractCard::upgrade);
         }
         resetModifiers();
+    }
+
+    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg) {
+        this(c, cAmt, rar, upg, null);
     }
 
     @Override
@@ -61,6 +69,7 @@ public class ModifiedCardReward extends CustomReward {
         additionalCards = 0;
         fixedRarity = null;
         allUpgraded = false;
+        filter = null;
     }
 
     @Override
@@ -84,7 +93,7 @@ public class ModifiedCardReward extends CustomReward {
             sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         }
 
-        if(col == null) {
+        if (col == null) {
             col = Color.WHITE;
             icon = ImageMaster.REWARD_CARD_NORMAL;
         } else {
