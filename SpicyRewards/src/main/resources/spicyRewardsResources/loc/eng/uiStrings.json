@@ -71,5 +71,11 @@
       "desc": "At the start of combat, shuffle %d Slimed into your draw pile.",
       "name": "Slime bath"
     }
+  },
+  "${ModID}:MasochismChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you apply a debuff, take %d damage.",
+      "name": "Masochistic Nature"
+    }
   }
 }
