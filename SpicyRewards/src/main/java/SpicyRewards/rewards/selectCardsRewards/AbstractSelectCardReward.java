@@ -1,8 +1,8 @@
 package SpicyRewards.rewards.selectCardsRewards;
 
+import SpicyRewards.rewards.AbstractSpicyReward;
 import SpicyRewards.util.UC;
 import SpicyRewards.vfx.RemoveRewardItemEffect;
-import basemod.abstracts.CustomReward;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
