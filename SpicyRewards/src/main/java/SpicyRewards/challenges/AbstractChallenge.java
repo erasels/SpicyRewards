@@ -21,6 +21,8 @@ public abstract class AbstractChallenge {
         this.name = name;
         tier = t;
         this.type = type;
+        if(type == Type.OPTIN)
+            done = true;
 
         initText();
     }

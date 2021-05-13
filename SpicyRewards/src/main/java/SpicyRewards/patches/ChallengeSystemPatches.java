@@ -2,6 +2,7 @@ package SpicyRewards.patches;
 
 import SpicyRewards.actions.ChallengeScreenAction;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.challenges.optIn.SlimeChallenge;
 import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.modthespire.lib.*;
@@ -20,6 +21,8 @@ public class ChallengeSystemPatches {
         public static void patch() {
             AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(false));
             ChallengeSystem.generateChallenges();
+            ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(SlimeChallenge.ID).initReward());
+
             UC.doPow(new ChallengePower(UC.p()));
         }
     }

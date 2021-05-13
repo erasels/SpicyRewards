@@ -2,8 +2,10 @@ package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
+import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -32,7 +34,7 @@ public class SlimeChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+        reward = new ModifiedCardReward(Color.LIGHT_GRAY, 0, null, true, c-> c.retain||c.selfRetain);
     }
 
     @Override
