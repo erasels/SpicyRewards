@@ -1,6 +1,8 @@
 package SpicyRewards.challenges;
 
 import SpicyRewards.rewards.AbstractSpicyReward;
+import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
@@ -58,6 +60,7 @@ public abstract class AbstractChallenge {
 
     public void atBattleStart() {}
     public void onVictory() {}
+    public void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {}
 
     public AbstractChallenge makeCopy() {
         try{

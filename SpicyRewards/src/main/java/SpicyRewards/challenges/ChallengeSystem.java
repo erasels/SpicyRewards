@@ -4,13 +4,13 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import basemod.AutoAdd;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
 
 public class ChallengeSystem {
     public static HashMap<String, AbstractChallenge> allChallenges = new HashMap<>();
@@ -30,6 +30,10 @@ public class ChallengeSystem {
 
     public static void onVictory() {
         challenges.forEach(AbstractChallenge::onVictory);
+    }
+
+    public static void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {
+        challenges.forEach(c -> c.onApplyPower(p, target, source));
     }
 
     public static void claimRewards(ArrayList<RewardItem> rewards) {

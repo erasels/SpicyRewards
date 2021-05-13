@@ -34,4 +34,9 @@ public class ChallengePower extends AbstractPower implements InvisiblePower {
     public void onRemove() {
         UC.doPow(owner, this, true);
     }
+
+    @Override
+    public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
+        ChallengeSystem.onApplyPower(power, target, source);
+    }
 }
