@@ -62,13 +62,23 @@ public class ChallengeScreenAction extends AbstractGameAction {
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
 
         for(AbstractChallenge c : ChallengeSystem.challenges) {
-            FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, Settings.WIDTH * 0.25f, height, Color.WHITE);
-            height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+            if(c.type == AbstractChallenge.Type.NORMAL) {
+                FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, Settings.WIDTH * 0.25f, height, Color.WHITE);
+                height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+            }
         }
 
         height -= (85f * Settings.yScale);
         FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("optin"), Settings.WIDTH * 0.2f, height, Color.FIREBRICK);
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
+
+        float xPad = 25f * Settings.xScale;
+        for(AbstractChallenge c : ChallengeSystem.challenges) {
+            if(c.type == AbstractChallenge.Type.OPTIN) {
+                FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, Settings.WIDTH * 0.25f + xPad, height, Color.WHITE);
+                height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+            }
+        }
 
     }
 
