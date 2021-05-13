@@ -7,8 +7,10 @@ import basemod.AutoAdd;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
 
 public class ChallengeSystem {
     public static HashMap<String, AbstractChallenge> allChallenges = new HashMap<>();
@@ -42,6 +44,17 @@ public class ChallengeSystem {
         AbstractChallenge ac = c.makeCopy();
         ac.initReward();
         return ac;
+    }
+
+    public static AbstractChallenge getRandomChallenge() {
+        float roll = AbstractDungeon.treasureRng.random(1f);
+        if (roll > 0.75f) {
+            return getRandomChallenge(AbstractChallenge.Tier.HARD);
+        } else if(roll > 0.4f) {
+            return getRandomChallenge(AbstractChallenge.Tier.NORMAL);
+        } else {
+            return getRandomChallenge(AbstractChallenge.Tier.EASY);
+        }
     }
 
     public static AbstractChallenge getRandomChallenge(AbstractChallenge.Tier t) {
