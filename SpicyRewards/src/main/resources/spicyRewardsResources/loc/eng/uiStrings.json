@@ -62,5 +62,14 @@
       "desc": "End the combat before turn %d.",
       "name": "Rush"
     }
+  },
+  "${ModID}:SlimedChallenge": {
+    "TEXT": [
+      "Select a card to transform"
+    ],
+    "TEXT_DICT": {
+      "desc": "At the start of combat, shuffle %d Slimed into your draw pile.",
+      "name": "Slime bath"
+    }
   }
 }
