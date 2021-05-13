@@ -30,11 +30,12 @@ public abstract class AbstractChallenge {
             text = text + " | " + reward.text;
     }
 
-    public void initReward() {
+    public AbstractChallenge initReward() {
         if(reward == null) {
             rollReward();
             initText();
         }
+        return this;
     }
     protected abstract void rollReward();
 
