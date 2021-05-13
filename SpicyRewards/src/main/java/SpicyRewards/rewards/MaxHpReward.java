@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 
 import static SpicyRewards.SpicyRewards.makeID;
 
-public class MaxHpReward extends CustomReward {
+public class MaxHpReward extends AbstractSpicyReward {
     private static final String[] text = CardCrawlGame.languagePack.getUIString(makeID("MaxHpReward")).TEXT;
     private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("maxhp.png"));
 

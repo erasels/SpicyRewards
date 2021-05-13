@@ -1,9 +1,9 @@
 package SpicyRewards.rewards.cardRewards;
 
 import SpicyRewards.SpicyRewards;
+import SpicyRewards.rewards.AbstractSpicyReward;
 import SpicyRewards.util.TextureLoader;
 import SpicyRewards.util.UC;
-import basemod.abstracts.CustomReward;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -21,7 +21,7 @@ import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
 import java.util.function.Predicate;
 
-public class ModifiedCardReward extends CustomReward {
+public class ModifiedCardReward extends AbstractSpicyReward {
     private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("cards.png"));
 
     public static int additionalCards;

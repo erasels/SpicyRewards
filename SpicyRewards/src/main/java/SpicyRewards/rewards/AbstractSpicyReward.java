@@ -1,0 +1,14 @@
+package SpicyRewards.rewards;
+
+import basemod.abstracts.CustomReward;
+import com.badlogic.gdx.graphics.Texture;
+
+public abstract class AbstractSpicyReward extends CustomReward {
+    public AbstractSpicyReward(Texture icon, String text, RewardType type) {
+        super(icon, text, type);
+    }
+
+    public String getRewardText() {
+        return text;
+    }
+}

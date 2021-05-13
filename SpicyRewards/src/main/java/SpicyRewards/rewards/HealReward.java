@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 
 import static SpicyRewards.SpicyRewards.makeID;
 
-public class HealReward extends CustomReward {
+public class HealReward extends AbstractSpicyReward {
     private static final String[] text = CardCrawlGame.languagePack.getUIString(makeID("HealReward")).TEXT;
     private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("heal.png"));
 

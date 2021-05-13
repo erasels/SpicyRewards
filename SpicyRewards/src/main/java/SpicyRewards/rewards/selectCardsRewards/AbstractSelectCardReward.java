@@ -11,7 +11,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
-public abstract class AbstractSelectCardReward extends CustomReward {
+public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
     //The reward has been clicked and the select screen has been opened
     protected boolean capture;
     protected UIStrings uiStrings;
