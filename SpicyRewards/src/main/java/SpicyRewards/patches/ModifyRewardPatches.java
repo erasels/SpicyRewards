@@ -19,6 +19,7 @@ public class ModifyRewardPatches {
     public static class ModifyRoomRewards {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(CombatRewardScreen __instance) {
+            //TODO: Not saving, FIX
             ArrayList<RewardItem> rew = __instance.rewards;
             if(!CardCrawlGame.loadingSave) {
                 ChallengeSystem.claimRewards(rew);
