@@ -1,5 +1,6 @@
 package SpicyRewards.challenges;
 
+import SpicyRewards.rewards.AbstractSpicyReward;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
@@ -28,8 +29,15 @@ public abstract class AbstractChallenge {
     }
 
     protected void initText() {
-        if(reward != null)
-            text = text + " | " + reward.text;
+        if(reward != null) {
+            text = text + " | ";
+            if(reward instanceof AbstractSpicyReward) {
+                text+= ((AbstractSpicyReward) reward).getRewardText();
+            } else {
+                text+= reward.text;
+            }
+        }
+
     }
 
     public AbstractChallenge initReward() {
