@@ -14,6 +14,11 @@
       "optin": "Opt-In Challenges:"
     }
   },
+  "${ModID}:Rewards": {
+    "TEXT_DICT": {
+      "retainCR": "Retain card reward"
+    }
+  },
   "${ModID}:HealReward": {
     "TEXT": [
       "Heal %d HP"
