@@ -2,6 +2,7 @@ package SpicyRewards.patches;
 
 import SpicyRewards.actions.ChallengeScreenAction;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.challenges.optIn.MasochismChallenge;
 import SpicyRewards.challenges.optIn.SlimeChallenge;
 import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
@@ -19,9 +20,11 @@ public class ChallengeSystemPatches {
     public static class SetupChallengePower {
         @SpirePrefixPatch
         public static void patch() {
-            AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(false));
+            AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(true));
+            ChallengeSystem.generateChallenges();
             ChallengeSystem.generateChallenges();
             ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(SlimeChallenge.ID).initReward());
+            ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(MasochismChallenge.ID).initReward());
 
             UC.doPow(new ChallengePower(UC.p()));
         }
