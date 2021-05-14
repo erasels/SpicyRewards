@@ -1,5 +1,6 @@
 package SpicyRewards.challenges;
 
+import SpicyRewards.SpicyRewards;
 import SpicyRewards.rewards.AbstractSpicyReward;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -50,6 +51,11 @@ public abstract class AbstractChallenge {
         return this;
     }
     protected abstract void rollReward();
+
+    public void complete() {
+        SpicyRewards.challengeBtn.flash();
+        done = true;
+    }
 
     public boolean canSpawn() {
         return ChallengeSystem.challenges.stream().map(c -> c.id).noneMatch(s -> getExclusions().contains(s));

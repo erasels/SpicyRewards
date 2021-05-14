@@ -34,7 +34,7 @@ public class RushChallenge extends AbstractChallenge {
     @Override
     public void onVictory() {
         if(GameActionManager.turn < TURN) {
-            done = true;
+            complete();
         }
     }
 
