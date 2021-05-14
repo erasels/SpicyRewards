@@ -19,6 +19,16 @@
       "retainCR": "Retain card reward"
     }
   },
+  "${ModID}:ChallengeButton": {
+    "TEXT": [
+      "Select a card to transform"
+    ],
+    "TEXT_DICT": {
+      "title": "Challenges",
+      "body": "Challenges are in-combat goals to achieve for extra rewards.",
+      "pre-challenge": "Current Challenges: NL "
+    }
+  },
   "${ModID}:HealReward": {
     "TEXT": [
       "Heal %d HP"

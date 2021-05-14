@@ -4,6 +4,7 @@ import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
+import SpicyRewards.ui.ChallengeButton;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
@@ -32,6 +33,7 @@ public class SpicyRewards implements
 EditStringsSubscriber{
     public static final Logger spicyRewardsLogger = LogManager.getLogger(SpicyRewards.class.getName());
     private static SpireConfig modConfig = null;
+    public static ChallengeButton challengeBtn;
 
     public static void initialize() {
         BaseMod.subscribe(new SpicyRewards());
@@ -101,6 +103,11 @@ EditStringsSubscriber{
         );
 
         ChallengeSystem.populateTieredMaps();
+
+        if(challengeBtn == null) {
+            challengeBtn = new ChallengeButton();
+        }
+        BaseMod.addTopPanelItem(challengeBtn);
 
         BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/images/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);
     }
