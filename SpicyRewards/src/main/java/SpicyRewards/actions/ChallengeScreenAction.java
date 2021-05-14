@@ -4,6 +4,7 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.ui.LabledButton;
+import SpicyRewards.ui.ToggleButton;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,12 +20,17 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import javassist.CtBehavior;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class ChallengeScreenAction extends AbstractGameAction {
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Screen"));
     public static final float BLACKSCREEN_INTENSITY = 0.66f;
     protected Color blackScreenColor = new Color(0.0F, 0.0F, 0.0F, 0.0F);
     protected float blackScreenTarget;
     protected LabledButton closeBtn;
+    protected ArrayList<ToggleButton> optinList = new ArrayList<>();
+    protected HashMap<AbstractChallenge, ToggleButton> buttonMap = new HashMap<>();
 
     private boolean firstRun = true;
 
@@ -41,6 +47,18 @@ public class ChallengeScreenAction extends AbstractGameAction {
         blackScreenTarget = BLACKSCREEN_INTENSITY;
         hideElements();
         closeBtn.show();
+        ChallengeSystem.challenges.stream()
+                .filter(c -> c.type == AbstractChallenge.Type.OPTIN)
+                .forEachOrdered(c -> {
+                    optinList.add(new ToggleButton(0, 0, c.text, FontHelper.panelNameFont, Color.WHITE, false, false, x-> {
+                        if(x.enabled) {
+                            x.textCol = Settings.GREEN_TEXT_COLOR;
+                        } else {
+                            x.textCol = Color.WHITE;
+                        }
+                    }));
+                    buttonMap.put(c, optinList.get(optinList.size()-1));
+                });
     }
 
     public void render(SpriteBatch sb) {
@@ -72,12 +90,10 @@ public class ChallengeScreenAction extends AbstractGameAction {
         FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("optin"), Settings.WIDTH * 0.2f, height, Color.FIREBRICK);
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
 
-        float xPad = 25f * Settings.xScale;
-        for(AbstractChallenge c : ChallengeSystem.challenges) {
-            if(c.type == AbstractChallenge.Type.OPTIN) {
-                FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, Settings.WIDTH * 0.25f + xPad, height, Color.WHITE);
-                height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
-            }
+        for(ToggleButton b : optinList) {
+            b.set(Settings.WIDTH * 0.25f, height);
+            b.render(sb);
+            height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
         }
 
     }
@@ -93,9 +109,15 @@ public class ChallengeScreenAction extends AbstractGameAction {
             firstRun = false;
         }
 
+        optinList.forEach(ToggleButton::update);
         closeBtn.update();
 
         updateBlackScreen();
+
+        if(isDone) {
+            ChallengeSystem.challenges.removeIf(c -> !buttonMap.get(c).enabled);
+            dispose();
+        }
     }
 
     protected void updateBlackScreen() {
@@ -111,11 +133,6 @@ public class ChallengeScreenAction extends AbstractGameAction {
             }
     }
 
-    public void close() {
-        AbstractDungeon.overlayMenu.showCombatPanels();
-        blackScreenTarget = 0.0f;
-    }
-
     public void closeInstantly() {
         AbstractDungeon.overlayMenu.showCombatPanels();
         blackScreenColor.a = 0.0f;
@@ -127,7 +144,11 @@ public class ChallengeScreenAction extends AbstractGameAction {
         AbstractDungeon.player.hand.group.forEach(c -> c.target_y = -AbstractCard.IMG_HEIGHT);
     }
 
-
+    public void dispose() {
+        optinList.clear();
+        buttonMap.clear();
+        closeBtn = null;
+    }
 
     @SpirePatch(clz = AbstractDungeon.class, method = "render")
     public static class RenderChallengeScreen {
