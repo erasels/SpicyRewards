@@ -5,6 +5,7 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.ui.LabledButton;
 import SpicyRewards.ui.ToggleButton;
+import SpicyRewards.util.BidiMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,16 +22,17 @@ import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import javassist.CtBehavior;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ChallengeScreenAction extends AbstractGameAction {
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Screen"));
+    private static final float TITLE_CHALLENGE_TEXT_X = Settings.WIDTH * 0.2f;
+    private static final float CHALLENGE_TEXT_X = Settings.WIDTH * 0.22f;
     public static final float BLACKSCREEN_INTENSITY = 0.66f;
     protected Color blackScreenColor = new Color(0.0F, 0.0F, 0.0F, 0.0F);
     protected float blackScreenTarget;
     protected LabledButton closeBtn;
     protected ArrayList<ToggleButton> optinList = new ArrayList<>();
-    protected HashMap<AbstractChallenge, ToggleButton> buttonMap = new HashMap<>();
+    protected BidiMap<AbstractChallenge, ToggleButton> buttonMap = new BidiMap<>();
 
     private boolean firstRun = true;
 
@@ -39,7 +41,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
     public ChallengeScreenAction(boolean selection) {
         this.selection = selection;
         startDuration = duration = Float.MAX_VALUE;
-        closeBtn = new LabledButton(Settings.WIDTH * 0.1f, Settings.HEIGHT * 0.2f, uiText.TEXT[selection?0:1], true, ChallengeScreenAction.this::closeInstantly, Color.WHITE, Color.FOREST);
+        closeBtn = new LabledButton(Settings.WIDTH * 0.1f, Settings.HEIGHT * 0.2f, uiText.TEXT[selection ? 0 : 1], true, ChallengeScreenAction.this::closeInstantly, Color.WHITE, Color.FOREST);
         closeBtn.hideInstantly();
     }
 
@@ -47,18 +49,21 @@ public class ChallengeScreenAction extends AbstractGameAction {
         blackScreenTarget = BLACKSCREEN_INTENSITY;
         hideElements();
         closeBtn.show();
-        ChallengeSystem.challenges.stream()
-                .filter(c -> c.type == AbstractChallenge.Type.OPTIN)
-                .forEachOrdered(c -> {
-                    optinList.add(new ToggleButton(0, 0, c.text, FontHelper.panelNameFont, Color.WHITE, false, false, x-> {
-                        if(x.enabled) {
-                            x.textCol = Settings.GREEN_TEXT_COLOR;
-                        } else {
-                            x.textCol = Color.WHITE;
-                        }
-                    }));
-                    buttonMap.put(c, optinList.get(optinList.size()-1));
-                });
+
+        if (selection) {
+            ChallengeSystem.challenges.stream()
+                    .filter(c -> c.type == AbstractChallenge.Type.OPTIN)
+                    .forEachOrdered(c -> {
+                        optinList.add(new ToggleButton(0, 0, c.text, FontHelper.panelNameFont, Settings.CREAM_COLOR, false, false, x -> {
+                            if (x.enabled) {
+                                x.textCol = Settings.GREEN_TEXT_COLOR;
+                            } else {
+                                x.textCol = Settings.CREAM_COLOR;
+                            }
+                        }));
+                        buttonMap.put(c, optinList.get(optinList.size() - 1));
+                    });
+        }
     }
 
     public void render(SpriteBatch sb) {
@@ -76,24 +81,50 @@ public class ChallengeScreenAction extends AbstractGameAction {
 
     protected void renderText(SpriteBatch sb) {
         float height = Settings.HEIGHT * 0.85f;
-        FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("norm"), Settings.WIDTH * 0.2f, height, Color.GOLD);
+        FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("norm"), TITLE_CHALLENGE_TEXT_X, height, Color.GOLD);
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
 
-        for(AbstractChallenge c : ChallengeSystem.challenges) {
-            if(c.type == AbstractChallenge.Type.NORMAL) {
-                FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, Settings.WIDTH * 0.25f, height, Color.WHITE);
+        Color col;
+
+        for (AbstractChallenge c : ChallengeSystem.challenges) {
+            if (c.type == AbstractChallenge.Type.NORMAL) {
+                FontHelper.renderFontLeft(sb, FontHelper.tipHeaderFont, c.name, CHALLENGE_TEXT_X, height, Color.LIGHT_GRAY);
+                height -= FontHelper.getHeight(FontHelper.tipHeaderFont) + (15f * Settings.yScale);
+
+                if (selection)
+                    col = Settings.CREAM_COLOR;
+                else
+                    col = c.isDone() ? Settings.GREEN_TEXT_COLOR : Color.SALMON;
+
+                FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, CHALLENGE_TEXT_X, height, col);
                 height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
             }
         }
 
         height -= (85f * Settings.yScale);
-        FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("optin"), Settings.WIDTH * 0.2f, height, Color.FIREBRICK);
+        FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("optin"), TITLE_CHALLENGE_TEXT_X, height, Color.FIREBRICK);
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
 
-        for(ToggleButton b : optinList) {
-            b.set(Settings.WIDTH * 0.25f, height);
-            b.render(sb);
-            height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+        if (selection) {
+            for (ToggleButton b : optinList) {
+                FontHelper.renderFontLeft(sb, FontHelper.tipHeaderFont, buttonMap.getInverse(b).name, CHALLENGE_TEXT_X, height, Color.LIGHT_GRAY);
+                height -= FontHelper.getHeight(FontHelper.tipHeaderFont) + (35f * Settings.yScale);
+
+                b.set(CHALLENGE_TEXT_X, height);
+                b.render(sb);
+                height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+            }
+        } else {
+            for (AbstractChallenge c : ChallengeSystem.challenges) {
+                if (c.type == AbstractChallenge.Type.OPTIN) {
+                    FontHelper.renderFontLeft(sb, FontHelper.tipHeaderFont, c.name, CHALLENGE_TEXT_X, height, Color.LIGHT_GRAY);
+                    height -= FontHelper.getHeight(FontHelper.tipHeaderFont) + (15f * Settings.yScale);
+
+                    col = c.isDone() ? Settings.GREEN_TEXT_COLOR : Color.SALMON;
+                    FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, CHALLENGE_TEXT_X, height, col);
+                    height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+                }
+            }
         }
 
     }
@@ -104,7 +135,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
             return;
         }
 
-        if(firstRun) {
+        if (firstRun) {
             open();
             firstRun = false;
         }
@@ -114,8 +145,8 @@ public class ChallengeScreenAction extends AbstractGameAction {
 
         updateBlackScreen();
 
-        if(isDone) {
-            ChallengeSystem.challenges.removeIf(c -> !buttonMap.get(c).enabled);
+        if (isDone) {
+            ChallengeSystem.challenges.removeIf(c -> buttonMap.containsKey(c) && !buttonMap.get(c).enabled);
             dispose();
         }
     }
@@ -147,14 +178,14 @@ public class ChallengeScreenAction extends AbstractGameAction {
     public void dispose() {
         optinList.clear();
         buttonMap.clear();
-        closeBtn = null;
+        closeBtn.hide();
     }
 
     @SpirePatch(clz = AbstractDungeon.class, method = "render")
     public static class RenderChallengeScreen {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(AbstractDungeon __instance, SpriteBatch sb) {
-            if(AbstractDungeon.actionManager.currentAction instanceof ChallengeScreenAction) {
+            if (AbstractDungeon.actionManager.currentAction instanceof ChallengeScreenAction) {
                 ((ChallengeScreenAction) AbstractDungeon.actionManager.currentAction).render(sb);
             }
         }
