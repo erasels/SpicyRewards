@@ -27,7 +27,7 @@ public class MasochismChallenge extends AbstractChallenge {
                 fill(uiText.TEXT_DICT.get("desc"), AMT),
                 uiText.TEXT_DICT.get("name"),
                 null,
-                Tier.NORMAL,
+                Tier.EASY,
                 Type.OPTIN);
     }
 
