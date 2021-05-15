@@ -5,6 +5,7 @@ import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -35,8 +36,16 @@ public class ChallengeSystem {
         challenges.forEach(AbstractChallenge::onVictory);
     }
 
+    public static void atStartOfTurn() {
+        challenges.forEach(AbstractChallenge::atStartOfTurn);
+    }
+
     public static void atEndOfTurn() {
         challenges.forEach(AbstractChallenge::atEndOfTurn);
+    }
+
+    public static void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {
+        challenges.forEach(c -> c.onMonsterDeath(m, triggerRelics));
     }
 
     public static void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {
@@ -70,7 +79,7 @@ public class ChallengeSystem {
 
     public static AbstractChallenge getRandomChallenge(AbstractChallenge.Tier t) {
         ArrayList<AbstractChallenge> c = new ArrayList<>(tieredChallenges.get(t));
-        c.removeIf(x -> !x.canSpawn());
+        c.removeIf(x -> x.isExcluded() && !x.canSpawn());
         if(!c.isEmpty()) {
             return initChallenge(UC.getRandomItem(c, ChallengeSystem.challengeRng));
         } else {

@@ -1,4 +1,4 @@
-package SpicyRewards.patches;
+package SpicyRewards.patches.reward;
 
 import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
 import com.evacipated.cardcrawl.modthespire.lib.*;
@@ -7,7 +7,6 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.ModHelper;
-import com.megacrit.cardcrawl.random.Random;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 

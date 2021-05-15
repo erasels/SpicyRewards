@@ -95,5 +95,11 @@
       "desc": "At the end of turn %d, take %d damage.",
       "name": "Doom Calendar"
     }
+  },
+  "${ModID}:MultikillChallenge": {
+    "TEXT_DICT": {
+      "desc": "Kill more than 1 enemy in a single turn.",
+      "name": "M-M-Multi-Kill"
+    }
   }
 }

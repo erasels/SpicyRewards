@@ -2,14 +2,16 @@ package SpicyRewards.powers;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.powers.interfaces.OnMonsterDeathPower;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import static com.evacipated.cardcrawl.mod.stslib.patches.NeutralPowertypePatch.NEUTRAL;
 
-public class ChallengePower extends AbstractPower implements InvisiblePower {
+public class ChallengePower extends AbstractPower implements InvisiblePower, OnMonsterDeathPower {
     public static final String POWER_ID = SpicyRewards.makeID("ChallengePower");
 
     public ChallengePower(AbstractCreature owner) {
@@ -31,6 +33,11 @@ public class ChallengePower extends AbstractPower implements InvisiblePower {
     }
 
     @Override
+    public void atStartOfTurn() {
+        ChallengeSystem.atStartOfTurn();
+    }
+
+    @Override
     public void atEndOfTurn(boolean isPlayer) {
         //isPlayer ignored because this power is only on the player
         ChallengeSystem.atEndOfTurn();
@@ -44,5 +51,10 @@ public class ChallengePower extends AbstractPower implements InvisiblePower {
     @Override
     public void onRemove() {
         UC.doPow(owner, this, true);
+    }
+
+    @Override
+    public void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {
+        ChallengeSystem.onMonsterDeath(m, triggerRelics);
     }
 }

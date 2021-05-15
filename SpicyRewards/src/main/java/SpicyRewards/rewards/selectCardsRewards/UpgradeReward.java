@@ -1,7 +1,7 @@
 package SpicyRewards.rewards.selectCardsRewards;
 
 import SpicyRewards.SpicyRewards;
-import SpicyRewards.patches.NewRewardtypePatches;
+import SpicyRewards.patches.reward.NewRewardtypePatches;
 import SpicyRewards.util.TextureLoader;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;

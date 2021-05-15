@@ -1,4 +1,4 @@
-package SpicyRewards.patches;
+package SpicyRewards.patches.challenge;
 
 import SpicyRewards.challenges.ChallengeSystem;
 import com.evacipated.cardcrawl.modthespire.lib.*;

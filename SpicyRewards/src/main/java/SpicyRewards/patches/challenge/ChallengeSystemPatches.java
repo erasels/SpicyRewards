@@ -1,4 +1,4 @@
-package SpicyRewards.patches;
+package SpicyRewards.patches.challenge;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.actions.ChallengeScreenAction;

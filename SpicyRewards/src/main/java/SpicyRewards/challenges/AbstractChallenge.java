@@ -3,6 +3,7 @@ package SpicyRewards.challenges;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.rewards.AbstractSpicyReward;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
@@ -57,8 +58,12 @@ public abstract class AbstractChallenge {
         done = true;
     }
 
+    public boolean isExcluded() {
+        return ChallengeSystem.challenges.stream().map(c -> c.id).anyMatch(s -> getExclusions().contains(s));
+    }
+
     public boolean canSpawn() {
-        return ChallengeSystem.challenges.stream().map(c -> c.id).noneMatch(s -> getExclusions().contains(s));
+        return true;
     }
 
     protected abstract ArrayList<String> getExclusions();
@@ -67,7 +72,9 @@ public abstract class AbstractChallenge {
     public void atBattleStart() {}
     public void onVictory() {}
     public void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {}
+    public void atStartOfTurn() {}
     public void atEndOfTurn() {}
+    public void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {}
 
     public AbstractChallenge makeCopy() {
         try{

@@ -1,4 +1,4 @@
-package SpicyRewards.patches;
+package SpicyRewards.patches.reward;
 
 import com.evacipated.cardcrawl.modthespire.lib.SpireEnum;
 import com.megacrit.cardcrawl.rewards.RewardItem;

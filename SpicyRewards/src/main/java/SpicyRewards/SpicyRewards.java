@@ -1,7 +1,7 @@
 package SpicyRewards;
 
 import SpicyRewards.challenges.ChallengeSystem;
-import SpicyRewards.patches.NewRewardtypePatches;
+import SpicyRewards.patches.reward.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
 import SpicyRewards.ui.ChallengeButton;

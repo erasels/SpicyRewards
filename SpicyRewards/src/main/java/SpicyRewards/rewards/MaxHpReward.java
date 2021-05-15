@@ -1,10 +1,9 @@
 package SpicyRewards.rewards;
 
 import SpicyRewards.SpicyRewards;
-import SpicyRewards.patches.NewRewardtypePatches;
+import SpicyRewards.patches.reward.NewRewardtypePatches;
 import SpicyRewards.util.TextureLoader;
 import SpicyRewards.util.UC;
-import basemod.abstracts.CustomReward;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 
