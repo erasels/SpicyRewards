@@ -31,12 +31,18 @@ public class ChallengePower extends AbstractPower implements InvisiblePower {
     }
 
     @Override
-    public void onRemove() {
-        UC.doPow(owner, this, true);
+    public void atEndOfTurn(boolean isPlayer) {
+        //isPlayer ignored because this power is only on the player
+        ChallengeSystem.atEndOfTurn();
     }
 
     @Override
     public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
         ChallengeSystem.onApplyPower(power, target, source);
+    }
+
+    @Override
+    public void onRemove() {
+        UC.doPow(owner, this, true);
     }
 }

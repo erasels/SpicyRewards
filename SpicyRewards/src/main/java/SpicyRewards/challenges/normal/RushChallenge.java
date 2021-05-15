@@ -2,6 +2,7 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
+import SpicyRewards.challenges.optIn.DoomCalendarChallenge;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -9,13 +10,14 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class RushChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Rush");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("RushChallenge"));
     private static final int TURN = 4;
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(DoomCalendarChallenge.ID));
 
     public RushChallenge() {
         super(ID,

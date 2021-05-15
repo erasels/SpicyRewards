@@ -67,6 +67,7 @@ public abstract class AbstractChallenge {
     public void atBattleStart() {}
     public void onVictory() {}
     public void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {}
+    public void atEndOfTurn() {}
 
     public AbstractChallenge makeCopy() {
         try{

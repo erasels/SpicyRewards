@@ -35,6 +35,10 @@ public class ChallengeSystem {
         challenges.forEach(AbstractChallenge::onVictory);
     }
 
+    public static void atEndOfTurn() {
+        challenges.forEach(AbstractChallenge::atEndOfTurn);
+    }
+
     public static void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {
         challenges.forEach(c -> c.onApplyPower(p, target, source));
     }
