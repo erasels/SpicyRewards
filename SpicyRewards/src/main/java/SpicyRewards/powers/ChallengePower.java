@@ -5,6 +5,8 @@ import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.powers.interfaces.OnMonsterDeathPower;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -46,6 +48,10 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     @Override
     public void onApplyPower(AbstractPower power, AbstractCreature target, AbstractCreature source) {
         ChallengeSystem.onApplyPower(power, target, source);
+    }
+
+    public void onUseCard(AbstractCard card, UseCardAction uac) {
+        ChallengeSystem.onUseCard(card, uac);
     }
 
     @Override

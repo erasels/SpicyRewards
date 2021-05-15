@@ -2,6 +2,8 @@ package SpicyRewards.challenges;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.rewards.AbstractSpicyReward;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -12,7 +14,7 @@ import java.util.ArrayList;
 public abstract class AbstractChallenge {
     public RewardItem reward;
     public String id, text, name;
-    public boolean done;
+    public boolean done, failed;
     public Tier tier;
     public Type type;
 
@@ -54,8 +56,10 @@ public abstract class AbstractChallenge {
     protected abstract void rollReward();
 
     public void complete() {
-        SpicyRewards.challengeBtn.flash();
-        done = true;
+        if(!failed) {
+            SpicyRewards.challengeBtn.flash();
+            done = true;
+        }
     }
 
     public boolean isExcluded() {
@@ -67,7 +71,7 @@ public abstract class AbstractChallenge {
     }
 
     protected abstract ArrayList<String> getExclusions();
-    public boolean isDone() {return done;}
+    public boolean isDone() {return !failed && done;}
 
     public void atBattleStart() {}
     public void onVictory() {}
@@ -75,6 +79,7 @@ public abstract class AbstractChallenge {
     public void atStartOfTurn() {}
     public void atEndOfTurn() {}
     public void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {}
+    public void onUseCard(AbstractCard card, UseCardAction action) {}
 
     public AbstractChallenge makeCopy() {
         try{

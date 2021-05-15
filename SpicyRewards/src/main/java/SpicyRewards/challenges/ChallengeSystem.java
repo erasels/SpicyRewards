@@ -4,6 +4,8 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import basemod.AutoAdd;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -50,6 +52,10 @@ public class ChallengeSystem {
 
     public static void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {
         challenges.forEach(c -> c.onApplyPower(p, target, source));
+    }
+
+    public static void onUseCard(AbstractCard card, UseCardAction action) {
+        challenges.forEach(c -> c.onUseCard(card, action));
     }
 
     public static void claimRewards(ArrayList<RewardItem> rewards) {

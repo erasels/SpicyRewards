@@ -101,5 +101,11 @@
       "desc": "Kill more than 1 enemy in a single turn.",
       "name": "M-M-Multi-Kill"
     }
+  },
+  "${ModID}:PowerlessChallenge": {
+    "TEXT_DICT": {
+      "desc": "Do not play a Power.",
+      "name": "Powerless"
+    }
   }
 }
