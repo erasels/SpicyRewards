@@ -27,7 +27,10 @@ public class ChallengeScreenAction extends AbstractGameAction {
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Screen"));
     private static final float TITLE_CHALLENGE_TEXT_X = Settings.WIDTH * 0.2f;
     private static final float CHALLENGE_TEXT_X = Settings.WIDTH * 0.22f;
+    private static final Color failedChallengedColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+
     public static final float BLACKSCREEN_INTENSITY = 0.66f;
+
     protected Color blackScreenColor = new Color(0.0F, 0.0F, 0.0F, 0.0F);
     protected float blackScreenTarget;
     protected LabledButton closeBtn;
@@ -93,8 +96,15 @@ public class ChallengeScreenAction extends AbstractGameAction {
 
                 if (selection)
                     col = Settings.CREAM_COLOR;
-                else
-                    col = c.isDone() ? Settings.GREEN_TEXT_COLOR : Color.SALMON;
+                else {
+                    if(c.failed) {
+                        col = failedChallengedColor;
+                    } else if(c.isDone()) {
+                        col = Settings.GREEN_TEXT_COLOR;
+                    } else {
+                        col = Color.SALMON;
+                    }
+                }
 
                 FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, CHALLENGE_TEXT_X, height, col);
                 height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
@@ -120,7 +130,13 @@ public class ChallengeScreenAction extends AbstractGameAction {
                     FontHelper.renderFontLeft(sb, FontHelper.tipHeaderFont, c.name, CHALLENGE_TEXT_X, height, Color.LIGHT_GRAY);
                     height -= FontHelper.getHeight(FontHelper.tipHeaderFont) + (15f * Settings.yScale);
 
-                    col = c.isDone() ? Settings.GREEN_TEXT_COLOR : Color.SALMON;
+                    if(c.failed) {
+                        col = failedChallengedColor;
+                    } else if(c.isDone()) {
+                        col = Settings.GREEN_TEXT_COLOR;
+                    } else {
+                        col = Color.SALMON;
+                    }
                     FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, CHALLENGE_TEXT_X, height, col);
                     height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
                 }
