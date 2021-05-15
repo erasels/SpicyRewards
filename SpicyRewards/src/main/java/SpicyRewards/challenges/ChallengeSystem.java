@@ -5,20 +5,23 @@ import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.core.AbstractCreature;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ChallengeSystem {
+    public static final float CHALLENGE_SPAWN_CHANCE = 0.33f;
     public static HashMap<String, AbstractChallenge> allChallenges = new HashMap<>();
     public static HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredChallenges = new HashMap<>();
     public static HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredOptins = new HashMap<>();
 
     public static ArrayList<AbstractChallenge> challenges = new ArrayList<>();
     public static ChallengePower power;
+
+    public static Random challengeRng = new Random();
 
     public static void generateChallenges() {
         challenges.add(getRandomChallenge(AbstractChallenge.Tier.NORMAL));
@@ -51,7 +54,7 @@ public class ChallengeSystem {
     }
 
     public static AbstractChallenge getRandomChallenge() {
-        float roll = AbstractDungeon.treasureRng.random(1f);
+        float roll = ChallengeSystem.challengeRng.random(1f);
         if (roll > 0.75f) {
             return getRandomChallenge(AbstractChallenge.Tier.HARD);
         } else if(roll > 0.4f) {
@@ -65,7 +68,7 @@ public class ChallengeSystem {
         ArrayList<AbstractChallenge> c = new ArrayList<>(tieredChallenges.get(t));
         c.removeIf(x -> !x.canSpawn());
         if(!c.isEmpty()) {
-            return initChallenge(UC.getRandomItem(c, AbstractDungeon.treasureRng));
+            return initChallenge(UC.getRandomItem(c, ChallengeSystem.challengeRng));
         } else {
             // TODO: Actual logic that won't infinitely call itself
             return getRandomChallenge(t);

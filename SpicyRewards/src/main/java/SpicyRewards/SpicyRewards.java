@@ -29,9 +29,8 @@ public class SpicyRewards implements
         PostInitializeSubscriber,
         PostBattleSubscriber,
         PreStartGameSubscriber,
-        EditCardsSubscriber,
-EditStringsSubscriber{
-    public static final Logger spicyRewardsLogger = LogManager.getLogger(SpicyRewards.class.getName());
+        EditStringsSubscriber{
+    public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
     private static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
 
@@ -40,18 +39,18 @@ EditStringsSubscriber{
 
         try {
             Properties defaults = new Properties();
-            defaults.put("AlwaysShuffle", Boolean.toString(true));
+            defaults.put("AlwaysChallenge", Boolean.toString(false));
             modConfig = new SpireConfig("SpicyRewards", "Config", defaults);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static boolean shouldAS() {
+    public static boolean shouldAC() {
         if (modConfig == null) {
             return false;
         }
-        return modConfig.getBool("AlwaysShuffle");
+        return modConfig.getBool("AlwaysChallenge");
     }
 
     @Override
@@ -61,12 +60,12 @@ EditStringsSubscriber{
 
         UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("Config"));
 
-        ModLabeledToggleButton ASBtn = new ModLabeledToggleButton(uiStrings.TEXT_DICT.get("AlwaysShuffle"), 350, 700, Settings.CREAM_COLOR, FontHelper.charDescFont, shouldAS(), settingsPanel, l -> {
+        ModLabeledToggleButton ASBtn = new ModLabeledToggleButton(uiStrings.TEXT_DICT.get("AlwaysChallenge"), 350, 700, Settings.CREAM_COLOR, FontHelper.charDescFont, shouldAC(), settingsPanel, l -> {
         },
                 button ->
                 {
                     if (modConfig != null) {
-                        modConfig.setBool("AlwaysShuffle", button.enabled);
+                        modConfig.setBool("AlwaysChallenge", button.enabled);
                         try {
                             modConfig.save();
                         } catch (IOException e) {
@@ -110,14 +109,6 @@ EditStringsSubscriber{
         BaseMod.addTopPanelItem(challengeBtn);
 
         BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/images/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);
-    }
-
-    @Override
-    public void receiveEditCards() {
-        /*new AutoAdd(getModID())
-                .packageFilter("SpicyRewards.cards")
-                .setDefaultSeen(true)
-                .cards();*/
     }
 
     @Override
