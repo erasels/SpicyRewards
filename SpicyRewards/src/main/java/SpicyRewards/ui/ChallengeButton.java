@@ -49,8 +49,7 @@ public class ChallengeButton extends TopPanelItem {
                 body = uiStrings.TEXT_DICT.get("pre-challenge");
                 StringBuilder s = new StringBuilder(body);
                 ChallengeSystem.challenges.forEach(c -> s.append(c.name).append(" NL "));
-                s.delete(s.length() - 5, s.length() -1);
-                body = s.toString();
+                body = s.substring(0, s.length() - 4);
             } else {
                 body = uiStrings.TEXT_DICT.get("body");
             }
