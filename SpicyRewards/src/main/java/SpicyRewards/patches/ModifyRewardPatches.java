@@ -23,6 +23,7 @@ public class ModifyRewardPatches {
             ArrayList<RewardItem> rew = __instance.rewards;
             if(!CardCrawlGame.loadingSave) {
                 ChallengeSystem.claimRewards(rew);
+                ChallengeSystem.claimRewards(AbstractDungeon.getCurrRoom().rewards);
             }
         }
 
@@ -34,6 +35,7 @@ public class ModifyRewardPatches {
         }
     }
 
+    //TODO: Is this even necessary?
     @SpirePatch2(clz = AbstractRoom.class, method = "update")
     public static class PreserveSeedsOnReload {
         private static int treasureRng; //Gold

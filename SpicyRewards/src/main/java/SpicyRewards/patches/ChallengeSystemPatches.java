@@ -1,5 +1,6 @@
 package SpicyRewards.patches;
 
+import SpicyRewards.SpicyRewards;
 import SpicyRewards.actions.ChallengeScreenAction;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.optIn.MasochismChallenge;
@@ -11,22 +12,27 @@ import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
+import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
 
 public class ChallengeSystemPatches {
     @SpirePatch2(clz = AbstractPlayer.class, method = "applyPreCombatLogic")
-    public static class SetupChallengePower {
+    public static class SetupChallenge {
         @SpirePrefixPatch
         public static void patch() {
-            AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(true));
-            ChallengeSystem.generateChallenges();
-            ChallengeSystem.generateChallenges();
-            ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(SlimeChallenge.ID).initReward());
-            ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(MasochismChallenge.ID).initReward());
+            if(!(AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss)) {
+                if (ChallengeSystem.challengeRng.randomBoolean(ChallengeSystem.CHALLENGE_SPAWN_CHANCE) || SpicyRewards.shouldAC()) {
+                    AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(true));
+                    ChallengeSystem.generateChallenges();
+                    ChallengeSystem.generateChallenges();
+                    ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(SlimeChallenge.ID).initReward());
+                    ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(MasochismChallenge.ID).initReward());
 
-            UC.doPow(new ChallengePower(UC.p()));
+                    UC.doPow(new ChallengePower(UC.p()));
+                }
+            }
         }
     }
 
