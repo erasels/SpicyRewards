@@ -102,7 +102,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
                     } else if(c.isDone()) {
                         col = Settings.GREEN_TEXT_COLOR;
                     } else {
-                        col = Color.SALMON;
+                        col = Settings.CREAM_COLOR;
                     }
                 }
 
@@ -135,7 +135,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
                     } else if(c.isDone()) {
                         col = Settings.GREEN_TEXT_COLOR;
                     } else {
-                        col = Color.SALMON;
+                        col = Settings.CREAM_COLOR;
                     }
                     FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, CHALLENGE_TEXT_X, height, col);
                     height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
