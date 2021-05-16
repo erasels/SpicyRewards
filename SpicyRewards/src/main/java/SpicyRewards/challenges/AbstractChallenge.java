@@ -63,7 +63,7 @@ public abstract class AbstractChallenge {
     }
 
     public boolean isExcluded() {
-        return ChallengeSystem.challenges.stream().map(c -> c.id).anyMatch(s -> getExclusions().contains(s));
+        return ChallengeSystem.challenges.stream().map(c -> c.id).anyMatch(s -> getExclusions().contains(s) || s.equals(id));
     }
 
     public boolean canSpawn() {
