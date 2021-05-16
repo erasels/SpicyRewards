@@ -70,9 +70,11 @@ public class ChallengeScreenAction extends AbstractGameAction {
     }
 
     public void render(SpriteBatch sb) {
-        renderBlackscreen(sb);
-        renderText(sb);
-        closeBtn.render(sb);
+        if(!AbstractDungeon.isScreenUp) {
+            renderBlackscreen(sb);
+            renderText(sb);
+            closeBtn.render(sb);
+        }
     }
 
     protected void renderBlackscreen(SpriteBatch sb) {
