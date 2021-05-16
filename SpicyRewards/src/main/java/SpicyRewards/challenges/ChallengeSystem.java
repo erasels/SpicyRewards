@@ -63,6 +63,7 @@ public class ChallengeSystem {
     }
 
     public static void clearChallenges() {
+        challenges.forEach(AbstractChallenge::onRemove);
         challenges.clear();
     }
 
@@ -83,6 +84,7 @@ public class ChallengeSystem {
                 t = AbstractChallenge.Tier.EASY;
             }
             AbstractChallenge c = getRandomChallenge(m, t);
+            //System.out.printf("Type: %s, challenge: %s\n", type, c);
             if (c != null)
                 challenges.add(c);
         }
