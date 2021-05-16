@@ -2,6 +2,7 @@ package SpicyRewards.ui;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.actions.ChallengeScreenAction;
+import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.util.TextureLoader;
 import SpicyRewards.util.UC;
@@ -48,7 +49,11 @@ public class ChallengeButton extends TopPanelItem {
             if(inCombat) {
                 body = uiStrings.TEXT_DICT.get("pre-challenge");
                 StringBuilder s = new StringBuilder(body);
-                ChallengeSystem.challenges.forEach(c -> s.append(c.name).append(" NL "));
+                for(AbstractChallenge c : ChallengeSystem.challenges) {
+                    if(!c.failed) {
+                        s.append(c.name).append(" NL ");
+                    }
+                }
                 body = s.substring(0, s.length() - 4);
             } else {
                 body = uiStrings.TEXT_DICT.get("body");
