@@ -2,9 +2,8 @@ package SpicyRewards.patches.challenge;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.actions.ChallengeScreenAction;
+import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
-import SpicyRewards.challenges.optIn.MasochismChallenge;
-import SpicyRewards.challenges.optIn.SlimeChallenge;
 import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.modthespire.lib.*;
@@ -25,10 +24,8 @@ public class ChallengeSystemPatches {
             if(!(AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss)) {
                 if (ChallengeSystem.challengeRng.randomBoolean(ChallengeSystem.CHALLENGE_SPAWN_CHANCE) || SpicyRewards.shouldAC()) {
                     AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(true));
-                    ChallengeSystem.generateChallenges();
-                    ChallengeSystem.generateChallenges();
-                    ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(SlimeChallenge.ID).initReward());
-                    ChallengeSystem.challenges.add(ChallengeSystem.getChallenge(MasochismChallenge.ID).initReward());
+                    ChallengeSystem.generateChallenges(AbstractChallenge.Type.NORMAL, ChallengeSystem.CHALLENGE_AMT);
+                    ChallengeSystem.generateChallenges(AbstractChallenge.Type.OPTIN, ChallengeSystem.OPTIN_AMT);
 
                     UC.doPow(new ChallengePower(UC.p()));
                 }
@@ -41,6 +38,7 @@ public class ChallengeSystemPatches {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch() {
             ChallengeSystem.clearChallenges();
+            ChallengeSystem.power = null;
         }
 
         private static class Locator extends SpireInsertLocator {
