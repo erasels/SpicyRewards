@@ -34,6 +34,13 @@ public class RushChallenge extends AbstractChallenge {
     }
 
     @Override
+    public void atStartOfTurn() {
+        if(GameActionManager.turn >= TURN) {
+            failed = true;
+        }
+    }
+
+    @Override
     public void onVictory() {
         if(GameActionManager.turn < TURN) {
             complete();
