@@ -62,13 +62,18 @@ public abstract class AbstractChallenge {
         }
     }
 
+    //Returns true if already spawned challenges excude this one or this challenge is already in the list
     public boolean isExcluded() {
         return ChallengeSystem.challenges.stream().map(c -> c.id).anyMatch(s -> getExclusions().contains(s) || s.equals(id));
     }
 
+    //Additional spawn condition, returns false if this challenge cannot spawn
     public boolean canSpawn() {
         return true;
     }
+
+    //Clean-up when this challenge is removed from the current challenges
+    public void onRemove() {}
 
     protected abstract ArrayList<String> getExclusions();
     public boolean isDone() {return !failed && done;}
