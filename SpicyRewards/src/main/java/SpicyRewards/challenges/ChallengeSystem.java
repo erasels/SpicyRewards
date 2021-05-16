@@ -77,7 +77,7 @@ public class ChallengeSystem {
             float roll = ChallengeSystem.challengeRng.random(1f);
             if (roll > 0.75f) {
                 t = AbstractChallenge.Tier.HARD;
-            } else if (roll > 0.4f) {
+            } else if (roll > 0.35f) {
                 t = AbstractChallenge.Tier.NORMAL;
             } else {
                 t = AbstractChallenge.Tier.EASY;
