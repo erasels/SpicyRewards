@@ -72,7 +72,7 @@ public class AdvancedChallenge extends AbstractChallenge {
         CardBorderGlowManager.removeGlowInfo(SDHighlighter);
     }
 
-    private static CardBorderGlowManager.GlowInfo SDHighlighter = new CardBorderGlowManager.GlowInfo() {
+    private static final CardBorderGlowManager.GlowInfo SDHighlighter = new CardBorderGlowManager.GlowInfo() {
         @Override
         public boolean test(AbstractCard c) {
             return isSoD(c);

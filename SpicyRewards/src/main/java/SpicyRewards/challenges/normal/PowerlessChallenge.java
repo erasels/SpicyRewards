@@ -4,6 +4,8 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
+import basemod.helpers.CardBorderGlowManager;
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -25,6 +27,12 @@ public class PowerlessChallenge  extends AbstractChallenge {
                 null,
                 AbstractChallenge.Tier.NORMAL,
                 AbstractChallenge.Type.NORMAL);
+    }
+
+    @Override
+    public AbstractChallenge initReward() {
+        CardBorderGlowManager.addGlowInfo(PowerHighlighter);
+        return super.initReward();
     }
 
     @Override
@@ -50,7 +58,29 @@ public class PowerlessChallenge  extends AbstractChallenge {
     }
 
     @Override
+    public void onRemove() {
+        CardBorderGlowManager.removeGlowInfo(PowerHighlighter);
+    }
+
+    @Override
     protected ArrayList<String> getExclusions() {
         return exclusions;
     }
+
+    private static final CardBorderGlowManager.GlowInfo PowerHighlighter = new CardBorderGlowManager.GlowInfo() {
+        @Override
+        public boolean test(AbstractCard c) {
+            return c.type == AbstractCard.CardType.POWER;
+        }
+
+        @Override
+        public Color getColor(AbstractCard abstractCard) {
+            return Color.SALMON.cpy();
+        }
+
+        @Override
+        public String glowID() {
+            return "SPICY_CHALLENGE_POWERLESS";
+        }
+    };
 }
