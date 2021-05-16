@@ -107,5 +107,11 @@
       "desc": "Do not play a Power.",
       "name": "Powerless"
     }
+  },
+  "${ModID}:AdvancedChallenge": {
+    "TEXT_DICT": {
+      "desc": "Do not play Strike or Defend.",
+      "name": "Not so basic"
+    }
   }
 }
