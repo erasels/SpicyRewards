@@ -1,8 +1,8 @@
 {
-  "${ModID}:": {
-    "NAME": "",
+  "${ModID}:MasochisticNature": {
+    "NAME": "Masochism",
     "DESCRIPTIONS": [
-      ""
+      "Whenever this creature applies a debuff, it takes %d damage."
     ]
   }
 }
