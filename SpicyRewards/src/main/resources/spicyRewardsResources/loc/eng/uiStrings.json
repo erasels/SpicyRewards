@@ -1,7 +1,8 @@
 {
   "${ModID}:Config": {
     "TEXT_DICT": {
-      "AlwaysChallenge": "Challenges spawn every combat."
+      "AlwaysChallenge": "Challenges spawn every combat.",
+      "PlayerTips": "Show Opt-In Challenge descriptions when hovering the player."
     }
   },
   "${ModID}:Screen": {

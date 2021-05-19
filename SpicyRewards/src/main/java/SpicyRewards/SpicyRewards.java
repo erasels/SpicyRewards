@@ -44,6 +44,7 @@ public class SpicyRewards implements
         try {
             Properties defaults = new Properties();
             defaults.put("AlwaysChallenge", Boolean.toString(false));
+            defaults.put("PlayerTips", Boolean.toString(true));
             modConfig = new SpireConfig("SpicyRewards", "Config", defaults);
         } catch (Exception e) {
             e.printStackTrace();
@@ -57,6 +58,13 @@ public class SpicyRewards implements
         return modConfig.getBool("AlwaysChallenge");
     }
 
+    public static boolean shouldPT() {
+        if (modConfig == null) {
+            return false;
+        }
+        return modConfig.getBool("PlayerTips");
+    }
+
     @Override
     public void receivePostInitialize() {
         //Config
@@ -64,7 +72,8 @@ public class SpicyRewards implements
 
         UIStrings uiStrings = CardCrawlGame.languagePack.getUIString(makeID("Config"));
 
-        ModLabeledToggleButton ASBtn = new ModLabeledToggleButton(uiStrings.TEXT_DICT.get("AlwaysChallenge"), 350, 700, Settings.CREAM_COLOR, FontHelper.charDescFont, shouldAC(), settingsPanel, l -> {
+        float yPos = 700f;
+        ModLabeledToggleButton ASBtn = new ModLabeledToggleButton(uiStrings.TEXT_DICT.get("AlwaysChallenge"), 350, yPos, Settings.CREAM_COLOR, FontHelper.charDescFont, shouldAC(), settingsPanel, l -> {
         },
                 button ->
                 {
@@ -78,6 +87,22 @@ public class SpicyRewards implements
                     }
                 });
         settingsPanel.addUIElement(ASBtn);
+        yPos -= 50f;
+
+        ModLabeledToggleButton PTBtn = new ModLabeledToggleButton(uiStrings.TEXT_DICT.get("PlayerTips"), 350, yPos, Settings.CREAM_COLOR, FontHelper.charDescFont, shouldPT(), settingsPanel, l -> {
+        },
+                button ->
+                {
+                    if (modConfig != null) {
+                        modConfig.setBool("PlayerTips", button.enabled);
+                        try {
+                            modConfig.save();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        settingsPanel.addUIElement(PTBtn);
 
         //Rewards
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_HEALREWARD,
