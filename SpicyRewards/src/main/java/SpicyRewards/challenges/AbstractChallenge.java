@@ -6,6 +6,8 @@ import basemod.helpers.CardBorderGlowManager;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -14,6 +16,8 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import java.util.ArrayList;
 
 public abstract class AbstractChallenge {
+    private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards"));
+
     public RewardItem reward;
     public String id, challengeText, rewardText, name;
     public boolean done, failed;
@@ -38,10 +42,11 @@ public abstract class AbstractChallenge {
 
     protected void initText() {
         if(reward != null) {
+            rewardText = uiText.TEXT_DICT.get("prefix");
             if(reward instanceof AbstractSpicyReward) {
-                rewardText = ((AbstractSpicyReward) reward).getRewardText();
+                rewardText += ((AbstractSpicyReward) reward).getRewardText();
             } else {
-                rewardText = reward.text;
+                rewardText += reward.text;
             }
         }
     }

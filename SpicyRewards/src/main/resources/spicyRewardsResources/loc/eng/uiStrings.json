@@ -11,12 +11,13 @@
       "Close"
     ],
     "TEXT_DICT": {
-      "norm": "Side-Challenges:",
+      "norm": "Optional Challenges:",
       "optin": "Opt-In Challenges:"
     }
   },
   "${ModID}:Rewards": {
     "TEXT_DICT": {
+      "prefix": "Reward: ",
       "retainCR": "Retain card reward"
     }
   },
