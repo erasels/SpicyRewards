@@ -50,7 +50,7 @@ public class ChallengeButton extends TopPanelItem {
                 body = uiStrings.TEXT_DICT.get("pre-challenge");
                 StringBuilder s = new StringBuilder(body);
                 for(AbstractChallenge c : ChallengeSystem.challenges) {
-                    if(!c.failed) {
+                    if(shouldShow(c)) {
                         s.append(c.name).append(" NL ");
                     }
                 }
@@ -100,5 +100,9 @@ public class ChallengeButton extends TopPanelItem {
         sb.draw(this.image, this.x - halfWidth + halfHeight * Settings.scale, this.y - halfHeight + halfHeight * Settings.scale, halfWidth, halfHeight, (float) this.image.getWidth(), (float) this.image.getHeight(), Settings.scale + tmp / 3.0F, Settings.scale + tmp / 3.0F, this.angle, 0, 0, this.image.getWidth(), this.image.getHeight(), false, false);
 
         sb.setBlendFunction(770, 771);
+    }
+
+    private boolean shouldShow(AbstractChallenge c) {
+        return !(c.isDone() || c.failed);
     }
 }
