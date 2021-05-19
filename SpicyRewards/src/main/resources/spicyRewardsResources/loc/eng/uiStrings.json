@@ -132,5 +132,11 @@
       "desc": "Whenever you draw a card, lose %d Block.",
       "name": "Heavy Hand"
     }
+  },
+  "${ModID}:CorpseExplosionChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you kill an enemy, take %d damage.",
+      "name": "Corpse Explosion"
+    }
   }
 }
