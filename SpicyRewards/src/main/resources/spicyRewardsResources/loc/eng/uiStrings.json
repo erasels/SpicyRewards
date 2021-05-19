@@ -120,5 +120,11 @@
       "desc": "Whenever you play a Skill, ALL enemies gain %d Strength.",
       "name": "Nob Like This"
     }
+  },
+  "${ModID}:ExhaustFirstChallenge": {
+    "TEXT_DICT": {
+      "desc": "The first card you play each turn is exhausted.",
+      "name": "Creeping Exhaustion"
+    }
   }
 }
