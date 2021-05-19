@@ -1,4 +1,4 @@
-package SpicyRewards.patches;
+package SpicyRewards.patches.potionHooks;
 
 import SpicyRewards.powers.interfaces.OnMonsterDeathPower;
 import SpicyRewards.util.UC;

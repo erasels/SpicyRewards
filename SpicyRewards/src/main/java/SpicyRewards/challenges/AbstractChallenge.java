@@ -7,6 +7,7 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
@@ -114,6 +115,8 @@ public abstract class AbstractChallenge {
     public void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {}
     public void onUseCard(AbstractCard card, UseCardAction action) {}
     public void onCardDraw(AbstractCard card) {}
+    public void onUsePotion(AbstractPotion p) {}
+    public void onDiscardPotion(AbstractPotion p) {}
 
     public AbstractChallenge makeCopy() {
         try{

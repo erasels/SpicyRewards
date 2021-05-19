@@ -144,5 +144,17 @@
       "desc": "Do not play the same card type in a row.",
       "name": "Dance Baby Dance"
     }
+  },
+  "${ModID}:PotionholicChallenge": {
+    "TEXT_DICT": {
+      "desc": "Drink a potion.",
+      "name": "Potionholic"
+    }
+  },
+  "${ModID}:PotionholicsAnonymousChallenge": {
+    "TEXT_DICT": {
+      "desc": "Discard a potion.",
+      "name": "Potionholics Anonymous"
+    }
   }
 }

@@ -8,6 +8,7 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -63,6 +64,14 @@ public class ChallengeSystem {
 
     public static void onCardDraw(AbstractCard card) {
         challenges.forEach(c -> c.onCardDraw(card));
+    }
+
+    public static void onUsePotion(AbstractPotion p) {
+        challenges.forEach(c -> c.onUsePotion(p));
+    }
+
+    public static void onDiscardPotion(AbstractPotion p) {
+        challenges.forEach(c -> c.onDiscardPotion(p));
     }
 
     public static void claimRewards(ArrayList<RewardItem> rewards) {

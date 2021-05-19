@@ -3,17 +3,19 @@ package SpicyRewards.powers;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.powers.interfaces.OnMonsterDeathPower;
+import SpicyRewards.powers.interfaces.OnUsePotionPower;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import static com.evacipated.cardcrawl.mod.stslib.patches.NeutralPowertypePatch.NEUTRAL;
 
-public class ChallengePower extends AbstractPower implements InvisiblePower, OnMonsterDeathPower {
+public class ChallengePower extends AbstractPower implements InvisiblePower, OnMonsterDeathPower, OnUsePotionPower {
     public static final String POWER_ID = SpicyRewards.makeID("ChallengePower");
 
     public ChallengePower(AbstractCreature owner) {
@@ -57,6 +59,16 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     @Override
     public void onCardDraw(AbstractCard card) {
         ChallengeSystem.onCardDraw(card);
+    }
+
+    @Override
+    public void onUsePotion(AbstractPotion p) {
+        ChallengeSystem.onUsePotion(p);
+    }
+
+    @Override
+    public void onDiscardPotion(AbstractPotion p) {
+        ChallengeSystem.onDiscardPotion(p);
     }
 
     @Override
