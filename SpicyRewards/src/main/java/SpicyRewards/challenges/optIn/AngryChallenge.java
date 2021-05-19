@@ -59,7 +59,7 @@ public class AngryChallenge extends AbstractChallenge {
     private static final CardBorderGlowManager.GlowInfo SkillHighlighter = new CardBorderGlowManager.GlowInfo() {
         @Override
         public boolean test(AbstractCard c) {
-            return c.type == AbstractCard.CardType.POWER;
+            return c.type == AbstractCard.CardType.SKILL;
         }
 
         @Override
