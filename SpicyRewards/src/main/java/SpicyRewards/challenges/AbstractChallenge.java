@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public abstract class AbstractChallenge {
     public RewardItem reward;
-    public String id, text, name;
+    public String id, challengeText, rewardText, name;
     public boolean done, failed;
     public Tier tier;
     public Type type;
@@ -24,7 +24,7 @@ public abstract class AbstractChallenge {
     public AbstractChallenge(String id, String text, String name, RewardItem r, Tier t, Type type) {
         this.id = id;
         reward = r;
-        this.text = text;
+        this.challengeText = text;
         this.name = name;
         tier = t;
         this.type = type;
@@ -36,14 +36,12 @@ public abstract class AbstractChallenge {
 
     protected void initText() {
         if(reward != null) {
-            text = text + " | ";
             if(reward instanceof AbstractSpicyReward) {
-                text+= ((AbstractSpicyReward) reward).getRewardText();
+                rewardText = ((AbstractSpicyReward) reward).getRewardText();
             } else {
-                text+= reward.text;
+                rewardText = reward.text;
             }
         }
-
     }
 
     public AbstractChallenge initReward() {

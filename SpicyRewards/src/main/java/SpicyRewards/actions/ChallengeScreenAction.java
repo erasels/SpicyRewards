@@ -3,11 +3,12 @@ package SpicyRewards.actions;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.ui.ChallengeScreenToggleButton;
 import SpicyRewards.ui.LabledButton;
-import SpicyRewards.ui.ToggleButton;
 import SpicyRewards.util.BidiMap;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -27,6 +28,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Screen"));
     private static final float TITLE_CHALLENGE_TEXT_X = Settings.WIDTH * 0.2f;
     private static final float CHALLENGE_TEXT_X = Settings.WIDTH * 0.22f;
+    private static final float LINESPACING = 8f;
     private static final Color failedChallengedColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
 
     public static final float BLACKSCREEN_INTENSITY = 0.66f;
@@ -34,8 +36,8 @@ public class ChallengeScreenAction extends AbstractGameAction {
     protected Color blackScreenColor = new Color(0.0F, 0.0F, 0.0F, 0.0F);
     protected float blackScreenTarget;
     protected LabledButton closeBtn;
-    protected ArrayList<ToggleButton> optinList = new ArrayList<>();
-    protected BidiMap<AbstractChallenge, ToggleButton> buttonMap = new BidiMap<>();
+    protected ArrayList<ChallengeScreenToggleButton> optinList = new ArrayList<>();
+    protected BidiMap<AbstractChallenge, ChallengeScreenToggleButton> buttonMap = new BidiMap<>();
 
     private boolean firstRun = true;
 
@@ -57,13 +59,17 @@ public class ChallengeScreenAction extends AbstractGameAction {
             ChallengeSystem.challenges.stream()
                     .filter(c -> c.type == AbstractChallenge.Type.OPTIN)
                     .forEachOrdered(c -> {
-                        optinList.add(new ToggleButton(0, 0, c.text, FontHelper.panelNameFont, Settings.CREAM_COLOR, false, false, x -> {
-                            if (x.enabled) {
-                                x.textCol = Settings.GREEN_TEXT_COLOR;
-                            } else {
-                                x.textCol = Settings.CREAM_COLOR;
-                            }
-                        }));
+                        optinList.add(
+                                new ChallengeScreenToggleButton(0, 0)
+                                .createTextComponent(c.challengeText, c.rewardText, FontHelper.panelNameFont, Settings.CREAM_COLOR)
+                                .createConsumerComponent(x -> {
+                                    if (x.enabled) {
+                                        x.textCol = Settings.GREEN_TEXT_COLOR;
+                                    } else {
+                                        x.textCol = Settings.CREAM_COLOR;
+                                    }
+                                })
+                        );
                         buttonMap.put(c, optinList.get(optinList.size() - 1));
                     });
         }
@@ -89,62 +95,58 @@ public class ChallengeScreenAction extends AbstractGameAction {
         FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("norm"), TITLE_CHALLENGE_TEXT_X, height, Color.GOLD);
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
 
-        Color col;
-
         for (AbstractChallenge c : ChallengeSystem.challenges) {
             if (c.type == AbstractChallenge.Type.NORMAL) {
-                FontHelper.renderFontLeft(sb, FontHelper.tipHeaderFont, c.name, CHALLENGE_TEXT_X, height, Color.LIGHT_GRAY);
-                height -= FontHelper.getHeight(FontHelper.tipHeaderFont) + (15f * Settings.yScale);
-
-                if (selection)
-                    col = Settings.CREAM_COLOR;
-                else {
-                    if(c.failed) {
-                        col = failedChallengedColor;
-                    } else if(c.isDone()) {
-                        col = Settings.GREEN_TEXT_COLOR;
-                    } else {
-                        col = Settings.CREAM_COLOR;
-                    }
-                }
-
-                FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, CHALLENGE_TEXT_X, height, col);
-                height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+                height = renderOrderedText(sb, FontHelper.tipHeaderFont, FontHelper.panelNameFont, c, CHALLENGE_TEXT_X, height);
             }
         }
 
-        height -= (85f * Settings.yScale);
+        height -= (64f * Settings.yScale);
         FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("optin"), TITLE_CHALLENGE_TEXT_X, height, Color.FIREBRICK);
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
 
         if (selection) {
-            for (ToggleButton b : optinList) {
+            for (ChallengeScreenToggleButton b : optinList) {
                 FontHelper.renderFontLeft(sb, FontHelper.tipHeaderFont, buttonMap.getInverse(b).name, CHALLENGE_TEXT_X, height, Color.LIGHT_GRAY);
                 height -= FontHelper.getHeight(FontHelper.tipHeaderFont) + (35f * Settings.yScale);
 
                 b.set(CHALLENGE_TEXT_X, height);
                 b.render(sb);
-                height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+                height -= b.getHb().height + (25f * Settings.yScale);
             }
         } else {
             for (AbstractChallenge c : ChallengeSystem.challenges) {
                 if (c.type == AbstractChallenge.Type.OPTIN) {
-                    FontHelper.renderFontLeft(sb, FontHelper.tipHeaderFont, c.name, CHALLENGE_TEXT_X, height, Color.LIGHT_GRAY);
-                    height -= FontHelper.getHeight(FontHelper.tipHeaderFont) + (15f * Settings.yScale);
-
-                    if(c.failed) {
-                        col = failedChallengedColor;
-                    } else if(c.isDone()) {
-                        col = Settings.GREEN_TEXT_COLOR;
-                    } else {
-                        col = Settings.CREAM_COLOR;
-                    }
-                    FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, c.text, CHALLENGE_TEXT_X, height, col);
-                    height -= FontHelper.getHeight(FontHelper.panelNameFont) + (25f * Settings.yScale);
+                    height = renderOrderedText(sb, FontHelper.tipHeaderFont, FontHelper.panelNameFont, c, CHALLENGE_TEXT_X, height);
                 }
             }
         }
 
+    }
+
+    private float renderOrderedText(SpriteBatch sb, BitmapFont titleFont, BitmapFont bodyFont, AbstractChallenge c, float x, float y) {
+        FontHelper.renderFontLeft(sb, titleFont, c.name, x, y, Color.LIGHT_GRAY);
+        y -= FontHelper.getHeight(titleFont) + (15f * Settings.yScale);
+
+        Color col;
+        if (selection)
+            col = Settings.CREAM_COLOR;
+        else {
+            if(c.failed) {
+                col = failedChallengedColor;
+            } else if(c.isDone()) {
+                col = Settings.GREEN_TEXT_COLOR;
+            } else {
+                col = Settings.CREAM_COLOR;
+            }
+        }
+
+        FontHelper.renderFontLeft(sb, bodyFont, c.challengeText, x, y, col);
+        y -= FontHelper.getHeight(bodyFont, c.challengeText, 1f) + LINESPACING;
+        FontHelper.renderFontLeft(sb, bodyFont, c.rewardText, x, y, col);
+
+        y -= FontHelper.getHeight(bodyFont) + (25f * Settings.yScale);
+        return  y;
     }
 
     public void update() {
@@ -158,13 +160,14 @@ public class ChallengeScreenAction extends AbstractGameAction {
             firstRun = false;
         }
 
-        optinList.forEach(ToggleButton::update);
+        optinList.forEach(ChallengeScreenToggleButton::update);
         closeBtn.update();
 
         updateBlackScreen();
 
         if (isDone) {
-            ChallengeSystem.challenges.removeIf(c -> buttonMap.containsKey(c) && !buttonMap.get(c).enabled);
+            if(selection)
+                ChallengeSystem.challenges.removeIf(c -> buttonMap.containsKey(c) && !buttonMap.get(c).enabled);
             dispose();
         }
     }

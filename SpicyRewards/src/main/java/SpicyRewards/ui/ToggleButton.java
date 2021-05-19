@@ -13,11 +13,11 @@ import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import java.util.function.Consumer;
 
 public class ToggleButton {
-    private static final float TOGGLE_Y_DELTA = 0f;
-    private static final float TOGGLE_X_EXTEND = 12.0f;
-    private static final float HB_WIDTH_EXTENDED = 200.0f;
-    private static final float TEXT_X_OFFSET = 40.0f;
-    private static final float TEXT_Y_OFFSET = 8.0f;
+    protected static final float TOGGLE_Y_DELTA = 0f;
+    protected static final float TOGGLE_X_EXTEND = 12.0f;
+    protected static final float HB_WIDTH_EXTENDED = 200.0f;
+    protected static final float TEXT_X_OFFSET = 40.0f;
+    protected static final float TEXT_Y_OFFSET = 8.0f;
 
     protected Consumer<ToggleButton> toggle;
     protected Hitbox hb;
@@ -33,24 +33,13 @@ public class ToggleButton {
     public Color textCol;
     public boolean enabled;
 
-    public ToggleButton(float xPos, float yPos, Consumer<ToggleButton> c) {
-        this(xPos, yPos, "", null, null ,false, true, c);
-    }
-
-    public ToggleButton(float xPos, float yPos, String msg, BitmapFont font, Color col, boolean enabled, boolean extendedHitbox, Consumer<ToggleButton> c) {
+    public ToggleButton(float xPos, float yPos, boolean enabled, boolean extendedHitbox, Consumer<ToggleButton> c) {
         x = xPos;
         y = yPos;
         w = ImageMaster.OPTION_TOGGLE.getWidth();
         h = ImageMaster.OPTION_TOGGLE.getHeight();
         this.extendedHitbox = extendedHitbox;
-        if(font != null && !msg.isEmpty()) {
-            text = msg;
-            this.font = font;
-            hasText = true;
-            textCol = col;
-        } else {
-            hasText = false;
-        }
+        hasText = false;
         if (extendedHitbox) {
             hb = new Hitbox(x - TOGGLE_X_EXTEND * Settings.scale,
                     y - TOGGLE_Y_DELTA * Settings.scale,
@@ -60,12 +49,18 @@ public class ToggleButton {
                     w * Settings.scale, h * Settings.scale);
         }
 
-        if(hasText) {
-            wrapHitboxToText();
-        }
-
         this.enabled = enabled;
         toggle = c;
+    }
+
+    public ToggleButton createTextComponent(String msg, BitmapFont font, Color col) {
+        hasText = true;
+        text = msg;
+        this.font = font;
+        textCol = col;
+        wrapHitboxToText();
+
+        return this;
     }
 
     public void wrapHitboxToText() {
@@ -81,13 +76,17 @@ public class ToggleButton {
         } else {
             sb.setColor(Color.WHITE);
         }
-        sb.draw(ImageMaster.OPTION_TOGGLE, x, y, w*Settings.scale, h*Settings.scale);
+        sb.draw(ImageMaster.OPTION_TOGGLE, x, y, w * Settings.scale, h * Settings.scale);
         if (this.enabled) {
             sb.setColor(Color.WHITE);
-            sb.draw(ImageMaster.OPTION_TOGGLE_ON, x, y, w*Settings.scale, h*Settings.scale);
+            sb.draw(ImageMaster.OPTION_TOGGLE_ON, x, y, w * Settings.scale, h * Settings.scale);
         }
-        FontHelper.renderFontLeftDownAligned(sb, font, text, x + TEXT_X_OFFSET * Settings.scale, y + TEXT_Y_OFFSET * Settings.scale, textCol);
+        renderText(sb);
         this.hb.render(sb);
+    }
+
+    public void renderText(SpriteBatch sb) {
+        FontHelper.renderFontLeftDownAligned(sb, font, text, x + TEXT_X_OFFSET * Settings.scale, y + TEXT_Y_OFFSET * Settings.scale, textCol);
     }
 
     public void update() {
@@ -119,9 +118,13 @@ public class ToggleButton {
         onToggle();
     }
 
+    public Hitbox getHb() {
+        return hb;
+    }
+
     public void set(float xPos, float yPos) {
         x = xPos;
         y = yPos;
-        hb.move(xPos + hb.width/2f, yPos + hb.height/2f);
+        hb.move(xPos + hb.width / 2f, yPos + hb.height / 2f);
     }
 }
