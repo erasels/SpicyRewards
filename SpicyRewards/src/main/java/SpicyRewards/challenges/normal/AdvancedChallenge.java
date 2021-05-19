@@ -32,12 +32,6 @@ public class AdvancedChallenge extends AbstractChallenge {
     }
 
     @Override
-    public AbstractChallenge initReward() {
-        CardBorderGlowManager.addGlowInfo(SDHighlighter);
-        return super.initReward();
-    }
-
-    @Override
     protected void rollReward() {
         reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
     }
@@ -45,8 +39,7 @@ public class AdvancedChallenge extends AbstractChallenge {
     @Override
     public void onUseCard(AbstractCard card, UseCardAction action) {
         if(isSoD(card)) {
-            failed = true;
-            onRemove();
+            fail();
         }
     }
 
@@ -69,8 +62,8 @@ public class AdvancedChallenge extends AbstractChallenge {
     }
 
     @Override
-    public void onRemove() {
-        CardBorderGlowManager.removeGlowInfo(SDHighlighter);
+    protected CardBorderGlowManager.GlowInfo getCustomGlowInfo() {
+        return SDHighlighter;
     }
 
     private static final CardBorderGlowManager.GlowInfo SDHighlighter = new CardBorderGlowManager.GlowInfo() {

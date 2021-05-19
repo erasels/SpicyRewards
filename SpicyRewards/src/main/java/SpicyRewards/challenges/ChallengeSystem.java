@@ -31,7 +31,10 @@ public class ChallengeSystem {
     public static Random challengeRng = new Random();
 
     public static void atBattleStart() {
-        challenges.forEach(AbstractChallenge::atBattleStart);
+        for(AbstractChallenge c : challenges) {
+            c.initAtBattleStart();
+            c.atBattleStart();
+        }
     }
 
     public static void onVictory() {
@@ -67,7 +70,10 @@ public class ChallengeSystem {
     }
 
     public static void clearChallenges() {
-        challenges.forEach(AbstractChallenge::onRemove);
+        for(AbstractChallenge c : challenges) {
+            c.dispose();
+            c.onRemove();
+        }
         challenges.clear();
     }
 

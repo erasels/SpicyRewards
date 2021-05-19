@@ -2,6 +2,7 @@ package SpicyRewards.challenges;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.rewards.AbstractSpicyReward;
+import basemod.helpers.CardBorderGlowManager;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -47,17 +48,26 @@ public abstract class AbstractChallenge {
     public AbstractChallenge initReward() {
         if(reward == null) {
             rollReward();
-            initText();
         }
+        initText();
         return this;
     }
     protected abstract void rollReward();
+
+    public void initAtBattleStart() {
+        addCustomGlowInfo();
+    }
 
     public void complete() {
         if(!failed) {
             SpicyRewards.challengeBtn.flash();
             done = true;
         }
+    }
+
+    public void fail() {
+        failed = true;
+        removeCustomGlowInfo();
     }
 
     //Returns true if already spawned challenges excude this one or this challenge is already in the list
@@ -70,11 +80,31 @@ public abstract class AbstractChallenge {
         return true;
     }
 
+    public void dispose() {
+        removeCustomGlowInfo();
+    }
+
     //Clean-up when this challenge is removed from the current challenges
     public void onRemove() {}
 
     protected abstract ArrayList<String> getExclusions();
     public boolean isDone() {return !failed && done;}
+
+    private void addCustomGlowInfo() {
+        CardBorderGlowManager.GlowInfo info = getCustomGlowInfo();
+        if(info != null) {
+            CardBorderGlowManager.addGlowInfo(info);
+        }
+    }
+
+    private void removeCustomGlowInfo() {
+        CardBorderGlowManager.GlowInfo info = getCustomGlowInfo();
+        if(info != null) {
+            CardBorderGlowManager.removeGlowInfo(info);
+        }
+    }
+
+    protected CardBorderGlowManager.GlowInfo getCustomGlowInfo() {return null;}
 
     public void atBattleStart() {}
     public void onVictory() {}

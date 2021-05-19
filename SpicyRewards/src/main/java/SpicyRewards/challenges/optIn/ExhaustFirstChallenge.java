@@ -30,12 +30,6 @@ public class ExhaustFirstChallenge extends AbstractChallenge {
     }
 
     @Override
-    public AbstractChallenge initReward() {
-        CardBorderGlowManager.addGlowInfo(FirstCardHighlighter);
-        return super.initReward();
-    }
-
-    @Override
     protected void rollReward() {
         reward = new RetainCardReward();
     }
@@ -61,8 +55,8 @@ public class ExhaustFirstChallenge extends AbstractChallenge {
     }
 
     @Override
-    public void onRemove() {
-        CardBorderGlowManager.removeGlowInfo(FirstCardHighlighter);
+    protected CardBorderGlowManager.GlowInfo getCustomGlowInfo() {
+        return FirstCardHighlighter;
     }
 
     private static final CardBorderGlowManager.GlowInfo FirstCardHighlighter = new CardBorderGlowManager.GlowInfo() {

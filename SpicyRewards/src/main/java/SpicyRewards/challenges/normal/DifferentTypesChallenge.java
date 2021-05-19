@@ -3,7 +3,6 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
-import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
@@ -13,20 +12,21 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 
 import java.util.ArrayList;
 
-public class PowerlessChallenge  extends AbstractChallenge {
-    public static final String ID = SpicyRewards.makeID("Powerless");
+public class DifferentTypesChallenge extends AbstractChallenge {
+    public static final String ID = SpicyRewards.makeID("DifferentTypes");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
     protected static ArrayList<String> exclusions = new ArrayList<>();
-    private int killCount;
 
-    public PowerlessChallenge() {
+    public static AbstractCard.CardType lastType;
+
+    public DifferentTypesChallenge() {
         super(ID,
                 uiText.TEXT_DICT.get("desc"),
                 uiText.TEXT_DICT.get("name"),
                 null,
-                AbstractChallenge.Tier.NORMAL,
-                AbstractChallenge.Type.NORMAL);
+                Tier.HARD,
+                Type.NORMAL);
     }
 
     @Override
@@ -35,20 +35,26 @@ public class PowerlessChallenge  extends AbstractChallenge {
     }
 
     @Override
+    public void atStartOfTurn() {
+        lastType = null;
+    }
+
+    @Override
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        if(card.type == AbstractCard.CardType.POWER) {
-            fail();
+        if(!failed) {
+            if (card.type != lastType) {
+                lastType = card.type;
+            } else {
+                fail();
+            }
         }
     }
 
     @Override
-    public boolean isDone() {
-        return !failed;
-    }
-
-    @Override
-    public boolean canSpawn() {
-        return !UC.p().masterDeck.getPowers().isEmpty();
+    public void onVictory() {
+        if(!failed) {
+            complete();
+        }
     }
 
     @Override
@@ -58,13 +64,13 @@ public class PowerlessChallenge  extends AbstractChallenge {
 
     @Override
     protected CardBorderGlowManager.GlowInfo getCustomGlowInfo() {
-        return PowerHighlighter;
+        return TypeHighlighter;
     }
 
-    private static final CardBorderGlowManager.GlowInfo PowerHighlighter = new CardBorderGlowManager.GlowInfo() {
+    private static final CardBorderGlowManager.GlowInfo TypeHighlighter = new CardBorderGlowManager.GlowInfo() {
         @Override
         public boolean test(AbstractCard c) {
-            return c.type == AbstractCard.CardType.POWER;
+            return c.type == lastType;
         }
 
         @Override
@@ -74,7 +80,7 @@ public class PowerlessChallenge  extends AbstractChallenge {
 
         @Override
         public String glowID() {
-            return "SPICY_CHALLENGE_POWERLESS";
+            return "SPICY_CHALLENGE_DIFFERENT_TYPES";
         }
     };
 }

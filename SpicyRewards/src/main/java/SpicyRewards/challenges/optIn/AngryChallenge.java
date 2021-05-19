@@ -31,12 +31,6 @@ public class AngryChallenge extends AbstractChallenge {
     }
 
     @Override
-    public AbstractChallenge initReward() {
-        CardBorderGlowManager.addGlowInfo(SkillHighlighter);
-        return super.initReward();
-    }
-
-    @Override
     protected void rollReward() {
         reward = new RetainCardReward();
     }
@@ -52,8 +46,8 @@ public class AngryChallenge extends AbstractChallenge {
     }
 
     @Override
-    public void onRemove() {
-        CardBorderGlowManager.removeGlowInfo(SkillHighlighter);
+    protected CardBorderGlowManager.GlowInfo getCustomGlowInfo() {
+        return SkillHighlighter;
     }
 
     private static final CardBorderGlowManager.GlowInfo SkillHighlighter = new CardBorderGlowManager.GlowInfo() {

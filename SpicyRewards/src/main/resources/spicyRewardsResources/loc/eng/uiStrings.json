@@ -138,5 +138,11 @@
       "desc": "Whenever you kill an enemy, take %d damage.",
       "name": "Corpse Explosion"
     }
+  },
+  "${ModID}:DifferentTypesChallenge": {
+    "TEXT_DICT": {
+      "desc": "Do not play the same card type in a row.",
+      "name": "Dance Baby Dance"
+    }
   }
 }
