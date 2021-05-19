@@ -10,6 +10,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
 import java.util.ArrayList;
@@ -54,12 +55,12 @@ public class AdvancedChallenge extends AbstractChallenge {
         return !failed;
     }
 
-    //Has at least 3 Strike/Defends in deck
+    //Has at least 3 Strike/Defends in deck and at Floor 4 to get some cards
     @Override
     public boolean canSpawn() {
         return UC.p().masterDeck.group.stream()
                 .filter(AdvancedChallenge::isSoD)
-                .count() > 2;
+                .count() > 2 && AbstractDungeon.floorNum > 4;
     }
 
     @Override
