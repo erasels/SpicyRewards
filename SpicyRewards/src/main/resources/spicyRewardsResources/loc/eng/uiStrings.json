@@ -82,7 +82,7 @@
   "${ModID}:SlimedChallenge": {
     "TEXT_DICT": {
       "desc": "At the start of combat, shuffle %d Slimed into your draw pile.",
-      "name": "Slime bath"
+      "name": "Slime Bath"
     }
   },
   "${ModID}:MasochismChallenge": {
@@ -112,7 +112,13 @@
   "${ModID}:AdvancedChallenge": {
     "TEXT_DICT": {
       "desc": "Do not play Strike or Defend.",
-      "name": "Not so basic"
+      "name": "Not So Basic"
+    }
+  },
+  "${ModID}:AngryChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you play a Skill, ALL enemies gain %d Strength.",
+      "name": "Nob Like This"
     }
   }
 }
