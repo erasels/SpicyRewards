@@ -8,13 +8,17 @@ import SpicyRewards.ui.ChallengeButton;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
-import basemod.interfaces.*;
+import basemod.interfaces.EditStringsSubscriber;
+import basemod.interfaces.PostBattleSubscriber;
+import basemod.interfaces.PostInitializeSubscriber;
+import basemod.interfaces.PreStartGameSubscriber;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardSave;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -114,6 +118,7 @@ public class SpicyRewards implements
     @Override
     public void receiveEditStrings() {
         BaseMod.loadCustomStringsFile(UIStrings.class, getModID() + "Resources/loc/" + locPath() + "/uiStrings.json");
+        BaseMod.loadCustomStringsFile(PowerStrings.class, getModID() + "Resources/loc/" + locPath() + "/powerStrings.json");
     }
 
     private String locPath() {
@@ -143,6 +148,10 @@ public class SpicyRewards implements
     }
     public static String makeUIPath(String resourcePath) {
         return getModID() + "Resources/images/ui/" + resourcePath;
+    }
+
+    public static String makePowerPath(String resourcePath) {
+        return getModID() + "Resources/images/power/" + resourcePath;
     }
 
     public static String getModID() {
