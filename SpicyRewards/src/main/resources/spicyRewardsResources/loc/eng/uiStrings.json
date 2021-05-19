@@ -126,5 +126,11 @@
       "desc": "The first card you play each turn is exhausted.",
       "name": "Creeping Exhaustion"
     }
+  },
+  "${ModID}:DrawLoseCardChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you draw a card, lose %d Block.",
+      "name": "Heavy Hand"
+    }
   }
 }

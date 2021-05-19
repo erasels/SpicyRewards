@@ -58,6 +58,10 @@ public class ChallengeSystem {
         challenges.forEach(c -> c.onUseCard(card, action));
     }
 
+    public static void onCardDraw(AbstractCard card) {
+        challenges.forEach(c -> c.onCardDraw(card));
+    }
+
     public static void claimRewards(ArrayList<RewardItem> rewards) {
         challenges.stream().filter(AbstractChallenge::isDone).forEachOrdered(c -> rewards.add(c.reward));
     }

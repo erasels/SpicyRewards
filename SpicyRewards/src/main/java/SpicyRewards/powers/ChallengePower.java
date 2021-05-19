@@ -55,6 +55,11 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     }
 
     @Override
+    public void onCardDraw(AbstractCard card) {
+        ChallengeSystem.onCardDraw(card);
+    }
+
+    @Override
     public void onRemove() {
         UC.doPow(owner, this, true);
     }

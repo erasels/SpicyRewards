@@ -83,6 +83,7 @@ public abstract class AbstractChallenge {
     public void atEndOfTurn() {}
     public void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {}
     public void onUseCard(AbstractCard card, UseCardAction action) {}
+    public void onCardDraw(AbstractCard card) {}
 
     public AbstractChallenge makeCopy() {
         try{
