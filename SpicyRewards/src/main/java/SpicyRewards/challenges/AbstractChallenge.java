@@ -72,6 +72,7 @@ public abstract class AbstractChallenge {
             SpicyRewards.challengeBtn.flash();
             done = true;
         }
+        removeCustomGlowInfo();
     }
 
     public void fail() {
