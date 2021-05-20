@@ -35,18 +35,18 @@ public class ChallengeButton extends TopPanelItem {
 
     @Override
     public void render(SpriteBatch sb) {
-        boolean inCombat = UC.isInCombat();
+        boolean notClickable = ChallengeSystem.challenges.isEmpty() || !UC.isInCombat();
 
-        if(!inCombat)
+        if(notClickable)
             ShaderHelper.setShader(sb, ShaderHelper.Shader.GRAYSCALE);
         super.render(sb);
-        if(!inCombat)
+        if(notClickable)
             ShaderHelper.setShader(sb, ShaderHelper.Shader.DEFAULT);
         renderFlash(sb);
 
         if (this.getHitbox().hovered) {
             String body;
-            if(inCombat) {
+            if(!notClickable) {
                 body = uiStrings.TEXT_DICT.get("pre-challenge");
                 StringBuilder s = new StringBuilder(body);
                 for(AbstractChallenge c : ChallengeSystem.challenges) {
@@ -76,8 +76,8 @@ public class ChallengeButton extends TopPanelItem {
 
     @Override
     public void update() {
-        //Can only be clicked in combat when the screen isn't open and the screen opening hasn't been triggered already
-        setClickable(UC.isInCombat() && !(AbstractDungeon.actionManager.currentAction instanceof ChallengeScreenAction) && AbstractDungeon.actionManager.actions.stream().noneMatch(a -> a instanceof ChallengeScreenAction));
+        //Can only be clicked in combat when the screen isn't open, the screen opening hasn't been triggered already and challenges have been spawned
+        setClickable(UC.isInCombat() && !ChallengeSystem.challenges.isEmpty() && !(AbstractDungeon.actionManager.currentAction instanceof ChallengeScreenAction) && AbstractDungeon.actionManager.actions.stream().noneMatch(a -> a instanceof ChallengeScreenAction));
         updateFlash();
         super.update();
     }
