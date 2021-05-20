@@ -25,7 +25,7 @@ public class ExhaustFirstChallenge extends AbstractChallenge {
                 uiText.TEXT_DICT.get("desc"),
                 uiText.TEXT_DICT.get("name"),
                 null,
-                Tier.HARD,
+                Tier.NORMAL,
                 Type.OPTIN);
     }
 
