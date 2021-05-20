@@ -18,7 +18,7 @@ public class RenderChallengeTipsPatches {
     public static void patch(AbstractPlayer __instance, ArrayList<PowerTip> tips) {
         if(ChallengeSystem.power != null && SpicyRewards.shouldPT()) {
             for(AbstractChallenge c : ChallengeSystem.challenges) {
-                if(c.type == AbstractChallenge.Type.OPTIN) {
+                if(c.shouldShowTip) {
                     tips.add(new PowerTip(c.name, c.challengeText));
                 }
             }

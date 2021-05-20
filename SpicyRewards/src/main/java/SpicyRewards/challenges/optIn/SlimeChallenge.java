@@ -26,6 +26,7 @@ public class SlimeChallenge extends AbstractChallenge {
                 null,
                 Tier.NORMAL,
                 Type.OPTIN);
+        shouldShowTip = false;
     }
 
     @Override

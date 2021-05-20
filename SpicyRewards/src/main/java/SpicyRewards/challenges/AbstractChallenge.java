@@ -21,6 +21,7 @@ public abstract class AbstractChallenge {
     public RewardItem reward;
     public String id, challengeText, rewardText, name;
     public boolean done, failed;
+    public boolean shouldShowTip;
     public Tier tier;
     public Type type;
 
@@ -34,8 +35,10 @@ public abstract class AbstractChallenge {
         this.name = name;
         tier = t;
         this.type = type;
-        if(type == Type.OPTIN)
+        if(type == Type.OPTIN) {
             done = true;
+            shouldShowTip = true;
+        }
 
         initText();
     }
