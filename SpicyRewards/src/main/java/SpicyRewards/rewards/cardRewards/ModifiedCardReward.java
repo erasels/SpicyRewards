@@ -19,6 +19,7 @@ import com.megacrit.cardcrawl.relics.QuestionCard;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.vfx.AbstractGameEffect;
 
+import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class ModifiedCardReward extends AbstractSpicyReward {
@@ -28,13 +29,16 @@ public class ModifiedCardReward extends AbstractSpicyReward {
     public static AbstractCard.CardRarity fixedRarity;
     public static boolean allUpgraded;
     public static Predicate<AbstractCard> filter;
+    public static AbstractCard.CardColor cardColor;
+    public static ArrayList<AbstractCard> cardsOfColor;
 
     protected Color col;
 
-    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
+    public ModifiedCardReward(Color c, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
         super(ICON, TEXT[2], RewardType.CARD);
 
         col = c;
+        ModifiedCardReward.cardColor = cardColor;
         additionalCards = cAmt;
         fixedRarity = rar;
         allUpgraded = upg;
@@ -44,6 +48,10 @@ public class ModifiedCardReward extends AbstractSpicyReward {
             cards.stream().filter(AbstractCard::canUpgrade).forEach(AbstractCard::upgrade);
         }
         resetModifiers();
+    }
+
+    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
+        this(c, null, cAmt, rar, upg, filter);
     }
 
     public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg) {
@@ -70,6 +78,8 @@ public class ModifiedCardReward extends AbstractSpicyReward {
         fixedRarity = null;
         allUpgraded = false;
         filter = null;
+        cardColor = null;
+        cardsOfColor = null;
     }
 
     @Override

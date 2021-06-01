@@ -18,7 +18,8 @@
   "${ModID}:Rewards": {
     "TEXT_DICT": {
       "prefix": "Reward: ",
-      "retainCR": "Retain card reward"
+      "retainCR": "Retain card reward",
+      "greenDrawCR": "Silent Draw card reward"
     }
   },
   "${ModID}:ChallengeButton": {
