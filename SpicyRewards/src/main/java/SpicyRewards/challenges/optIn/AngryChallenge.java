@@ -2,7 +2,7 @@ package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.rewards.data.RetainCardReward;
+import SpicyRewards.rewards.data.SilentDrawCardReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
@@ -32,7 +32,7 @@ public class AngryChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new RetainCardReward();
+        reward = new SilentDrawCardReward();
     }
 
     @Override
