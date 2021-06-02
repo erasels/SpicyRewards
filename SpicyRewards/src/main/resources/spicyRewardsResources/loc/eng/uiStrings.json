@@ -2,6 +2,7 @@
   "${ModID}:Config": {
     "TEXT_DICT": {
       "AlwaysChallenge": "Challenges spawn every combat.",
+      "GiveCard": "Spawn standard card reward when challenges spawn.",
       "PlayerTips": "Show Opt-In Challenge descriptions when hovering the player."
     }
   },

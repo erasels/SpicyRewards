@@ -1,5 +1,6 @@
 package SpicyRewards.patches.reward;
 
+import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.ChallengeSystem;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
@@ -13,15 +14,30 @@ import javassist.CannotCompileException;
 import javassist.CtBehavior;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ModifyRewardPatches {
     @SpirePatch2(clz = CombatRewardScreen.class, method = "setupItemReward")
     public static class ModifyRoomRewards {
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(CombatRewardScreen __instance) {
-            //TODO: Not saving, FIX
             ArrayList<RewardItem> rew = __instance.rewards;
+
+            //Remove the first card reward for balancing purposes
+            if(!SpicyRewards.shouldGC()) {
+                Iterator<RewardItem> iter = rew.iterator();
+                while (iter.hasNext()) {
+                    RewardItem r = iter.next();
+                    if (r.type == RewardItem.RewardType.CARD) {
+                        iter.remove();
+                        break;
+                    }
+                }
+            }
+
             if(!CardCrawlGame.loadingSave) {
+                //TODO: Not saving cards rewards since they are always freshly generated, FIX
+                //Add rewards to both so they show up in the screen on reload and right now
                 ChallengeSystem.claimRewards(rew);
                 ChallengeSystem.claimRewards(AbstractDungeon.getCurrRoom().rewards);
             }

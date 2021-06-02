@@ -44,6 +44,7 @@ public class SpicyRewards implements
         try {
             Properties defaults = new Properties();
             defaults.put("AlwaysChallenge", Boolean.toString(false));
+            defaults.put("GiveCard", Boolean.toString(false));
             defaults.put("PlayerTips", Boolean.toString(true));
             modConfig = new SpireConfig("SpicyRewards", "Config", defaults);
         } catch (Exception e) {
@@ -56,6 +57,13 @@ public class SpicyRewards implements
             return false;
         }
         return modConfig.getBool("AlwaysChallenge");
+    }
+
+    public static boolean shouldGC() {
+        if (modConfig == null) {
+            return false;
+        }
+        return modConfig.getBool("GiveCard");
     }
 
     public static boolean shouldPT() {
@@ -87,6 +95,22 @@ public class SpicyRewards implements
                     }
                 });
         settingsPanel.addUIElement(ASBtn);
+        yPos -= 50f;
+
+        ModLabeledToggleButton GCBtn = new ModLabeledToggleButton(uiStrings.TEXT_DICT.get("GiveCard"), 350, yPos, Settings.CREAM_COLOR, FontHelper.charDescFont, shouldGC(), settingsPanel, l -> {
+        },
+                button ->
+                {
+                    if (modConfig != null) {
+                        modConfig.setBool("GiveCard", button.enabled);
+                        try {
+                            modConfig.save();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                });
+        settingsPanel.addUIElement(GCBtn);
         yPos -= 50f;
 
         ModLabeledToggleButton PTBtn = new ModLabeledToggleButton(uiStrings.TEXT_DICT.get("PlayerTips"), 350, yPos, Settings.CREAM_COLOR, FontHelper.charDescFont, shouldPT(), settingsPanel, l -> {
