@@ -34,10 +34,10 @@ public class ModifiedCardReward extends AbstractSpicyReward {
 
     protected Color col;
 
-    public ModifiedCardReward(Color c, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
+    public ModifiedCardReward(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
         super(ICON, TEXT[2], RewardType.CARD);
 
-        col = c;
+        col = iconColor;
         ModifiedCardReward.cardColor = cardColor;
         additionalCards = cAmt;
         fixedRarity = rar;
