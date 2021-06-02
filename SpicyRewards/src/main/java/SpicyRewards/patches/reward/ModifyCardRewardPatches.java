@@ -18,6 +18,19 @@ import java.util.ArrayList;
 import java.util.stream.Collectors;
 
 public class ModifyCardRewardPatches {
+    /*
+        Order of patches applied on getReward and it's inner methods:
+        First the num card adjustment happens
+        Then, if fixed rarity is true, rollRarity is prefix returned with my rarity
+            Then prismatic shard check is escaped in case color is set
+            Then pool replacement happens in getCard in case color is set
+                Then the filter condition is applied on the pool getRandomCard is called on
+                Then that pool is restored
+            Then the replaced pool is restored
+        Finally the forced upgrade is done in my reward itself.
+     */
+
+
     @SpirePatch2(clz = AbstractDungeon.class, method = "getRewardCards")
     public static class ModifyRewardMethod {
         @SpireInsertPatch(locator = NumCardsLocator.class, localvars = {"numCards"})
@@ -37,19 +50,46 @@ public class ModifyCardRewardPatches {
             }
         }
 
-        //For specific cardColor of reward, skip the prismatic shard check to roll any color card reward
+
+        //Modifies prismatic shard check if the card reward is of a specific color and adds while loop break statement for dupe checks
+        private static final int MAX_LOOPS = 250;
+        private static int dupeLoops = 0;
+
         @SpireInstrumentPatch
-        public static ExprEditor skipPrismaticCheckIfColor() {
+        public static ExprEditor instrumentMethods() {
             return new ExprEditor() {
                 @Override
                 public void edit(MethodCall m) throws CannotCompileException {
+                    //For specific cardColor of reward, skip the prismatic shard check to roll any color card reward
                     if (m.getClassName().equals(AbstractPlayer.class.getName()) && m.getMethodName().equals("hasRelic")) {
                         m.replace("{" +
                                 "$_ = $proceed($$) && " + ModifiedCardReward.class.getName() + ".cardColor == null;" +
                                 "}");
+                        return;
+                    }
+
+                    //Adds a break condition for the dupe check that could otherwise cause infinite loops
+                    if (m.getClassName().equals(String.class.getName()) && m.getMethodName().equals("equals")) {
+                        m.replace("{" +
+                                "$_ = " + ModifyRewardMethod.class.getName() + ".shouldBreakDupeLoop($proceed($$));"+
+                                "}");
                     }
                 }
             };
+        }
+
+        @SpirePostfixPatch
+        public static void fixDupeLoopCounter() {
+            dupeLoops = 0;
+        }
+
+        public static boolean shouldBreakDupeLoop(boolean dupe) {
+            if(dupe) {
+                if(++dupeLoops >= MAX_LOOPS) {
+                    return false;
+                }
+            }
+            return dupe;
         }
     }
 
@@ -134,6 +174,4 @@ public class ModifyCardRewardPatches {
             }
         }
     }
-
-
 }
