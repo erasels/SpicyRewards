@@ -37,7 +37,8 @@ public class AngryChallenge extends AbstractChallenge {
 
     @Override
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        UC.getAliveMonsters().forEach(m -> UC.doPow(null, m, new StrengthPower(m, AMT), false));
+        if(card.type == AbstractCard.CardType.SKILL)
+            UC.getAliveMonsters().forEach(m -> UC.doPow(null, m, new StrengthPower(m, AMT), false));
     }
 
     @Override
