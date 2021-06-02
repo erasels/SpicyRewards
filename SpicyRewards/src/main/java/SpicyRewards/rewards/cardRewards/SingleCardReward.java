@@ -82,7 +82,7 @@ public class SingleCardReward extends CustomReward {
     }
 
     //Due to reward scrolling's orthographic camera and render order of rewards, the card needs to be rendered outside of the render method
-    public void renderCard(SpriteBatch sb) {
+    public void renderCardOnHover(SpriteBatch sb) {
         renderCard.current_x = card.target_x = InputHelper.mX + (AbstractCard.RAW_W * renderCard.drawScale) * Settings.scale;
         renderCard.current_y = card.target_y = InputHelper.mY;
         renderCard.render(sb);

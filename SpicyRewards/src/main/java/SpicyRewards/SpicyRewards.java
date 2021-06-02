@@ -170,7 +170,7 @@ public class SpicyRewards implements
     @Override
     public void receivePostRender(SpriteBatch sb) {
         if(hoverRewardWorkaround != null) {
-            hoverRewardWorkaround.renderCard(sb);
+            hoverRewardWorkaround.renderCardOnHover(sb);
             hoverRewardWorkaround = null;
         }
     }
