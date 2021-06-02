@@ -1,5 +1,7 @@
 package SpicyRewards.rewards.selectCardsRewards;
 
+import SpicyRewards.patches.reward.NewRewardtypePatches;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import basemod.BaseMod;
 import basemod.abstracts.CustomReward;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -26,17 +28,27 @@ public class RewardSaveLoader implements BaseMod.LoadCustomReward {
 
     public static RewardSave onSave(RewardItem.RewardType type, CustomReward reward) {
         String s;
-        if (((AbstractSelectCardReward) reward).type != null) {
-            s = ((AbstractSelectCardReward) reward).type.toString();
+        if(type == NewRewardtypePatches.SR_SINGLECARDREWARD) {
+            StringBuilder cardSave = new StringBuilder();
+            cardSave.append(((SingleCardReward)reward).card.cardID);
+            cardSave.append("|");
+            cardSave.append(((SingleCardReward)reward).card.timesUpgraded);
+            cardSave.append("|");
+            cardSave.append(((SingleCardReward)reward).card.misc);
+            s = cardSave.toString();
         } else {
-            s = "null";
-        }
-        s += "|";
+            if (((AbstractSelectCardReward) reward).type != null) {
+                s = ((AbstractSelectCardReward) reward).type.toString();
+            } else {
+                s = "null";
+            }
+            s += "|";
 
-        if (((AbstractSelectCardReward) reward).rarity != null) {
-            s += ((AbstractSelectCardReward) reward).rarity.toString();
-        } else {
-            s += "null";
+            if (((AbstractSelectCardReward) reward).rarity != null) {
+                s += ((AbstractSelectCardReward) reward).rarity.toString();
+            } else {
+                s += "null";
+            }
         }
         return new RewardSave(type.toString(), s);
     }

@@ -14,4 +14,6 @@ public class NewRewardtypePatches {
     public static RewardItem.RewardType SR_REMOVEREWARD;
     @SpireEnum
     public static RewardItem.RewardType SR_TRANSFORMREWARD;
+    @SpireEnum
+    public static RewardItem.RewardType SR_SINGLECARDREWARD;
 }

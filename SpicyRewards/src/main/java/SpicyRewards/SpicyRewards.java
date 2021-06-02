@@ -3,15 +3,14 @@ package SpicyRewards;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.reward.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
 import SpicyRewards.ui.ChallengeButton;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
-import basemod.interfaces.EditStringsSubscriber;
-import basemod.interfaces.PostBattleSubscriber;
-import basemod.interfaces.PostInitializeSubscriber;
-import basemod.interfaces.PreStartGameSubscriber;
+import basemod.interfaces.*;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -33,7 +32,8 @@ public class SpicyRewards implements
         PostInitializeSubscriber,
         PostBattleSubscriber,
         PreStartGameSubscriber,
-        EditStringsSubscriber{
+        EditStringsSubscriber,
+        PostRenderSubscriber {
     public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
     private static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
@@ -126,8 +126,13 @@ public class SpicyRewards implements
         );
 
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_TRANSFORMREWARD,
-                RewardSaveLoader::onLoadRemove,
+                RewardSaveLoader::onLoadTransform,
                 customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_TRANSFORMREWARD, customReward)
+        );
+
+        BaseMod.registerCustomReward(NewRewardtypePatches.SR_SINGLECARDREWARD,
+                rewardSave -> new SingleCardReward(rewardSave.id),
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_SINGLECARDREWARD, customReward)
         );
 
         ChallengeSystem.populateTieredMaps();
@@ -158,6 +163,16 @@ public class SpicyRewards implements
     @Override
     public void receivePreStartGame() {
 
+    }
+
+    //Due to reward scrolling's orthographic camera and render order of rewards, the card needs to be rendered outside of the render method
+    public static SingleCardReward hoverRewardWorkaround;
+    @Override
+    public void receivePostRender(SpriteBatch sb) {
+        if(hoverRewardWorkaround != null) {
+            hoverRewardWorkaround.renderCard(sb);
+            hoverRewardWorkaround = null;
+        }
     }
 
     public static String makePath(String resourcePath) {
