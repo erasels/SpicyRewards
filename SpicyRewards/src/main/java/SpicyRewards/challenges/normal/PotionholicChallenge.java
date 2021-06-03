@@ -2,12 +2,13 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.HealReward;
 import SpicyRewards.util.UC;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +30,17 @@ public class PotionholicChallenge  extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+        int i = ChallengeSystem.challengeRng.random(2);
+        switch (i) {
+            case 0:
+                reward = new RewardItem();
+                break;
+            case 1:
+                reward = new RewardItem(25);
+                break;
+            case 2:
+                reward = new HealReward(5);
+        }
     }
 
     @Override
