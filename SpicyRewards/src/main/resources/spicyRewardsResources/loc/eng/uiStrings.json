@@ -22,7 +22,9 @@
       "cardprefix": "Card: ",
       "retainCR": "Retain card reward",
       "greenDrawCR": "Silent Draw card reward",
-      "aoeCR": "Mutli-target card reward"
+      "aoeCR": "Mutli-target card reward",
+      "anyPowerCR": "Power card reward (any color)",
+      "coolBasicsCR": "Starter card reward (any color)"
     }
   },
   "${ModID}:ChallengeButton": {
