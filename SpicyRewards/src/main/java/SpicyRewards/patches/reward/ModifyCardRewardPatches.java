@@ -108,7 +108,7 @@ public class ModifyCardRewardPatches {
 
     //Patches getRandomCard to affect both this and the prismatic shard any color card reward
     @SpirePatch2(clz = CardGroup.class, method = "getRandomCard", paramtypez = {boolean.class})
-    public static class FIlterCondition {
+    public static class FilterCondition {
         private static ArrayList<AbstractCard> actualCards;
 
         @SpirePrefixPatch
