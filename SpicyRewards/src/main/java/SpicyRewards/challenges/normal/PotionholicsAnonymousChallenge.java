@@ -1,10 +1,10 @@
 package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
+import SpicyRewards.cards.Abstinence;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.util.UC;
-import com.megacrit.cardcrawl.cards.green.Alchemize;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
@@ -29,7 +29,7 @@ public class PotionholicsAnonymousChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new SingleCardReward(new Alchemize());
+        reward = new SingleCardReward(new Abstinence());
     }
 
     @Override

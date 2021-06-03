@@ -1,11 +1,13 @@
 package SpicyRewards;
 
+import SpicyRewards.cards.AbstractSpicyCard;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.reward.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
 import SpicyRewards.ui.ChallengeButton;
+import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
@@ -17,6 +19,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
+import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardSave;
@@ -33,7 +36,8 @@ public class SpicyRewards implements
         PostBattleSubscriber,
         PreStartGameSubscriber,
         EditStringsSubscriber,
-        PostRenderSubscriber {
+        PostRenderSubscriber,
+EditCardsSubscriber{
     public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
     private static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
@@ -173,6 +177,7 @@ public class SpicyRewards implements
     public void receiveEditStrings() {
         BaseMod.loadCustomStringsFile(UIStrings.class, getModID() + "Resources/loc/" + locPath() + "/uiStrings.json");
         BaseMod.loadCustomStringsFile(PowerStrings.class, getModID() + "Resources/loc/" + locPath() + "/powerStrings.json");
+        BaseMod.loadCustomStringsFile(CardStrings.class, getModID() + "Resources/loc/" + locPath() + "/cardStrings.json");
     }
 
     private String locPath() {
@@ -224,5 +229,13 @@ public class SpicyRewards implements
 
     public static String makeID(String input) {
         return getModID() + ":" + input;
+    }
+
+    @Override
+    public void receiveEditCards() {
+        new AutoAdd(getModID())
+                .packageFilter(AbstractSpicyCard.class)
+                .setDefaultSeen(true)
+                .cards();
     }
 }

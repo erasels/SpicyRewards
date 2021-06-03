@@ -38,7 +38,7 @@ public class SingleCardReward extends CustomReward {
 
     @Override
     public boolean claimReward() {
-        AbstractDungeon.effectList.add(new ShowCardAndObtainEffect(card, InputHelper.mX, InputHelper.mY));
+        AbstractDungeon.topLevelEffects.add(new ShowCardAndObtainEffect(card, InputHelper.mX, InputHelper.mY));
         return true;
     }
 

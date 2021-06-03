@@ -1,0 +1,6 @@
+{
+  "${ModID}:Abstinence": {
+    "NAME": "Abstinence",
+    "DESCRIPTION": "Gain !M! Strength for every filled Potion slot."
+  }
+}
