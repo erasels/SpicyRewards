@@ -71,7 +71,7 @@ public class ModifyCardRewardPatches {
                     //Adds a break condition for the dupe check that could otherwise cause infinite loops
                     if (m.getClassName().equals(String.class.getName()) && m.getMethodName().equals("equals")) {
                         m.replace("{" +
-                                "$_ = " + ModifyRewardMethod.class.getName() + ".shouldBreakDupeLoop($proceed($$));"+
+                                "$_ = " + ModifyRewardMethod.class.getName() + ".shouldBreakDupeLoop($proceed($$));" +
                                 "}");
                     }
                 }
@@ -84,8 +84,8 @@ public class ModifyCardRewardPatches {
         }
 
         public static boolean shouldBreakDupeLoop(boolean dupe) {
-            if(dupe) {
-                if(++dupeLoops >= MAX_LOOPS) {
+            if (dupe) {
+                if (++dupeLoops >= MAX_LOOPS) {
                     return false;
                 }
             }
@@ -101,15 +101,21 @@ public class ModifyCardRewardPatches {
         }
     }
 
+    //Patches getRandomCard to affect both this and the prismatic shard any color card reward
     @SpirePatch2(clz = CardGroup.class, method = "getRandomCard", paramtypez = {boolean.class})
     public static class FIlterCondition {
         private static ArrayList<AbstractCard> actualCards;
 
         @SpirePrefixPatch
         public static void filterList(CardGroup __instance) {
+            //Filter condition
             if (ModifiedCardReward.filter != null) {
+                //back up modified pool
                 actualCards = new ArrayList<>(__instance.group);
+                //Apply filter on pool that is backed up
                 __instance.group.removeIf(ModifiedCardReward.filter);
+
+                //If there are no remaining results remove filter condition
                 if (__instance.group.isEmpty()) {
                     __instance.group = actualCards;
                     actualCards = null;
@@ -133,11 +139,14 @@ public class ModifyCardRewardPatches {
 
         @SpirePrefixPatch
         public static void modifyPool(AbstractCard.CardRarity rarity) {
-            if(ModifiedCardReward.cardColor != null) {
-                if(ModifiedCardReward.cardsOfColor == null) {
+            //Certain color condition
+            if (ModifiedCardReward.cardColor != null) {
+                //Init list of cards for this color
+                if (ModifiedCardReward.cardsOfColor == null) {
                     ModifiedCardReward.cardsOfColor = CardLibrary.getAllCards().stream().filter(c -> c.color == ModifiedCardReward.cardColor).collect(Collectors.toCollection(ArrayList::new));
                 }
 
+                //Modify currently important pool
                 CardGroup group = new CardGroup(CardGroup.CardGroupType.CARD_POOL);
                 switch (rarity) {
                     case RARE:
@@ -150,8 +159,10 @@ public class ModifyCardRewardPatches {
                         group = AbstractDungeon.commonCardPool;
                 }
 
-                if(!group.isEmpty()) {
+                if (!group.isEmpty()) {
+                    //Save current pool
                     previousPool = group.group;
+                    //Replace backed up pool with list of new color and appropriate rarity
                     group.group = ModifiedCardReward.cardsOfColor.stream().filter(c -> c.rarity == rarity).collect(Collectors.toCollection(ArrayList::new));
                 }
             }
@@ -159,7 +170,8 @@ public class ModifyCardRewardPatches {
 
         @SpirePostfixPatch
         public static void resetPool(AbstractCard.CardRarity rarity) {
-            if(ModifiedCardReward.cardColor != null) {
+            //Reinstate backed up pool if necessary
+            if (ModifiedCardReward.cardColor != null) {
                 switch (rarity) {
                     case RARE:
                         AbstractDungeon.rareCardPool.group = previousPool;
