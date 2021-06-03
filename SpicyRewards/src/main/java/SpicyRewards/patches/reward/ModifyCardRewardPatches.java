@@ -71,7 +71,7 @@ public class ModifyCardRewardPatches {
                     //Adds a break condition for the dupe check that could otherwise cause infinite loops
                     if (m.getClassName().equals(String.class.getName()) && m.getMethodName().equals("equals")) {
                         m.replace("{" +
-                                "$_ = " + ModifyRewardMethod.class.getName() + ".shouldBreakDupeLoop($proceed($$));" +
+                                "$_ = " + ModifyRewardMethod.class.getName() + ".shouldBreakDupeLoop($proceed($$));"+
                                 "}");
                     }
                 }
@@ -84,8 +84,8 @@ public class ModifyCardRewardPatches {
         }
 
         public static boolean shouldBreakDupeLoop(boolean dupe) {
-            if (dupe) {
-                if (++dupeLoops >= MAX_LOOPS) {
+            if(dupe) {
+                if(++dupeLoops >= MAX_LOOPS) {
                     return false;
                 }
             }
@@ -101,87 +101,76 @@ public class ModifyCardRewardPatches {
         }
     }
 
-    //TODO: Make the filter condition not refilter the pool for every card
-    //Modifies the pool the card is gotten from
+    @SpirePatch2(clz = CardGroup.class, method = "getRandomCard", paramtypez = {boolean.class})
+    public static class FIlterCondition {
+        private static ArrayList<AbstractCard> actualCards;
+
+        @SpirePrefixPatch
+        public static void filterList(CardGroup __instance) {
+            if (ModifiedCardReward.filter != null) {
+                actualCards = new ArrayList<>(__instance.group);
+                __instance.group.removeIf(ModifiedCardReward.filter);
+                if (__instance.group.isEmpty()) {
+                    __instance.group = actualCards;
+                    actualCards = null;
+                }
+            }
+        }
+
+        @SpirePostfixPatch
+        public static void restoreOriginalList(CardGroup __instance) {
+            if (actualCards != null) {
+                __instance.group = actualCards;
+                actualCards = null;
+            }
+        }
+    }
+
+    //Happens before the getRandomCard modification and manipulates the pool it is called on
     @SpirePatch2(clz = AbstractDungeon.class, method = "getCard", paramtypez = {AbstractCard.CardRarity.class})
     public static class ReplacePoolsForColor {
-        private static ArrayList<AbstractCard> actualCards;
         private static ArrayList<AbstractCard> previousPool;
 
         @SpirePrefixPatch
         public static void modifyPool(AbstractCard.CardRarity rarity) {
-            //Modify currently important pool
-            CardGroup group = new CardGroup(CardGroup.CardGroupType.CARD_POOL);
-            switch (rarity) {
-                case RARE:
-                    group = AbstractDungeon.rareCardPool;
-                    break;
-                case UNCOMMON:
-                    group = AbstractDungeon.uncommonCardPool;
-                    break;
-                case COMMON:
-                    group = AbstractDungeon.commonCardPool;
-            }
-
-            if (!group.isEmpty()) {
-                //Certain color condition
-                if (ModifiedCardReward.cardColor != null) {
-                    if (ModifiedCardReward.cardsOfColor == null) {
-                        //Init list of cards for this color
-                        ModifiedCardReward.cardsOfColor = CardLibrary.getAllCards().stream().filter(c -> c.color == ModifiedCardReward.cardColor).collect(Collectors.toCollection(ArrayList::new));
-                    }
-
-                    //Save current pool
-                    previousPool = group.group;
-                    //Replace backed up pool with list of new color and appropriate rarity
-                    group.group = ModifiedCardReward.cardsOfColor.stream().filter(c -> c.rarity == rarity).collect(Collectors.toCollection(ArrayList::new));
+            if(ModifiedCardReward.cardColor != null) {
+                if(ModifiedCardReward.cardsOfColor == null) {
+                    ModifiedCardReward.cardsOfColor = CardLibrary.getAllCards().stream().filter(c -> c.color == ModifiedCardReward.cardColor).collect(Collectors.toCollection(ArrayList::new));
                 }
 
-                //Filter condition
-                if (ModifiedCardReward.filter != null) {
-                    //back up modified pool
-                    actualCards = new ArrayList<>(group.group);
-                    //Apply filter on pool that is backed up
-                    group.group.removeIf(ModifiedCardReward.filter);
+                CardGroup group = new CardGroup(CardGroup.CardGroupType.CARD_POOL);
+                switch (rarity) {
+                    case RARE:
+                        group = AbstractDungeon.rareCardPool;
+                        break;
+                    case UNCOMMON:
+                        group = AbstractDungeon.uncommonCardPool;
+                        break;
+                    case COMMON:
+                        group = AbstractDungeon.commonCardPool;
+                }
 
-                    //If there are no remaining results remove filter condition
-                    if (group.group.isEmpty()) {
-                        group.group = actualCards;
-                        actualCards = null;
-                    }
+                if(!group.isEmpty()) {
+                    previousPool = group.group;
+                    group.group = ModifiedCardReward.cardsOfColor.stream().filter(c -> c.rarity == rarity).collect(Collectors.toCollection(ArrayList::new));
                 }
             }
         }
 
         @SpirePostfixPatch
         public static void resetPool(AbstractCard.CardRarity rarity) {
-            switch (rarity) {
-                case RARE:
-                    if (actualCards != null) {
-                        AbstractDungeon.rareCardPool.group = actualCards;
-                        actualCards = null;
-                    }
-                    if (ModifiedCardReward.cardColor != null) {
+            if(ModifiedCardReward.cardColor != null) {
+                switch (rarity) {
+                    case RARE:
                         AbstractDungeon.rareCardPool.group = previousPool;
-                    }
-                    break;
-                case UNCOMMON:
-                    if (actualCards != null) {
-                        AbstractDungeon.uncommonCardPool.group = actualCards;
-                        actualCards = null;
-                    }
-                    if (ModifiedCardReward.cardColor != null) {
+                        break;
+                    case UNCOMMON:
                         AbstractDungeon.uncommonCardPool.group = previousPool;
-                    }
-                    break;
-                case COMMON:
-                    if (actualCards != null) {
-                        AbstractDungeon.commonCardPool.group = actualCards;
-                        actualCards = null;
-                    }
-                    if (ModifiedCardReward.cardColor != null) {
+                        break;
+                    case COMMON:
                         AbstractDungeon.commonCardPool.group = previousPool;
-                    }
+                }
+                previousPool = null;
             }
         }
     }
