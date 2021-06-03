@@ -2,6 +2,9 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.data.AnyPowerCardReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
@@ -31,7 +34,21 @@ public class PowerlessChallenge  extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+        int i = ChallengeSystem.challengeRng.random(2);
+        switch (i) {
+            case 0:
+                reward = new AnyPowerCardReward();
+                break;
+            case 1:
+                if(UC.p().masterDeck.getPowers().isEmpty()) {
+                    reward = new TransformReward(null, AbstractCard.CardRarity.COMMON);
+                } else {
+                    reward = new TransformReward(AbstractCard.CardType.POWER, null);
+                }
+                break;
+            case 2:
+                reward = new UpgradeReward(null, AbstractCard.CardRarity.UNCOMMON);
+        }
     }
 
     @Override

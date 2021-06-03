@@ -2,13 +2,18 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
+import SpicyRewards.rewards.data.CoolBasicsCardReward;
+import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.BaseModCardTags;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.red.PerfectedStrike;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
@@ -33,7 +38,21 @@ public class AdvancedChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+        int i = ChallengeSystem.challengeRng.random(3);
+        switch (i) {
+            case 0:
+                reward = new CoolBasicsCardReward();
+                break;
+            case 1:
+                reward = new RemoveReward(null, AbstractCard.CardRarity.BASIC);
+                break;
+            case 2:
+                //Upgraded perfected strike
+                reward = new SingleCardReward(PerfectedStrike.ID + "|1|0");
+                break;
+            case 3:
+                reward = new TransformReward(null, AbstractCard.CardRarity.BASIC);
+        }
     }
 
     @Override
