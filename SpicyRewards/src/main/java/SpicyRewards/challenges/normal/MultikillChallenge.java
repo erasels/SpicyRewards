@@ -3,13 +3,13 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
-import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.data.AoECardReward;
+import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 
@@ -37,10 +37,10 @@ public class MultikillChallenge extends AbstractChallenge {
                 reward = new AoECardReward();
                 break;
             case 1:
-                reward = new RewardItem(40);
+                reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
                 break;
             case 2:
-                reward = new MaxHpReward(5);
+                reward = getRandomGeneralReward();
         }
     }
 
