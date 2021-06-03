@@ -50,11 +50,6 @@ public class ModifyCardRewardPatches {
             }
         }
 
-
-        //Enum for color that makes any color card spawn like with prismatic shard
-        @SpireEnum
-        public static AbstractCard.CardColor ANY;
-
         //Modifies prismatic shard check if the card reward is of a specific color and adds while loop break statement for dupe checks
         private static final int MAX_LOOPS = 250;
         private static int dupeLoops = 0;

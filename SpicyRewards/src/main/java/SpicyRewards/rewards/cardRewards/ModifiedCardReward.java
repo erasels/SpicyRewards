@@ -1,6 +1,7 @@
 package SpicyRewards.rewards.cardRewards;
 
 import SpicyRewards.SpicyRewards;
+import SpicyRewards.patches.reward.AnyCardColorPatch;
 import SpicyRewards.rewards.AbstractSpicyReward;
 import SpicyRewards.util.TextureLoader;
 import SpicyRewards.util.UC;
@@ -37,6 +38,9 @@ public class ModifiedCardReward extends AbstractSpicyReward {
     public ModifiedCardReward(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
         super(ICON, TEXT[2], RewardType.CARD);
 
+        if(cardColor != AnyCardColorPatch.ANY && rar == AbstractCard.CardRarity.BASIC) {
+            SpicyRewards.logger.error("Card rewards for BASIC without color set to ANY will crash.");
+        }
         col = iconColor;
         ModifiedCardReward.cardColor = cardColor;
         additionalCards = cAmt;
