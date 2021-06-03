@@ -2,11 +2,15 @@ package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
+import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.normal.RushChallenge;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
+import SpicyRewards.rewards.data.SevenCardReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.colorless.TheBomb;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.StoneCalendar;
@@ -34,7 +38,18 @@ public class DoomCalendarChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new RewardItem(new StoneCalendar());
+        int i = ChallengeSystem.challengeRng.random(2);
+        switch (i) {
+            case 0:
+                reward = new RewardItem(new StoneCalendar());
+                break;
+            case 1:
+                reward = new SingleCardReward(new TheBomb());
+                break;
+            case 2:
+                reward = new SevenCardReward();
+        }
+
     }
 
     @Override

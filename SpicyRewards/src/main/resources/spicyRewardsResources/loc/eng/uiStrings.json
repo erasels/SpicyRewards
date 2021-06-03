@@ -20,7 +20,7 @@
     "TEXT_DICT": {
       "prefix": "Reward: ",
       "cardprefix": "Card: ",
-      "retainCR": "Retain card reward",
+      "retainCR": "Watcher Retain card reward",
       "greenDrawCR": "Silent Draw card reward",
       "aoeCR": "Mutli-target card reward",
       "anyPowerCR": "Power card reward (any color)",
@@ -29,7 +29,8 @@
       "innateCR": "Innate card reward",
       "uncommonCR": "Uncommon card reward",
       "fatalCC": "Fatal card choice",
-      "upgradedCR": "Upgraded card reward"
+      "upgradedCR": "Upgraded card reward",
+      "sevenCR": "7 card reward"
     }
   },
   "${ModID}:ChallengeButton": {
