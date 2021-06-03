@@ -3,11 +3,14 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.cards.Abstinence;
 import SpicyRewards.challenges.AbstractChallenge;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -29,7 +32,17 @@ public class PotionholicsAnonymousChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new SingleCardReward(new Abstinence());
+        int i = ChallengeSystem.challengeRng.random(2);
+        switch (i) {
+            case 0:
+                reward = new SingleCardReward(new Abstinence());
+                break;
+            case 1:
+                reward = new RewardItem(40);
+                break;
+            case 2:
+                reward = new MaxHpReward(5);
+        }
     }
 
     @Override
