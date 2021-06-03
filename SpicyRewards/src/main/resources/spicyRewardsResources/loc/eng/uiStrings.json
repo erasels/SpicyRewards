@@ -21,7 +21,8 @@
       "prefix": "Reward: ",
       "cardprefix": "Card: ",
       "retainCR": "Retain card reward",
-      "greenDrawCR": "Silent Draw card reward"
+      "greenDrawCR": "Silent Draw card reward",
+      "aoeCR": "Mutli-target card reward"
     }
   },
   "${ModID}:ChallengeButton": {

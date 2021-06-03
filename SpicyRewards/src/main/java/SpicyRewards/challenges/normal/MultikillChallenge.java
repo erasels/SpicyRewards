@@ -2,12 +2,14 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.MaxHpReward;
+import SpicyRewards.rewards.data.AoECardReward;
 import SpicyRewards.util.UC;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 
@@ -29,7 +31,17 @@ public class MultikillChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+        int i = ChallengeSystem.challengeRng.random(2);
+        switch (i) {
+            case 0:
+                reward = new AoECardReward();
+                break;
+            case 1:
+                reward = new RewardItem(40);
+                break;
+            case 2:
+                reward = new MaxHpReward(5);
+        }
     }
 
     @Override

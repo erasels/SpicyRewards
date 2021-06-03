@@ -11,7 +11,7 @@ public class RetainCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("retainCR");
 
     public RetainCardReward() {
-        super(Color.LIME, 0, null, false, c -> !(c.selfRetain||c.retain||c.rawDescription.toLowerCase().contains(retainString)));
+        super(Color.SKY, 0, null, false, c -> !(c.selfRetain||c.retain||c.rawDescription.toLowerCase().contains(retainString)));
     }
 
     @Override
