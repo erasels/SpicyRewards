@@ -51,6 +51,10 @@ public class ModifyCardRewardPatches {
         }
 
 
+        //Enum for color that makes any color card spawn like with prismatic shard
+        @SpireEnum
+        public static AbstractCard.CardColor ANY;
+
         //Modifies prismatic shard check if the card reward is of a specific color and adds while loop break statement for dupe checks
         private static final int MAX_LOOPS = 250;
         private static int dupeLoops = 0;
@@ -63,7 +67,8 @@ public class ModifyCardRewardPatches {
                     //For specific cardColor of reward, skip the prismatic shard check to roll any color card reward
                     if (m.getClassName().equals(AbstractPlayer.class.getName()) && m.getMethodName().equals("hasRelic")) {
                         m.replace("{" +
-                                "$_ = $proceed($$) && " + ModifiedCardReward.class.getName() + ".cardColor == null;" +
+                                "$_ = " + ModifiedCardReward.class.getName() + ".cardColor == " + AbstractCard.CardColor.class.getName() + ".ANY || " +
+                                    "($proceed($$) && " + ModifiedCardReward.class.getName() + ".cardColor == null);" +
                                 "}");
                         return;
                     }
