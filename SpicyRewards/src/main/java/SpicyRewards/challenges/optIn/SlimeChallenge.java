@@ -2,13 +2,19 @@ package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
+import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.data.RetainCardReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.status.Slimed;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
+import com.megacrit.cardcrawl.relics.BagOfPreparation;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 
@@ -31,7 +37,20 @@ public class SlimeChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new RetainCardReward();
+        int i = ChallengeSystem.challengeRng.random(3);
+        switch (i) {
+            case 0:
+                reward = new RetainCardReward();
+                break;
+            case 1:
+                reward = new RewardItem(new BagOfPreparation());
+                break;
+            case 2:
+                reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
+                break;
+            case 3:
+                reward = new TransformReward();
+        }
     }
 
     @Override
