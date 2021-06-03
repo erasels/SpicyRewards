@@ -25,7 +25,9 @@
       "aoeCR": "Mutli-target card reward",
       "anyPowerCR": "Power card reward (any color)",
       "coolBasicsCR": "Starter card reward (any color)",
-      "anyUpgradeCR": "Upgraded card reward (any color)"
+      "anyUpgradeCR": "Upgraded card reward (any color)",
+      "innateCR": "Innate card reward",
+      "uncommonCR": "Uncommon card reward"
     }
   },
   "${ModID}:ChallengeButton": {

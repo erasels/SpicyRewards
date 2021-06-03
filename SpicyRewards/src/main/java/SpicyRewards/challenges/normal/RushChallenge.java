@@ -2,10 +2,11 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
+import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.optIn.DoomCalendarChallenge;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
+import SpicyRewards.rewards.data.InnateCardReward;
+import SpicyRewards.rewards.data.UncommonCardReward;
 import com.megacrit.cardcrawl.actions.GameActionManager;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
@@ -30,7 +31,14 @@ public class RushChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+        int i = ChallengeSystem.challengeRng.random(1);
+        switch (i) {
+            case 0:
+                reward = new InnateCardReward();
+                break;
+            case 1:
+                reward = new UncommonCardReward();
+        }
     }
 
     @Override
