@@ -2,13 +2,16 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.data.UpgradedAnyReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 
@@ -31,7 +34,21 @@ public class DifferentTypesChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+        int i = ChallengeSystem.challengeRng.random(3);
+        switch (i) {
+            case 0:
+                reward = new UpgradedAnyReward();
+                break;
+            case 1:
+                reward = new RewardItem();
+                break;
+            case 2:
+                //Upgraded perfected strike
+                reward = getRandomGeneralReward();
+                break;
+            case 3:
+                reward = new TransformReward();
+        }
     }
 
     @Override
