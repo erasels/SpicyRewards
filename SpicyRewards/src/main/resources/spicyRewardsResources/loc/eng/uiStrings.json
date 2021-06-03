@@ -27,7 +27,9 @@
       "coolBasicsCR": "Starter card reward (any color)",
       "anyUpgradeCR": "Upgraded card reward (any color)",
       "innateCR": "Innate card reward",
-      "uncommonCR": "Uncommon card reward"
+      "uncommonCR": "Uncommon card reward",
+      "fatalCC": "Fatal card choice",
+      "upgradedCR": "Upgraded card reward"
     }
   },
   "${ModID}:ChallengeButton": {
