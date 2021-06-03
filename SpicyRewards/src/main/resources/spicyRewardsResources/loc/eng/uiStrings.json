@@ -19,6 +19,7 @@
   "${ModID}:Rewards": {
     "TEXT_DICT": {
       "prefix": "Reward: ",
+      "cardprefix": "Card: ",
       "retainCR": "Retain card reward",
       "greenDrawCR": "Silent Draw card reward"
     }

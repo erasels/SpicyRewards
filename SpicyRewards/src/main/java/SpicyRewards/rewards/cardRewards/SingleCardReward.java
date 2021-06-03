@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
@@ -17,6 +18,8 @@ import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 import static SpicyRewards.patches.reward.NewRewardtypePatches.SR_SINGLECARDREWARD;
 
 public class SingleCardReward extends CustomReward {
+    private static final String prefixText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("cardprefix");
+
     private static final float XOFFSET = 25f * Settings.scale;
     public AbstractCard card;
     protected AbstractCard renderCard;
@@ -24,16 +27,19 @@ public class SingleCardReward extends CustomReward {
     public SingleCardReward(AbstractCard c) {
         super(null, "", SR_SINGLECARDREWARD);
         card = c;
-        renderCard = card.makeStatEquivalentCopy();
-        text = card.name;
+        init();
     }
 
     public SingleCardReward(String cardSave) {
         super(null, "", SR_SINGLECARDREWARD);
         String[] params = cardSave.split("\\|");
         card = CardLibrary.getCopy(params[0], Integer.parseInt(params[1]), Integer.parseInt(params[2]));
+        init();
+    }
+
+    protected void init() {
         renderCard = card.makeStatEquivalentCopy();
-        text = card.name;
+        text = prefixText + card.name;
     }
 
     @Override
