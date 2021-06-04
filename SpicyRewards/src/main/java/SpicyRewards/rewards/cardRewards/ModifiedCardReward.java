@@ -25,6 +25,7 @@ import java.util.function.Predicate;
 
 public class ModifiedCardReward extends AbstractSpicyReward {
     private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("cards.png"));
+    private static final float REWARD_X_POS = Settings.WIDTH * 0.434F;
 
     public static int additionalCards;
     public static AbstractCard.CardRarity fixedRarity;
@@ -52,6 +53,7 @@ public class ModifiedCardReward extends AbstractSpicyReward {
             cards.stream().filter(AbstractCard::canUpgrade).forEach(AbstractCard::upgrade);
         }
         resetModifiers();
+        text = getRewardText();
     }
 
     public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
@@ -121,7 +123,15 @@ public class ModifiedCardReward extends AbstractSpicyReward {
             c = Settings.GOLD_COLOR.cpy();
         }
 
-        FontHelper.renderSmartText(sb, FontHelper.cardDescFont_N, text, Settings.WIDTH * 0.434F, y + 5.0f * Settings.scale, 1000.0f * Settings.scale, 0.0f, c);
+        //Render reward text that automatically line breaks
+        float ypos = y + 5.0f * Settings.scale;
+        float lineWidth = hb.width * 0.75f;
+        float lineSpacing = FontHelper.getHeight(FontHelper.charDescFont) + 5f * Settings.scale;
+        //If the font is a little larger than the line width, upshift ypos to center the text once broken in two lines (0.9 scale because a little leeway is needed)
+        if(FontHelper.getSmartWidth(FontHelper.charDescFont, text, 9999f, 0f, 0.9f) > lineWidth) {
+            ypos += lineSpacing/2f;
+        }
+        FontHelper.renderSmartText(sb, FontHelper.cardDescFont_N, text, REWARD_X_POS, ypos, lineWidth, lineSpacing, c);
 
         if (!hb.hovered) {
             for (AbstractGameEffect e : effects) {
