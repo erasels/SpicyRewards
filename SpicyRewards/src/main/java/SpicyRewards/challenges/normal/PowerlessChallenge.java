@@ -21,7 +21,6 @@ public class PowerlessChallenge  extends AbstractChallenge {
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
     protected static ArrayList<String> exclusions = new ArrayList<>();
-    private int killCount;
 
     public PowerlessChallenge() {
         super(ID,
