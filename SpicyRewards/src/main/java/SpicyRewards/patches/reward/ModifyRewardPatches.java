@@ -24,7 +24,7 @@ public class ModifyRewardPatches {
             ArrayList<RewardItem> rew = __instance.rewards;
 
             //Remove the first card reward for balancing purposes
-            if(!SpicyRewards.shouldGC()) {
+            if(!SpicyRewards.shouldGC() && !ChallengeSystem.challenges.isEmpty()) {
                 Iterator<RewardItem> iter = rew.iterator();
                 while (iter.hasNext()) {
                     RewardItem r = iter.next();
