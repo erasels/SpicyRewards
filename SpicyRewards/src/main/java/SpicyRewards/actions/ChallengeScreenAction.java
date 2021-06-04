@@ -30,6 +30,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
     private static final float CHALLENGE_TEXT_X = Settings.WIDTH * 0.22f;
     private static final float LINESPACING = 8f;
     private static final Color failedChallengedColor = new Color(0.5f, 0.5f, 0.5f, 0.5f);
+    private static final Color OptinTitleColor = new Color(0.8f, 0.11f, 0.11f, 1f);
 
     public static final float BLACKSCREEN_INTENSITY = 0.66f;
 
@@ -102,7 +103,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
         }
 
         height -= (64f * Settings.yScale);
-        FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("optin"), TITLE_CHALLENGE_TEXT_X, height, Color.FIREBRICK);
+        FontHelper.renderFontLeft(sb, FontHelper.menuBannerFont, uiText.TEXT_DICT.get("optin"), TITLE_CHALLENGE_TEXT_X, height, OptinTitleColor);
         height -= FontHelper.getHeight(FontHelper.menuBannerFont) + (40f * Settings.yScale);
 
         if (selection) {
