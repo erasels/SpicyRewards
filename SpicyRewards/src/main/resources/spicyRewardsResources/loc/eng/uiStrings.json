@@ -142,8 +142,8 @@
   },
   "${ModID}:DrawLoseCardChallenge": {
     "TEXT_DICT": {
-      "desc": "Whenever you draw a card, lose %d Block.",
-      "name": "Heavy Hand"
+      "desc": "Each turn, whenever you draw a card beyond the %s, take %d damage.",
+      "name": "Card Sharp"
     }
   },
   "${ModID}:CorpseExplosionChallenge": {
