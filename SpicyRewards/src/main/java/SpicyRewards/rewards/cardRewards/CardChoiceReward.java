@@ -16,6 +16,8 @@ public class CardChoiceReward extends AbstractSpicyReward {
         super(ImageMaster.REWARD_CARD_NORMAL, TEXT[2], NewRewardtypePatches.SR_CARDCHOICEREWARD);
         cardPicks = pickAmounts;
 
+        this.cards.clear();
+
         if(cardPicks >= cards.size()) {
             this.cards = cards;
         }
