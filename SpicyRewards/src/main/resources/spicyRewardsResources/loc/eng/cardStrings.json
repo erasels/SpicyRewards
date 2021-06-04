@@ -2,5 +2,9 @@
   "${ModID}:Abstinence": {
     "NAME": "Abstinence",
     "DESCRIPTION": "Gain !M! Strength for every filled Potion slot."
+  },
+  "${ModID}:Angry": {
+    "NAME": "Angry",
+    "DESCRIPTION": "Whenever you play a Skill, gain !M! Vigor."
   }
 }

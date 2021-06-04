@@ -4,5 +4,11 @@
     "DESCRIPTIONS": [
       "Whenever this creature applies a debuff, it takes %d damage."
     ]
+  },
+  "${ModID}:AngryCard": {
+    "NAME": "Angry",
+    "DESCRIPTIONS": [
+      "Whenever you play a #ySkill, gain %d #yVigor."
+    ]
   }
 }
