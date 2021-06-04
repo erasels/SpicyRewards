@@ -15,9 +15,11 @@ public class CardChoiceReward extends AbstractSpicyReward {
     public CardChoiceReward(int pickAmounts, ArrayList<AbstractCard> cards) {
         super(ImageMaster.REWARD_CARD_NORMAL, TEXT[2], NewRewardtypePatches.SR_CARDCHOICEREWARD);
         cardPicks = pickAmounts;
+
+        if(cardPicks >= cards.size()) {
+            this.cards = cards;
+        }
         for (int i = 0; i < cardPicks; i++) {
-            if(cards.isEmpty())
-                break;
             AbstractCard c = UC.getRandomItem(cards, AbstractDungeon.cardRng);
             this.cards.add(c);
             cards.remove(c);
