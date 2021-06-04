@@ -2,12 +2,17 @@ package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.rewards.data.RetainCardReward;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.MaxHpReward;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
+import SpicyRewards.rewards.data.BigButNoDrawCardReward;
+import SpicyRewards.rewards.data.NoDrawChoice;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.cards.purple.Scrawl;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
@@ -42,7 +47,20 @@ public class DrawLoseCardChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new RetainCardReward();
+        int i = ChallengeSystem.challengeRng.random(3);
+        switch (i) {
+            case 0:
+                reward = new NoDrawChoice();
+                break;
+            case 1:
+                reward = new SingleCardReward(new Scrawl());
+                break;
+            case 2:
+                reward = new MaxHpReward(6 + drawLimit);
+                break;
+            case 3:
+                reward = new BigButNoDrawCardReward();
+        }
     }
 
     @Override
