@@ -49,8 +49,13 @@ public class ChallengeButton extends TopPanelItem {
             if(!notClickable) {
                 body = uiStrings.TEXT_DICT.get("pre-challenge");
                 StringBuilder s = new StringBuilder(body);
+                boolean separator = false;
                 for(AbstractChallenge c : ChallengeSystem.challenges) {
                     if(shouldShow(c)) {
+                        if(c.type == AbstractChallenge.Type.OPTIN && !separator) {
+                            separator = true;
+                            s.append("-----").append(" NL ");
+                        }
                         s.append(c.name).append(" NL ");
                     }
                 }
@@ -103,6 +108,6 @@ public class ChallengeButton extends TopPanelItem {
     }
 
     private boolean shouldShow(AbstractChallenge c) {
-        return !(c.isDone() || c.failed);
+        return !c.failed;
     }
 }
