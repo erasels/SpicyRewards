@@ -4,6 +4,7 @@ import SpicyRewards.cards.AbstractSpicyCard;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.reward.NewRewardtypePatches;
 import SpicyRewards.rewards.HealReward;
+import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
 import SpicyRewards.ui.ChallengeButton;
@@ -140,7 +141,7 @@ EditCardsSubscriber{
 
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_MAXHPREWARD,
                 rewardSave -> new HealReward(rewardSave.amount),
-                customReward -> new RewardSave(NewRewardtypePatches.SR_MAXHPREWARD.toString(), null, ((HealReward)customReward).amount, 0)
+                customReward -> new RewardSave(NewRewardtypePatches.SR_MAXHPREWARD.toString(), null, ((MaxHpReward)customReward).amount, 0)
         );
 
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_UPGRADEREWARD,
