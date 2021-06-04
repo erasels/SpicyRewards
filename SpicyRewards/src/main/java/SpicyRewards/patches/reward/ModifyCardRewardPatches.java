@@ -103,7 +103,6 @@ public class ModifyCardRewardPatches {
 
     //Patches getRandomCard to affect both this and the prismatic shard any color card reward
     @SpirePatch2(clz = CardGroup.class, method = "getRandomCard", paramtypez = {boolean.class})
-    @SpirePatch2(clz = CardGroup.class, method = "getRandomCard", paramtypez = {boolean.class, AbstractCard.CardRarity.class})
     public static class FilterCondition {
         private static ArrayList<AbstractCard> actualCards;
 
@@ -129,6 +128,29 @@ public class ModifyCardRewardPatches {
             if (actualCards != null) {
                 __instance.group = actualCards;
                 actualCards = null;
+            }
+        }
+    }
+
+    @SpirePatch2(clz = CardGroup.class, method = "getRandomCard", paramtypez = {boolean.class, AbstractCard.CardRarity.class})
+    public static class FilterConditionColorless {
+        //Apply the filter condition to the rarity method used by ANY color card reward
+        @SpireInsertPatch(locator =  PostRarityFilterLocator.class, localvars = {"tmp"})
+        public static void filterList(ArrayList<AbstractCard> tmp) {
+            if (ModifiedCardReward.filter != null) {
+                ArrayList<AbstractCard> actualCards = new ArrayList<>(tmp);
+                tmp.removeIf(ModifiedCardReward.filter);
+
+                if (tmp.isEmpty()) {
+                    tmp.addAll(actualCards);
+                }
+            }
+        }
+
+        private static class PostRarityFilterLocator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(ArrayList.class, "isEmpty");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
         }
     }
