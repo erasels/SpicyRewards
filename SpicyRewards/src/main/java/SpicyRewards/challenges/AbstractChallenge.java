@@ -143,7 +143,13 @@ public abstract class AbstractChallenge {
     public void atStartOfTurn() {
     }
 
+    public void atStartOfTurnPostDraw() {
+    }
+
     public void atEndOfTurn() {
+    }
+
+    public void atEndOfRound() {
     }
 
     public void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {

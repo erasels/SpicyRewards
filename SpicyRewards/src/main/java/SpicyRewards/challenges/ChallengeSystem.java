@@ -46,8 +46,16 @@ public class ChallengeSystem {
         challenges.forEach(AbstractChallenge::atStartOfTurn);
     }
 
+    public static void atStartOfTurnPostDraw() {
+        challenges.forEach(AbstractChallenge::atStartOfTurnPostDraw);
+    }
+
     public static void atEndOfTurn() {
         challenges.forEach(AbstractChallenge::atEndOfTurn);
+    }
+
+    public static void atEndOfRound() {
+        challenges.forEach(AbstractChallenge::atEndOfRound);
     }
 
     public static void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {
