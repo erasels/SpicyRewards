@@ -58,8 +58,10 @@ public class PowerlessChallenge  extends AbstractChallenge {
     }
 
     @Override
-    public boolean isDone() {
-        return !failed;
+    public void onVictory() {
+        if(!failed) {
+            complete();
+        }
     }
 
     @Override

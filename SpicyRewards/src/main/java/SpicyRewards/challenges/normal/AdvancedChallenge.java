@@ -62,8 +62,9 @@ public class AdvancedChallenge extends AbstractChallenge {
     }
 
     @Override
-    public boolean isDone() {
-        return !failed;
+    public void onVictory() {
+        if(!failed)
+            complete();
     }
 
     //Has at least 3 Strike/Defends in deck and at Floor 7 to get some cards
