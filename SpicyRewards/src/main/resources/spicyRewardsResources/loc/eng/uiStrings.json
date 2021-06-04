@@ -33,7 +33,8 @@
       "sevenCR": "7 card reward",
       "noDrawCC": "%s or %s",
       "bigNoDrawCR": "Big card reward with no Draw cards",
-      "exhaustCR": "Exhaust card reward"
+      "exhaustCR": "Exhaust card reward",
+      "anyWeakOrVulnCR": "Weak or Vulnerable card reward (any color)"
     }
   },
   "${ModID}:ChallengeButton": {

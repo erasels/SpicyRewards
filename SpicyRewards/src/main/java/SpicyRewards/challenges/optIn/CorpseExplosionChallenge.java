@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.FatalChoiceReward;
 import SpicyRewards.rewards.data.UpgradedCardReward;
@@ -14,7 +15,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.GremlinHorn;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 
@@ -49,7 +49,7 @@ public class CorpseExplosionChallenge extends AbstractChallenge {
                 reward = new UpgradedCardReward();
                 break;
             case 3:
-                reward = new RewardItem(new GremlinHorn());
+                reward = new CustomRelicReward(new GremlinHorn());
         }
     }
 

@@ -4,6 +4,7 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.normal.RushChallenge;
+import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.SevenCardReward;
 import SpicyRewards.util.UC;
@@ -41,7 +42,7 @@ public class DoomCalendarChallenge extends AbstractChallenge {
         int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
-                reward = new RewardItem(new StoneCalendar());
+                reward = new CustomRelicReward(new StoneCalendar());
                 break;
             case 1:
                 reward = new SingleCardReward(new TheBomb());

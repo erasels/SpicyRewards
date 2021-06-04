@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.RetainCardReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
@@ -43,7 +44,7 @@ public class SlimeChallenge extends AbstractChallenge {
                 reward = new RetainCardReward();
                 break;
             case 1:
-                reward = new RewardItem(new BagOfPreparation());
+                reward = new CustomRelicReward(new BagOfPreparation());
                 break;
             case 2:
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
