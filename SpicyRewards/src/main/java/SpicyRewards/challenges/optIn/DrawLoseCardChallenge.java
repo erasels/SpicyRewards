@@ -40,8 +40,10 @@ public class DrawLoseCardChallenge extends AbstractChallenge {
 
     @Override
     protected void initText() {
-        drawLimit = UC.p().masterHandSize;
-        challengeText = challengeText.replace(replaceText, drawLimit + TopPanel.getOrdinalNaming(drawLimit));
+        if(CardCrawlGame.isInARun()) {
+            drawLimit = UC.p().masterHandSize;
+            challengeText = challengeText.replace(replaceText, drawLimit + TopPanel.getOrdinalNaming(drawLimit));
+        }
         super.initText();
     }
 
