@@ -1,8 +1,13 @@
 package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
+import SpicyRewards.cards.Angry;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.rewards.data.SilentDrawCardReward;
+import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.CustomRelicReward;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
+import SpicyRewards.rewards.data.ICStrengthCardReward;
+import SpicyRewards.rewards.data.UpgradedSkillReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
@@ -11,8 +16,12 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.powers.StrengthPower;
+import com.megacrit.cardcrawl.relics.Brimstone;
+import com.megacrit.cardcrawl.relics.RedSkull;
+import com.megacrit.cardcrawl.relics.Sling;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class AngryChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Angry");
@@ -32,7 +41,20 @@ public class AngryChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        reward = new SilentDrawCardReward();
+        int i = ChallengeSystem.challengeRng.random(3);
+        switch (i) {
+            case 0:
+                reward = new SingleCardReward(new Angry());
+                break;
+            case 1:
+                reward = new ICStrengthCardReward();
+                break;
+            case 2:
+                reward = new CustomRelicReward(new Brimstone(), new ArrayList<>(Arrays.asList(new RedSkull(), new Sling())));
+                break;
+            case 3:
+                reward = new UpgradedSkillReward();
+        }
     }
 
     @Override
