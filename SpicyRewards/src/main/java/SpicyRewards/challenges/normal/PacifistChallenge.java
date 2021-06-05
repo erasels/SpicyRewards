@@ -29,6 +29,7 @@ public class PacifistChallenge  extends AbstractChallenge {
                 null,
                 Tier.NORMAL,
                 Type.NORMAL);
+        shouldShowTip = true;
     }
 
     @Override
