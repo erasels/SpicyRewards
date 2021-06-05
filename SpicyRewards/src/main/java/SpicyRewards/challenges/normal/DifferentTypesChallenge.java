@@ -14,12 +14,13 @@ import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DifferentTypesChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("DifferentTypes");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(PacifistChallenge.ID));
 
     public static AbstractCard.CardType lastType;
 
