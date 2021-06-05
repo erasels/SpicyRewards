@@ -183,5 +183,11 @@
       "desc": "At the end of the monsters' turn, your leftover Block gets transferred to a random enemy.",
       "name": "Team Fortress"
     }
+  },
+  "${ModID}:AfterImageChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you play a card, ALL enemies gain %d Block.",
+      "name": "Afterimages"
+    }
   }
 }
