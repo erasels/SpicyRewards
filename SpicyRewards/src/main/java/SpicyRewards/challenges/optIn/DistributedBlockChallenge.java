@@ -4,7 +4,7 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
-import SpicyRewards.rewards.data.RetainCardReward;
+import SpicyRewards.rewards.data.DefectBlockCardReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -43,7 +43,7 @@ public class DistributedBlockChallenge extends AbstractChallenge {
         int i = ChallengeSystem.challengeRng.random(3);
         switch (i) {
             case 0:
-                reward = new RetainCardReward();
+                reward = new DefectBlockCardReward();
                 break;
             case 1:
                 reward = new CustomRelicReward(new BagOfPreparation(), new ArrayList<>(Arrays.asList(new Orichalcum(), new Omamori(), new ChemicalX())));

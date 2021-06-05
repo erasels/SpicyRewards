@@ -36,7 +36,8 @@
       "exhaustCR": "Exhaust card reward",
       "anyWeakOrVulnCR": "Weak or Vulnerable card reward (any color)",
       "redStrCR": "Ironclad Strength card reward",
-      "upgradedSkillCR": "Upgraded Skill card reward"
+      "upgradedSkillCR": "Upgraded Skill card reward",
+      "defectBlockCR": "Defect Block card reward"
     }
   },
   "${ModID}:ChallengeButton": {
