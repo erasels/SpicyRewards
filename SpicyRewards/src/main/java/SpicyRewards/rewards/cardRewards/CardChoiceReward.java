@@ -10,7 +10,7 @@ import com.megacrit.cardcrawl.helpers.ImageMaster;
 import java.util.ArrayList;
 
 public class CardChoiceReward extends AbstractSpicyReward {
-    int cardPicks;
+    public int cardPicks;
 
     public CardChoiceReward(int pickAmounts, ArrayList<AbstractCard> cards) {
         super(ImageMaster.REWARD_CARD_NORMAL, TEXT[2], NewRewardtypePatches.SR_CARDCHOICEREWARD);
@@ -26,6 +26,8 @@ public class CardChoiceReward extends AbstractSpicyReward {
             this.cards.add(c);
             cards.remove(c);
         }
+
+        text = getRewardText();
     }
 
     @Override

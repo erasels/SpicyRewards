@@ -1,12 +1,16 @@
 package SpicyRewards.rewards.selectCardsRewards;
 
 import SpicyRewards.patches.reward.NewRewardtypePatches;
+import SpicyRewards.rewards.cardRewards.CardChoiceReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import basemod.BaseMod;
 import basemod.abstracts.CustomReward;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rewards.RewardSave;
+
+import java.util.ArrayList;
 
 public class RewardSaveLoader implements BaseMod.LoadCustomReward {
     @Override
@@ -26,15 +30,39 @@ public class RewardSaveLoader implements BaseMod.LoadCustomReward {
         return new TransformReward(getType(rewardSave.id), getRarity(rewardSave.id));
     }
 
+    public static CustomReward onLoadCardChoice(RewardSave rewardSave) {
+        String[] s = rewardSave.id.split("\\|");
+        ArrayList<AbstractCard> cards = new ArrayList<>();
+        for (int i = 0; i < s.length; i = i+3) {
+            if(i+2 > s.length)
+                break;
+            cards.add(CardLibrary.getCopy(s[i], Integer.parseInt(s[i+1]), Integer.parseInt(s[i+2])));
+        }
+        return new CardChoiceReward(cards.size(), cards);
+    }
+
     public static RewardSave onSave(RewardItem.RewardType type, CustomReward reward) {
         String s;
         if(type == NewRewardtypePatches.SR_SINGLECARDREWARD) {
+            s = ((SingleCardReward) reward).card.cardID +
+                    "|" +
+                    ((SingleCardReward) reward).card.timesUpgraded +
+                    "|" +
+                    ((SingleCardReward) reward).card.misc;
+        } else if(type == NewRewardtypePatches.SR_CARDCHOICEREWARD) {
             StringBuilder cardSave = new StringBuilder();
-            cardSave.append(((SingleCardReward)reward).card.cardID);
-            cardSave.append("|");
-            cardSave.append(((SingleCardReward)reward).card.timesUpgraded);
-            cardSave.append("|");
-            cardSave.append(((SingleCardReward)reward).card.misc);
+            CardChoiceReward rew = (CardChoiceReward) reward;
+
+            //AbstractDungeon.cardRng.counter += rew.cardPicks; //In case RNG doesn't advance
+            for(AbstractCard c : rew.cards) {
+                cardSave.append(c.cardID);
+                cardSave.append("|");
+                cardSave.append(c.timesUpgraded);
+                cardSave.append("|");
+                cardSave.append(c.misc);
+                cardSave.append("|");
+            }
+
             s = cardSave.toString();
         } else {
             if (((AbstractSelectCardReward) reward).type != null) {

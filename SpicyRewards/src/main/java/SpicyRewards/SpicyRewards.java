@@ -164,6 +164,11 @@ EditCardsSubscriber{
                 customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_SINGLECARDREWARD, customReward)
         );
 
+        BaseMod.registerCustomReward(NewRewardtypePatches.SR_CARDCHOICEREWARD,
+                RewardSaveLoader::onLoadCardChoice,
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_SINGLECARDREWARD, customReward)
+        );
+
         ChallengeSystem.populateTieredMaps();
 
         if(challengeBtn == null) {
