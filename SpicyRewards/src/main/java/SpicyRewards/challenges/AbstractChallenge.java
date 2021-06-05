@@ -10,6 +10,7 @@ import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -165,6 +166,9 @@ public abstract class AbstractChallenge {
     }
 
     public void onDiscardPotion(AbstractPotion p) {
+    }
+
+    public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
     }
 
     protected RewardItem getRandomGeneralReward() {

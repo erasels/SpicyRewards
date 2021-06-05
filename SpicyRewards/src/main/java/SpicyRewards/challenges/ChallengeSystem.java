@@ -6,6 +6,7 @@ import SpicyRewards.util.UC;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
@@ -80,6 +81,10 @@ public class ChallengeSystem {
 
     public static void onDiscardPotion(AbstractPotion p) {
         challenges.forEach(c -> c.onDiscardPotion(p));
+    }
+
+    public static void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
+        challenges.forEach(c -> c.onAttack(info, damageAmount, target));
     }
 
     public static void claimRewards(ArrayList<RewardItem> rewards) {
