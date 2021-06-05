@@ -5,19 +5,21 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.DefectBlockCardReward;
-import SpicyRewards.rewards.selectCardsRewards.TransformReward;
+import SpicyRewards.rewards.data.UpgradedBlockReward;
+import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.PotionHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.potions.AbstractPotion;
-import com.megacrit.cardcrawl.relics.BagOfPreparation;
-import com.megacrit.cardcrawl.relics.ChemicalX;
-import com.megacrit.cardcrawl.relics.Omamori;
+import com.megacrit.cardcrawl.potions.*;
+import com.megacrit.cardcrawl.relics.Calipers;
 import com.megacrit.cardcrawl.relics.Orichalcum;
+import com.megacrit.cardcrawl.relics.ToxicEgg2;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
@@ -40,19 +42,23 @@ public class DistributedBlockChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(3);
+        int i = ChallengeSystem.challengeRng.random(4);
         switch (i) {
             case 0:
                 reward = new DefectBlockCardReward();
                 break;
             case 1:
-                reward = new CustomRelicReward(new BagOfPreparation(), new ArrayList<>(Arrays.asList(new Orichalcum(), new Omamori(), new ChemicalX())));
+                reward = new CustomRelicReward(new Orichalcum(), new ArrayList<>(Arrays.asList(new ToxicEgg2(), new Calipers())));
                 break;
             case 2:
-                reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
+                AbstractPotion p = PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID)), AbstractDungeon.potionRng));
+                reward = new RewardItem(p);
                 break;
             case 3:
-                reward = new TransformReward();
+                reward = new UpgradeReward(AbstractCard.CardType.SKILL, null);
+                break;
+            case 4:
+                reward = new UpgradedBlockReward();
         }
     }
 
