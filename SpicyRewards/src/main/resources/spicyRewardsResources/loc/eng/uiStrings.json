@@ -37,7 +37,8 @@
       "anyWeakOrVulnCR": "Weak or Vulnerable card reward (any color)",
       "redStrCR": "Ironclad Strength card reward",
       "upgradedSkillCR": "Upgraded Skill card reward",
-      "defectBlockCR": "Defect Block card reward"
+      "defectBlockCR": "Defect Block card reward",
+      "upgradedBlockCR": "Upgraded Block card reward"
     }
   },
   "${ModID}:ChallengeButton": {
