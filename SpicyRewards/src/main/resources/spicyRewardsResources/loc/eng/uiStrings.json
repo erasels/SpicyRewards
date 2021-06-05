@@ -181,7 +181,7 @@
   "${ModID}:DistributedBlockChallenge": {
     "TEXT_DICT": {
       "desc": "At the end of the monsters' turn, your leftover Block gets transferred to a random enemy.",
-      "name": "Blockchain"
+      "name": "Team Fortress"
     }
   }
 }
