@@ -25,7 +25,7 @@ import java.util.Arrays;
 
 public class MasochismChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Masochism");
-    private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("MasochismChallenge"));
+    private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int AMT = 7;
 
     protected static ArrayList<String> exclusions = new ArrayList<>();

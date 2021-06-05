@@ -27,7 +27,7 @@ import java.util.Arrays;
 
 public class DistributedBlockChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("DistributedBlock");
-    private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("DistributedBlockChallenge"));
+    private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
     protected static ArrayList<String> exclusions = new ArrayList<>();
 
