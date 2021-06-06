@@ -229,6 +229,10 @@ EditCardsSubscriber{
         return getModID() + "Resources/images/power/" + resourcePath;
     }
 
+    public static String makeRelicPath(String resourcePath) {
+        return getModID() + "Resources/images/relics/" + resourcePath;
+    }
+
     public static String getModID() {
         return "spicyRewards";
     }
