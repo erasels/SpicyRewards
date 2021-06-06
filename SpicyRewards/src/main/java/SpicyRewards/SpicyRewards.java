@@ -163,6 +163,11 @@ EditRelicsSubscriber{
                 customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_TRANSFORMREWARD, customReward)
         );
 
+        BaseMod.registerCustomReward(NewRewardtypePatches.SR_DUPEREWARD,
+                RewardSaveLoader::onLoadDupe,
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_DUPEREWARD, customReward)
+        );
+
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_SINGLECARDREWARD,
                 rewardSave -> new SingleCardReward(rewardSave.id),
                 customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_SINGLECARDREWARD, customReward)

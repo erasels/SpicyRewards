@@ -30,6 +30,10 @@ public class RewardSaveLoader implements BaseMod.LoadCustomReward {
         return new TransformReward(getType(rewardSave.id), getRarity(rewardSave.id));
     }
 
+    public static CustomReward onLoadDupe(RewardSave rewardSave) {
+        return new DuplicationReward(getType(rewardSave.id), getRarity(rewardSave.id));
+    }
+
     public static CustomReward onLoadCardChoice(RewardSave rewardSave) {
         String[] s = rewardSave.id.split("\\|");
         ArrayList<AbstractCard> cards = new ArrayList<>();
@@ -65,6 +69,7 @@ public class RewardSaveLoader implements BaseMod.LoadCustomReward {
 
             s = cardSave.toString();
         } else {
+            //SelectCardsRewards
             if (((AbstractSelectCardReward) reward).type != null) {
                 s = ((AbstractSelectCardReward) reward).type.toString();
             } else {
