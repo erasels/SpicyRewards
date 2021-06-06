@@ -6,5 +6,9 @@
   "${ModID}:Angry": {
     "NAME": "Angry",
     "DESCRIPTION": "Whenever you play a Skill, gain !M! Vigor."
+  },
+  "${ModID}:Breakthrough": {
+    "NAME": "Breakthrough",
+    "DESCRIPTION": "Deal !D! damage. NL If this breaks the target's Block, deal !D! damage again."
   }
 }
