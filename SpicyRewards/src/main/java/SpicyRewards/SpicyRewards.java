@@ -3,6 +3,7 @@ package SpicyRewards;
 import SpicyRewards.cards.AbstractSpicyCard;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.reward.NewRewardtypePatches;
+import SpicyRewards.relics.AbstractSpicyRelic;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
@@ -12,6 +13,7 @@ import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
+import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
@@ -38,7 +40,8 @@ public class SpicyRewards implements
         PreStartGameSubscriber,
         EditStringsSubscriber,
         PostRenderSubscriber,
-EditCardsSubscriber{
+EditCardsSubscriber,
+EditRelicsSubscriber{
     public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
     private static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
@@ -247,5 +250,14 @@ EditCardsSubscriber{
                 .packageFilter(AbstractSpicyCard.class)
                 .setDefaultSeen(true)
                 .cards();
+    }
+
+    @Override
+    public void receiveEditRelics() {
+        new AutoAdd(SpicyRewards.getModID())
+                .packageFilter(AbstractSpicyRelic.class)
+                .any(AbstractSpicyRelic.class, (info, r) -> {
+                    BaseMod.addRelic(r, RelicType.SHARED);
+                });
     }
 }
