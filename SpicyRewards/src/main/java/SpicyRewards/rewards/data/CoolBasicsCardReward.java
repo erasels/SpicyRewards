@@ -1,6 +1,7 @@
 package SpicyRewards.rewards.data;
 
 import SpicyRewards.SpicyRewards;
+import SpicyRewards.patches.reward.AnyCardColorPatch;
 import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
 import basemod.helpers.BaseModCardTags;
 import com.badlogic.gdx.graphics.Color;
@@ -11,7 +12,7 @@ public class CoolBasicsCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("coolBasicsCR");
 
     public CoolBasicsCardReward() {
-        super(Color.ORANGE, 1, AbstractCard.CardRarity.BASIC, false, CoolBasicsCardReward::isSoD);
+        super(Color.ORANGE, AnyCardColorPatch.ANY, 1, AbstractCard.CardRarity.BASIC, false, CoolBasicsCardReward::isSoD);
     }
 
     @Override
