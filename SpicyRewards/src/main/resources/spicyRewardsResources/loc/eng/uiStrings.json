@@ -92,6 +92,16 @@
       "NoType": "card"
     }
   },
+  "${ModID}:DuplicationReward": {
+    "TEXT": [
+      "Select a card to duplicate"
+    ],
+    "TEXT_DICT": {
+      "FullText": "Duplicate a card",
+      "ModText": "Duplicate a %s %s",
+      "NoType": "card"
+    }
+  },
   "${ModID}:RushChallenge": {
     "TEXT": [
       "Select a card to transform"
@@ -195,6 +205,12 @@
     "TEXT_DICT": {
       "desc": "Perfectly break an enemy's Block.",
       "name": "Breakthrough"
+    }
+  },
+  "${ModID}:CursedDrawChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you draw a Curse or Status, add a copy of it into your discard pile.",
+      "name": "Cursed"
     }
   }
 }
