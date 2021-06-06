@@ -24,6 +24,7 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.CardStrings;
 import com.megacrit.cardcrawl.localization.PowerStrings;
+import com.megacrit.cardcrawl.localization.RelicStrings;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardSave;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
@@ -187,6 +188,7 @@ EditRelicsSubscriber{
         BaseMod.loadCustomStringsFile(UIStrings.class, getModID() + "Resources/loc/" + locPath() + "/uiStrings.json");
         BaseMod.loadCustomStringsFile(PowerStrings.class, getModID() + "Resources/loc/" + locPath() + "/powerStrings.json");
         BaseMod.loadCustomStringsFile(CardStrings.class, getModID() + "Resources/loc/" + locPath() + "/cardStrings.json");
+        BaseMod.loadCustomStringsFile(RelicStrings.class, getModID() + "Resources/loc/" + locPath() + "/relicStrings.json");
     }
 
     private String locPath() {

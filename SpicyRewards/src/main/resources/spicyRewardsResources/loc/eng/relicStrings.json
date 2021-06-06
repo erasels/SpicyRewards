@@ -1,0 +1,9 @@
+{
+  "${ModID}:GoldenRod": {
+    "NAME": "Golden Rod",
+    "FLAVOR": "This menacing item allows you to manifest the power of your misfortune in creative ways.",
+    "DESCRIPTIONS": [
+      "Whenever you draw a #yCurse, ALL enemies lose %d HP."
+    ]
+  }
+}
