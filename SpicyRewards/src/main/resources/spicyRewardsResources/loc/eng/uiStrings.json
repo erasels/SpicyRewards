@@ -38,7 +38,8 @@
       "redStrCR": "Ironclad Strength card reward",
       "upgradedSkillCR": "Upgraded Skill card reward",
       "defectBlockCR": "Defect Block card reward",
-      "upgradedBlockCR": "Upgraded Block card reward"
+      "upgradedBlockCR": "Upgraded Block card reward",
+      "blockBreakCC": "Block interaction card choice"
     }
   },
   "${ModID}:ChallengeButton": {
@@ -188,6 +189,12 @@
     "TEXT_DICT": {
       "desc": "Whenever you play a card, ALL enemies gain %d Block.",
       "name": "Afterimages"
+    }
+  },
+  "${ModID}:PerfectBreakChallenge": {
+    "TEXT_DICT": {
+      "desc": "Perfectly break an enemy's Block.",
+      "name": "Breakthrough"
     }
   }
 }
