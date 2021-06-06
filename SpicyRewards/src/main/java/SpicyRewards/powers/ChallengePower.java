@@ -2,6 +2,7 @@ package SpicyRewards.powers;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.powers.interfaces.OnDecrementBlockPower;
 import SpicyRewards.powers.interfaces.OnMonsterDeathPower;
 import SpicyRewards.powers.interfaces.OnUsePotionPower;
 import SpicyRewards.util.UC;
@@ -16,7 +17,7 @@ import com.megacrit.cardcrawl.powers.AbstractPower;
 
 import static com.evacipated.cardcrawl.mod.stslib.patches.NeutralPowertypePatch.NEUTRAL;
 
-public class ChallengePower extends AbstractPower implements InvisiblePower, OnMonsterDeathPower, OnUsePotionPower {
+public class ChallengePower extends AbstractPower implements InvisiblePower, OnMonsterDeathPower, OnUsePotionPower, OnDecrementBlockPower {
     public static final String POWER_ID = SpicyRewards.makeID("ChallengePower");
 
     public ChallengePower(AbstractCreature owner) {
@@ -95,5 +96,10 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     @Override
     public void onMonsterDeath(AbstractMonster m, boolean triggerRelics) {
         ChallengeSystem.onMonsterDeath(m, triggerRelics);
+    }
+
+    @Override
+    public void onDecrementBlock(AbstractCreature target, DamageInfo info, int damageAmount) {
+        ChallengeSystem.onDecrementBlock(target, info, damageAmount);
     }
 }

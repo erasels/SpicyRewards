@@ -87,6 +87,10 @@ public class ChallengeSystem {
         challenges.forEach(c -> c.onAttack(info, damageAmount, target));
     }
 
+    public static void onDecrementBlock(AbstractCreature target, DamageInfo info, int damageAmount) {
+        challenges.forEach(c -> c.onDecrementBlock(target, info, damageAmount));
+    }
+
     public static void claimRewards(ArrayList<RewardItem> rewards) {
         challenges.stream().filter(AbstractChallenge::isDone).forEachOrdered(c -> rewards.add(c.reward));
     }

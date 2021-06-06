@@ -1,4 +1,4 @@
-package SpicyRewards.patches.potionHooks;
+package SpicyRewards.patches.hooks;
 
 import SpicyRewards.powers.interfaces.OnUsePotionPower;
 import SpicyRewards.util.UC;
