@@ -15,7 +15,7 @@ import java.util.Arrays;
 
 public class RushChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Rush");
-    private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("RushChallenge"));
+    private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int TURN = 4;
 
     protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(DoomCalendarChallenge.ID));
