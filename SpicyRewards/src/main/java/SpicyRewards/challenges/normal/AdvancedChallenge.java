@@ -67,12 +67,12 @@ public class AdvancedChallenge extends AbstractChallenge {
             complete();
     }
 
-    //Has at least 3 Strike/Defends in deck and at Floor 7 to get some cards
+    //Has at least 4 Strike/Defends in deck and at Floor 7 to get some cards
     @Override
     public boolean canSpawn() {
         return UC.p().masterDeck.group.stream()
                 .filter(AdvancedChallenge::isSoD)
-                .count() > 2 && AbstractDungeon.floorNum > 7;
+                .count() >= 4 && AbstractDungeon.floorNum > 7;
     }
 
     @Override
