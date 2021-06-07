@@ -14,6 +14,7 @@ import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
+import basemod.abstracts.CustomSavable;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Color;
@@ -39,7 +40,7 @@ import java.util.Properties;
 public class SpicyRewards implements
         PostInitializeSubscriber,
         PostBattleSubscriber,
-        PreStartGameSubscriber,
+        StartGameSubscriber,
         EditStringsSubscriber,
         PostRenderSubscriber,
 EditCardsSubscriber,
@@ -183,6 +184,18 @@ EditRelicsSubscriber{
 
         ChallengeSystem.populateTieredMaps();
 
+        BaseMod.addSaveField("SR_SPAWNCHANCE", new CustomSavable<Float>() {
+            @Override
+            public Float onSave() {
+                return ChallengeSystem.getSpawnChance();
+            }
+
+            @Override
+            public void onLoad(Float i) {
+                ChallengeSystem.setSpawnChance(i);
+            }
+        });
+
         if(challengeBtn == null) {
             challengeBtn = new ChallengeButton();
         }
@@ -205,12 +218,20 @@ EditRelicsSubscriber{
     }
 
     @Override
-    public void receivePostBattle(AbstractRoom abstractRoom) {
-
+    public void receivePostBattle(AbstractRoom room) {
+        //Happens before rewards are claimed and challenges are cleared
+        //When challenges are empty AKA when no challenges were spawned, increase the spawn chance for the next room. Spawn chance is reset once encounter.
+        if(ChallengeSystem.challenges.isEmpty()) {
+            ChallengeSystem.incrementSpawnChance();
+            logger.info(String.format("No challenges were spawned, incremented spawn chance to %f.", ChallengeSystem.getSpawnChance()));
+        }
     }
 
     @Override
-    public void receivePreStartGame() {
+    public void receiveStartGame() {
+        //At the start of the run, set the spawnchance to the minimum
+        if (!CardCrawlGame.loadingSave)
+            ChallengeSystem.resetSpawnChance();
     }
 
     protected void addPotions() {

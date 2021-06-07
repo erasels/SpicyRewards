@@ -27,8 +27,15 @@ public class ChallengeSystemPatches {
                 // Don't spawn challenges if Neow's Lament is active
                 AbstractRelic nl = UC.p().getRelic(NeowsLament.ID);
                 if (nl == null || nl.usedUp)
-                    if (ChallengeSystem.challengeRng.randomBoolean(ChallengeSystem.CHALLENGE_SPAWN_CHANCE) || SpicyRewards.shouldAC()) {
+                    if (ChallengeSystem.challengeRng.randomBoolean(ChallengeSystem.getSpawnChance()) || SpicyRewards.shouldAC()) {
+                        //Reset spawn chance once encountered
+                        SpicyRewards.logger.info(String.format("Challenges spawned, resetting challenge spawn chance from %f.", ChallengeSystem.getSpawnChance()));
+                        ChallengeSystem.resetSpawnChance();
+
+                        //Open challenge screen
                         AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(true));
+
+                        //Populate challenges before action is executed
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.NORMAL, ChallengeSystem.CHALLENGE_AMT);
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.OPTIN, ChallengeSystem.OPTIN_AMT);
 

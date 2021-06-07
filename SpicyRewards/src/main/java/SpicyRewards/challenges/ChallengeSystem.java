@@ -21,7 +21,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ChallengeSystem {
-    public static final float CHALLENGE_SPAWN_CHANCE = 0.33f;
+    private static final float BASE_CHANCE = 0.05F;
+    // every fight
+    private static final float INC_CHANCE = 0.2F;
+    private static float spawnChance = BASE_CHANCE;
+
     public static final int CHALLENGE_AMT = 2, OPTIN_AMT = 3;
     public static HashMap<String, AbstractChallenge> allChallenges = new HashMap<>();
     public static HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredChallenges = new HashMap<>();
@@ -177,5 +181,21 @@ public class ChallengeSystem {
                     }
                     allChallenges.put(c.id, c);
                 });
+    }
+
+    public static float getSpawnChance() {
+        return spawnChance;
+    }
+
+    public static void resetSpawnChance() {
+        spawnChance = BASE_CHANCE;
+    }
+
+    public static void incrementSpawnChance() {
+        spawnChance += INC_CHANCE;
+    }
+
+    public static void setSpawnChance(float newChance) {
+        spawnChance = newChance;
     }
 }
