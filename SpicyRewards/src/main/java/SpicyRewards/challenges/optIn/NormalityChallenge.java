@@ -17,7 +17,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 public class NormalityChallenge extends AbstractChallenge {
-    public static final String ID = SpicyRewards.makeID("Masochism");
+    public static final String ID = SpicyRewards.makeID("Normality");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int AMT = 3;
 
