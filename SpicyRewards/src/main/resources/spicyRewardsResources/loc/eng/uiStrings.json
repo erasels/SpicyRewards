@@ -212,5 +212,11 @@
       "desc": "Whenever you draw a Curse or Status, add a copy of it into your discard pile.",
       "name": "Cursed"
     }
+  },
+  "${ModID}:PacifistChallenge": {
+    "TEXT_DICT": {
+      "desc": "Do not attack enemies that don't intend to attack.",
+      "name": "Pacifist"
+    }
   }
 }
