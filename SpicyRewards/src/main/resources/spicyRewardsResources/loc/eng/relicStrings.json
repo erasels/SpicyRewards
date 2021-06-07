@@ -5,5 +5,12 @@
     "DESCRIPTIONS": [
       "Whenever you draw a #yCurse, ALL enemies lose %d HP."
     ]
+  },
+  "${ModID}:Pearl": {
+    "NAME": "Pearl",
+    "FLAVOR": "A beautiful rounded gem, not a single scratch is to be seen on its surface.",
+    "DESCRIPTIONS": [
+      "Whenever you play %d or less cards during your turn, gain %d #yBlock at the end of your turn."
+    ]
   }
 }
