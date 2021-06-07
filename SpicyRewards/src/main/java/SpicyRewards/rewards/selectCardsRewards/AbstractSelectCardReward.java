@@ -110,6 +110,8 @@ public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
             cards.group.removeIf(c -> c.rarity != rarity);
         }
 
+        cards = modifyList(cards);
+
         if (!cards.isEmpty()) {
             //Select screen has been opened
             capture = true;
@@ -121,6 +123,9 @@ public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
         return false;
     }
 
+    protected CardGroup modifyList(CardGroup group) {
+        return group;
+    }
     protected abstract void openScreen(CardGroup cards);
     protected abstract void modifySelectedCard(AbstractCard c);
 }

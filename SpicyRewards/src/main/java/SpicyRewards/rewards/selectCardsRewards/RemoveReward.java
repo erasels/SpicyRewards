@@ -30,6 +30,7 @@ public class RemoveReward extends AbstractSelectCardReward {
 
     @Override
     protected void openScreen(CardGroup cards) {
+        cards = cards.getPurgeableCards();
         AbstractDungeon.gridSelectScreen.open(cards, 1, uiTEXT.TEXT[0], false, false, true, true);
     }
 
