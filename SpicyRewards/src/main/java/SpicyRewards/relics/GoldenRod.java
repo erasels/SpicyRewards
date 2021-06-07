@@ -10,8 +10,8 @@ public class GoldenRod extends AbstractSpicyRelic{
     public static final String ID = SpicyRewards.makeID("GoldenRod");
     public static final int DMG = 8;
 
-    public GoldenRod(String id, RelicTier tier, LandingSound sfx) {
-        super(id, tier, sfx);
+    public GoldenRod() {
+        super(ID, RelicTier.SPECIAL, LandingSound.CLINK);
     }
 
     @Override
