@@ -90,7 +90,7 @@ public abstract class AbstractChallenge {
         removeCustomGlowInfo();
     }
 
-    //Returns true if already spawned challenges excude this one or this challenge is already in the list
+    //Returns true if already spawned challenges exclude this one or this challenge is already in the list
     public boolean isExcluded() {
         return ChallengeSystem.challenges.stream().map(c -> c.id).anyMatch(s -> getExclusions().contains(s) || s.equals(id));
     }

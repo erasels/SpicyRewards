@@ -39,7 +39,8 @@
       "upgradedSkillCR": "Upgraded Skill card reward",
       "defectBlockCR": "Defect Block card reward",
       "upgradedBlockCR": "Upgraded Block card reward",
-      "blockBreakCC": "Block interaction card choice"
+      "blockBreakCC": "Block interaction card choice",
+      "highCostCR": "2+ cost card reward"
     }
   },
   "${ModID}:ChallengeButton": {
@@ -198,7 +199,7 @@
   "${ModID}:AfterImageChallenge": {
     "TEXT_DICT": {
       "desc": "Whenever you play a card, ALL enemies gain %d Block.",
-      "name": "Afterimages"
+      "name": "Seeing Double"
     }
   },
   "${ModID}:PerfectBreakChallenge": {
@@ -210,13 +211,19 @@
   "${ModID}:CursedDrawChallenge": {
     "TEXT_DICT": {
       "desc": "Whenever you draw a Curse or Status, add a copy of it into your discard pile.",
-      "name": "Cursed"
+      "name": "Cursed Draw"
     }
   },
   "${ModID}:PacifistChallenge": {
     "TEXT_DICT": {
       "desc": "Do not attack enemies that don't intend to attack.",
       "name": "Pacifist"
+    }
+  },
+  "${ModID}:NormalityChallenge": {
+    "TEXT_DICT": {
+      "desc": "You cannot play more than %d cards per turn.",
+      "name": "Strikeout"
     }
   }
 }
