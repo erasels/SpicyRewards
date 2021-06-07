@@ -93,7 +93,7 @@ public class ChallengeSystem {
 
     public static boolean canPlayCard(AbstractCard c) {
         for(AbstractChallenge ch : challenges) {
-            if(ch.canPlayCard(c)) {
+            if(!ch.canPlayCard(c)) {
                 return false;
             }
         }
