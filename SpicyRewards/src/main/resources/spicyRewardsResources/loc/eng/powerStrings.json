@@ -1,10 +1,4 @@
 {
-  "${ModID}:MasochisticNature": {
-    "NAME": "Masochism",
-    "DESCRIPTIONS": [
-      "Whenever this creature applies a debuff, it takes %d damage."
-    ]
-  },
   "${ModID}:AngryCard": {
     "NAME": "Angry",
     "DESCRIPTIONS": [
