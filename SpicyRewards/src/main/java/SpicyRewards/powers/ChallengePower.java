@@ -102,4 +102,9 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     public void onDecrementBlock(AbstractCreature target, DamageInfo info, int damageAmount) {
         ChallengeSystem.onDecrementBlock(target, info, damageAmount);
     }
+
+    @Override
+    public boolean canPlayCard(AbstractCard c) {
+        return ChallengeSystem.canPlayCard(c);
+    }
 }

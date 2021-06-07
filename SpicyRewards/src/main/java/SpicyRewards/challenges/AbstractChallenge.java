@@ -170,7 +170,13 @@ public abstract class AbstractChallenge {
 
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
     }
-    public void onDecrementBlock(AbstractCreature target, DamageInfo info, int damageAmount) {}
+
+    public void onDecrementBlock(AbstractCreature target, DamageInfo info, int damageAmount) {
+    }
+
+    public boolean canPlayCard(AbstractCard c) {
+        return true;
+    }
 
     protected RewardItem getRandomGeneralReward() {
         int i = ChallengeSystem.challengeRng.random(3);

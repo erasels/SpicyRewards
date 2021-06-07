@@ -91,6 +91,15 @@ public class ChallengeSystem {
         challenges.forEach(c -> c.onDecrementBlock(target, info, damageAmount));
     }
 
+    public static boolean canPlayCard(AbstractCard c) {
+        for(AbstractChallenge ch : challenges) {
+            if(ch.canPlayCard(c)) {
+                return false;
+            }
+        }
+        return true;
+    }
+
     public static void claimRewards(ArrayList<RewardItem> rewards) {
         challenges.stream().filter(AbstractChallenge::isDone).forEachOrdered(c -> rewards.add(c.reward));
     }
