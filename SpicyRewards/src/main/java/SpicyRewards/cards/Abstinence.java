@@ -42,7 +42,8 @@ public class Abstinence extends AbstractSpicyCard{
                         i++;
                     }
                 }
-                UC.doPow(UC.p(), new StrengthPower(UC.p(), i * Abstinence.this.magicNumber), true);
+                if(i > 0)
+                    UC.doPow(UC.p(), new StrengthPower(UC.p(), i * Abstinence.this.magicNumber), true);
                 isDone = true;
             }
         });
