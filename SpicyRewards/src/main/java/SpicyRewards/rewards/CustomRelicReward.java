@@ -27,12 +27,12 @@ public class CustomRelicReward extends RewardItem {
 
     public CustomRelicReward(AbstractRelic relic, ArrayList<AbstractRelic> backups) {
         this(UC.p().hasRelic(relic.relicId)?
-                backups.stream().filter(r -> UC.p().hasRelic(r.relicId)).findAny().orElse(new Circlet()):
+                backups.stream().filter(r -> !UC.p().hasRelic(r.relicId)).findFirst().orElse(new Circlet()):
                 relic);
     }
 
     public CustomRelicReward(String... args) {
-        this(Arrays.stream(args).sequential().filter(s -> UC.p().hasRelic(s)).findFirst().orElse(Circlet.ID));
+        this(Arrays.stream(args).sequential().filter(s -> !UC.p().hasRelic(s)).findFirst().orElse(Circlet.ID));
     }
 
     private static boolean removeRelicFromPool(String s, boolean allPools) {
