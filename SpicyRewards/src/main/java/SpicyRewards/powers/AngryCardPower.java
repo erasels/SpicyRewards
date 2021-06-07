@@ -26,7 +26,7 @@ public class AngryCardPower extends AbstractSpicyPower implements CloneablePower
         this.amount = amount;
         type = PowerType.BUFF;
         updateDescription();
-        loadRegion("Anger");
+        loadRegion("anger");
     }
 
     public AngryCardPower(int amount) {
