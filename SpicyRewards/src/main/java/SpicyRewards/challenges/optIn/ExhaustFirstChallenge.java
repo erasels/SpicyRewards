@@ -6,6 +6,7 @@ import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.potions.AntiExhaustPotion;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.ExhuastCardReward;
+import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
@@ -42,8 +43,10 @@ public class ExhaustFirstChallenge extends AbstractChallenge {
                 reward = new ExhuastCardReward();
                 break;
             case 1:
-                reward = new CustomRelicReward(new StrangeSpoon());
-                break;
+                if(!UC.p().hasRelic(StrangeSpoon.ID)) {
+                    reward = new CustomRelicReward(new StrangeSpoon());
+                    break;
+                }
             case 2:
                 reward = new RewardItem(new AntiExhaustPotion());
         }
