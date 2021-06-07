@@ -3,6 +3,7 @@ package SpicyRewards;
 import SpicyRewards.cards.AbstractSpicyCard;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.reward.NewRewardtypePatches;
+import SpicyRewards.potions.AntiExhaustPotion;
 import SpicyRewards.relics.AbstractSpicyRelic;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
@@ -15,17 +16,17 @@ import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.evacipated.cardcrawl.mod.widepotions.WidePotionsMod;
+import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
-import com.megacrit.cardcrawl.localization.CardStrings;
-import com.megacrit.cardcrawl.localization.PowerStrings;
-import com.megacrit.cardcrawl.localization.RelicStrings;
-import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.localization.*;
 import com.megacrit.cardcrawl.rewards.RewardSave;
 import com.megacrit.cardcrawl.rooms.AbstractRoom;
 import org.apache.logging.log4j.LogManager;
@@ -137,6 +138,8 @@ EditRelicsSubscriber{
                 });
         settingsPanel.addUIElement(PTBtn);
 
+        addPotions();
+
         //Rewards
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_HEALREWARD,
                 rewardSave -> new HealReward(rewardSave.amount),
@@ -194,6 +197,7 @@ EditRelicsSubscriber{
         BaseMod.loadCustomStringsFile(PowerStrings.class, getModID() + "Resources/loc/" + locPath() + "/powerStrings.json");
         BaseMod.loadCustomStringsFile(CardStrings.class, getModID() + "Resources/loc/" + locPath() + "/cardStrings.json");
         BaseMod.loadCustomStringsFile(RelicStrings.class, getModID() + "Resources/loc/" + locPath() + "/relicStrings.json");
+        BaseMod.loadCustomStringsFile(PotionStrings.class, getModID() + "Resources/loc/" + locPath() + "/potionStrings.json");
     }
 
     private String locPath() {
@@ -207,7 +211,14 @@ EditRelicsSubscriber{
 
     @Override
     public void receivePreStartGame() {
+    }
 
+    protected void addPotions() {
+        BaseMod.addPotion(AntiExhaustPotion.class, Color.BLACK, Color.PURPLE, null, AntiExhaustPotion.POTION_ID);
+
+        if (Loader.isModLoaded("widepotions")) {
+            WidePotionsMod.whitelistSimplePotion(AntiExhaustPotion.POTION_ID);
+        }
     }
 
     //Due to reward scrolling's orthographic camera and render order of rewards, the card needs to be rendered outside of the render method

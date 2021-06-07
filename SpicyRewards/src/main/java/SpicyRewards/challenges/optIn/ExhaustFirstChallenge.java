@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.potions.AntiExhaustPotion;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.ExhuastCardReward;
 import basemod.helpers.CardBorderGlowManager;
@@ -12,6 +13,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.StrangeSpoon;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 
@@ -43,7 +45,7 @@ public class ExhaustFirstChallenge extends AbstractChallenge {
                 reward = new CustomRelicReward(new StrangeSpoon());
                 break;
             case 2:
-                reward = getRandomGeneralReward();
+                reward = new RewardItem(new AntiExhaustPotion());
         }
     }
 

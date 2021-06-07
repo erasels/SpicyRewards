@@ -10,5 +10,11 @@
     "DESCRIPTIONS": [
       "Whenever you play a #ySkill, gain %d #yVigor."
     ]
+  },
+  "${ModID}:AntiExhaust": {
+    "NAME": "Anti-Exhaust",
+    "DESCRIPTIONS": [
+      "The next %d card(s) that would #yexhaust, are discarded instead."
+    ]
   }
 }
