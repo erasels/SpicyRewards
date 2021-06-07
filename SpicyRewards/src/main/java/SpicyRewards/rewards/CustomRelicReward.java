@@ -15,14 +15,14 @@ public class CustomRelicReward extends RewardItem {
     public CustomRelicReward(AbstractRelic relic) {
         super(relic);
         if(!removeRelicFromPool(relic, false) && relic.tier != AbstractRelic.RelicTier.SPECIAL)
-            SpicyRewards.logger.info(String.format("Tried to remove %s from the %s-pool but it wasn't found. Potential duplicate?", relic.name, relic.tier.name()));
+            SpicyRewards.logger.warn(String.format("Tried to remove %s from the %s-pool but it wasn't found. Potential duplicate?", relic.name, relic.tier.name()));
     }
 
     public CustomRelicReward(String relicid) {
         super(RelicLibrary.getRelic(relicid).makeCopy());
         //relic is set in the super with relic input param
         if(!removeRelicFromPool(relic, false) && relic.tier != AbstractRelic.RelicTier.SPECIAL)
-            SpicyRewards.logger.info(String.format("Tried to remove %s from the %s-pool but it wasn't found. Potential duplicate?", relic.name, relic.tier.name()));
+            SpicyRewards.logger.warn(String.format("Tried to remove %s from the %s-pool but it wasn't found. Potential duplicate?", relic.name, relic.tier.name()));
     }
 
     public CustomRelicReward(AbstractRelic relic, ArrayList<AbstractRelic> backups) {
