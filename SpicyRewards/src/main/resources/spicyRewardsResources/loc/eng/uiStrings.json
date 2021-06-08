@@ -175,7 +175,7 @@
   },
   "${ModID}:DifferentTypesChallenge": {
     "TEXT_DICT": {
-      "desc": "Do not play the same card type in a row.",
+      "desc": "Do not play the same card type in a row per turn.",
       "name": "Dance Baby Dance"
     }
   },
