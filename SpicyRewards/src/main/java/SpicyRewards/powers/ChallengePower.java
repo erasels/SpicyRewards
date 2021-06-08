@@ -7,13 +7,20 @@ import SpicyRewards.powers.interfaces.OnMonsterDeathPower;
 import SpicyRewards.powers.interfaces.OnUsePotionPower;
 import SpicyRewards.util.UC;
 import com.evacipated.cardcrawl.mod.stslib.powers.interfaces.InvisiblePower;
+import com.evacipated.cardcrawl.modthespire.lib.*;
+import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
+import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
+import javassist.CannotCompileException;
+import javassist.CtBehavior;
 
 import static com.evacipated.cardcrawl.mod.stslib.patches.NeutralPowertypePatch.NEUTRAL;
 
@@ -106,5 +113,27 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     @Override
     public boolean canPlayCard(AbstractCard c) {
         return ChallengeSystem.canPlayCard(c);
+    }
+
+    @SpirePatch2(clz = GameActionManager.class, method = "getNextAction")
+    private static class FixAtEndOfRoundWithMonsterSkip {
+        @SpireInsertPatch(locator = PostMonsterApplyEndTurnPowersLocator.class)
+        public static void patch() {
+            //If skipMonsterTurnHappens, atEndOfRound isn't called for powers which it needs to for my case.
+            if(AbstractDungeon.getCurrRoom().skipMonsterTurn) {
+                for(AbstractPower p : UC.p().powers) {
+                    if(p == ChallengeSystem.power) {
+                        p.atEndOfRound();
+                    }
+                }
+            }
+        }
+
+        private static class PostMonsterApplyEndTurnPowersLocator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
+                Matcher finalMatcher = new Matcher.FieldAccessMatcher(AbstractPlayer.class, "cardsPlayedThisTurn");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
     }
 }
