@@ -39,7 +39,7 @@ public class SingleCardReward extends CustomReward {
 
     protected void init() {
         renderCard = card.makeStatEquivalentCopy();
-        text = prefixText + card.name;
+        text = card.name;
     }
 
     @Override
