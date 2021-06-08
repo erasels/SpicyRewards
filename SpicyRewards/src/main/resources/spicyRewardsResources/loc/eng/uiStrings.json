@@ -120,7 +120,7 @@
   },
   "${ModID}:MasochismChallenge": {
     "TEXT_DICT": {
-      "desc": "Whenever you apply a debuff, take %d damage.",
+      "desc": "Whenever you apply a debuff to an enemy, take %d damage.",
       "name": "Masochistic Nature"
     }
   },

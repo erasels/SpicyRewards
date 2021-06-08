@@ -15,7 +15,6 @@ import com.megacrit.cardcrawl.cards.colorless.SadisticNature;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.relics.*;
@@ -58,13 +57,13 @@ public class MasochismChallenge extends AbstractChallenge {
                     potentialRelics.add(OddMushroom.ID);
                 }
                 potentialRelics.removeIf(r -> UC.p().hasRelic(r));
-                reward = new CustomRelicReward(RelicLibrary.getRelic(UC.getRandomItem(potentialRelics, AbstractDungeon.relicRng)).makeCopy());
+                reward = new CustomRelicReward((String[]) potentialRelics.toArray());
         }
     }
 
     @Override
     public void onApplyPower(AbstractPower p, AbstractCreature target, AbstractCreature source) {
-        if (source == UC.p() && p.type == AbstractPower.PowerType.DEBUFF) {
+        if (source == UC.p() && target != source && p.type == AbstractPower.PowerType.DEBUFF) {
             UC.atb(new DamageAction(UC.p(), new DamageInfo(UC.p(), AMT, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.BLUNT_LIGHT, true, true));
         }
     }
