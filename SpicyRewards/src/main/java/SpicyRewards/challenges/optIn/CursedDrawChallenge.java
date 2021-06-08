@@ -98,7 +98,7 @@ public class CursedDrawChallenge extends AbstractChallenge {
 
     @Override
     public boolean canSpawn() {
-        hasCurse = UC.p().masterDeck.group.stream().anyMatch(c -> c.type == AbstractCard.CardType.CURSE);
+        hasCurse = UC.p().masterDeck.group.stream().filter(c -> c.type == AbstractCard.CardType.CURSE).count() > 1;
         return  hasCurse ||
                 UC.getAliveMonsters().stream().anyMatch(m -> statusMonsters.contains(m.id)) ||
                 UC.p().hasRelic(MarkOfPain.ID);
