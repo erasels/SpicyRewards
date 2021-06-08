@@ -46,7 +46,7 @@ public class ChallengeButton extends TopPanelItem {
 
         if (this.getHitbox().hovered) {
             String body;
-            if(!notClickable) {
+            if(!ChallengeSystem.challenges.isEmpty()) {
                 body = uiStrings.TEXT_DICT.get("pre-challenge");
                 StringBuilder s = new StringBuilder(body);
                 boolean separator = false;
