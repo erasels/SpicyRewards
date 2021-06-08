@@ -8,11 +8,13 @@ import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.FatalChoiceReward;
 import SpicyRewards.rewards.data.UpgradedCardReward;
+import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.green.CorpseExplosion;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.GremlinHorn;
@@ -43,10 +45,13 @@ public class CorpseExplosionChallenge extends AbstractChallenge {
                 reward = new SingleCardReward(new CorpseExplosion());
                 break;
             case 1:
-                reward = new FatalChoiceReward();
+                if(AbstractDungeon.actNum > 2) {
+                    reward = new FatalChoiceReward();
+                } else {
+                    reward = new UpgradeReward();
+                }
                 break;
             case 2:
-                //Upgraded perfected strike
                 reward = new UpgradedCardReward();
                 break;
             case 3:
