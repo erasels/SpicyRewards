@@ -25,6 +25,9 @@ public class CustomRelicReward extends RewardItem {
 
     public CustomRelicReward(String... args) {
         this(Arrays.stream(args).sequential().filter(s -> !UC.p().hasRelic(s)).findFirst().orElse(AbstractDungeon.returnRandomRelicKey(AbstractDungeon.returnRandomRelicTier())));
+
+        if(Arrays.stream(args).anyMatch(id -> id.equals(relic.relicId)))
+            SpicyRewards.logger.info("All custom reward relics are already obtained, returned a random relic.");
     }
 
     private static boolean removeRelicFromPool(String s, boolean allPools) {
