@@ -3,14 +3,15 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.AnyPowerCardReward;
-import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.red.DoubleTap;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
@@ -19,6 +20,8 @@ import java.util.ArrayList;
 public class PowerlessChallenge  extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Powerless");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
+
+    private static final int MIN_POWERS = 3;
 
     protected static ArrayList<String> exclusions = new ArrayList<>();
 
@@ -39,11 +42,7 @@ public class PowerlessChallenge  extends AbstractChallenge {
                 reward = new AnyPowerCardReward();
                 break;
             case 1:
-                if(UC.p().masterDeck.getPowers().isEmpty()) {
-                    reward = new TransformReward(null, AbstractCard.CardRarity.COMMON);
-                } else {
-                    reward = new TransformReward(AbstractCard.CardType.POWER, null);
-                }
+                reward = new SingleCardReward(new DoubleTap());
                 break;
             case 2:
                 reward = new UpgradeReward(null, AbstractCard.CardRarity.UNCOMMON);
@@ -66,7 +65,7 @@ public class PowerlessChallenge  extends AbstractChallenge {
 
     @Override
     public boolean canSpawn() {
-        return !UC.p().masterDeck.getPowers().isEmpty();
+        return UC.p().masterDeck.getPowers().size() >= MIN_POWERS;
     }
 
     @Override
