@@ -47,7 +47,7 @@ public class AdvancedChallenge extends AbstractChallenge {
             case 2:
                 //Upgraded perfected strike
                 reward = new SingleCardReward(PerfectedStrike.ID + "|1|0");
-                
+
         }
     }
 
