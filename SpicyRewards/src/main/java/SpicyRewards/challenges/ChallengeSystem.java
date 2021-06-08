@@ -3,6 +3,7 @@ package SpicyRewards.challenges;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
+import SpicyRewards.util.WeightedList;
 import basemod.AutoAdd;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -22,17 +23,18 @@ import java.util.stream.Collectors;
 
 public class ChallengeSystem {
     private static final float BASE_CHANCE = 0.05F;
-    // every fight
     private static final float INC_CHANCE = 0.2F;
     private static float spawnChance = BASE_CHANCE;
+    private static final int MAX_CHALLENGE_SPAWN_AMOUNT = 3;
 
     public static final int CHALLENGE_AMT = 2, OPTIN_AMT = 3;
     public static HashMap<String, AbstractChallenge> allChallenges = new HashMap<>();
-    public static HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredChallenges = new HashMap<>();
-    public static HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredOptins = new HashMap<>();
-
     public static ArrayList<AbstractChallenge> challenges = new ArrayList<>();
     public static ChallengePower power;
+
+    private static final HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredChallenges = new HashMap<>();
+    private static final HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredOptins = new HashMap<>();
+    private static final HashMap<String, Integer> challengeSpawns = new HashMap<>();
 
     public static Random challengeRng = new Random();
 
@@ -125,9 +127,9 @@ public class ChallengeSystem {
         for (int i = 0; i < amount; i++) {
             AbstractChallenge.Tier t;
             float roll = ChallengeSystem.challengeRng.random(1f);
-            if (roll > 0.75f) {
+            if (roll > 0.66f) {
                 t = AbstractChallenge.Tier.HARD;
-            } else if (roll > 0.35f) {
+            } else if (roll > 0.33f) {
                 t = AbstractChallenge.Tier.NORMAL;
             } else {
                 t = AbstractChallenge.Tier.EASY;
@@ -143,7 +145,7 @@ public class ChallengeSystem {
         ArrayList<AbstractChallenge> c = new ArrayList<>(map.get(t));
         c.removeIf(x -> x.isExcluded() || !x.canSpawn());
         if (!c.isEmpty()) {
-            return initChallenge(UC.getRandomItem(c, ChallengeSystem.challengeRng));
+            return initChallenge(getWeightedRandomChallengeFromList(c));
         } else {
             List<AbstractChallenge.Tier> ts = Arrays.stream(AbstractChallenge.Tier.values())
                     .filter(ti -> ti != t)
@@ -154,8 +156,33 @@ public class ChallengeSystem {
                     .filter(x -> !x.isExcluded() && x.canSpawn())
                     .collect(Collectors.toCollection(ArrayList::new));
 
-            return initChallenge(UC.getRandomItem(remainingChallenges, ChallengeSystem.challengeRng));
+            return initChallenge(getWeightedRandomChallengeFromList(remainingChallenges));
         }
+    }
+
+    private static AbstractChallenge getWeightedRandomChallengeFromList(ArrayList<AbstractChallenge> list) {
+        WeightedList<AbstractChallenge> wcs = new WeightedList<>();
+        //May add challenges which have been spawned 3 times which results in 0 weight, handled in weighted list implementation
+        list.forEach(challenge -> wcs.add(challenge, calculateWeight(challenge)));
+
+        //All challenges that can spawn have spawned more than MAX_CHALLENGE_SPAWN_AMOUNT times.
+        if(wcs.isEmpty()) {
+            SpicyRewards.logger.info(String.format("All available challenges have spawned more than %d times, returning truly random challenge.", MAX_CHALLENGE_SPAWN_AMOUNT));
+            return UC.getRandomItem(list, challengeRng);
+        }
+
+        AbstractChallenge c = wcs.getRandom(challengeRng);
+        challengeSpawns.computeIfPresent(c.id, (k, v) -> v + 1);
+        return c;
+    }
+
+    //Staggered decrease proportional to spawns to make not spawned challenges more likely to spawn, and the more a challenge is spawned, the less likely it will become
+    //Spawns:weight | 0:9 | 1:5 | 2:1 | 3+:0-
+    private static int calculateWeight(AbstractChallenge c) {
+        int spawns = challengeSpawns.get(c.id);
+        int weight = MAX_CHALLENGE_SPAWN_AMOUNT - spawns;
+        weight = (weight * 3) - spawns;
+        return weight;
     }
 
     public static AbstractChallenge getChallenge(String id) {
@@ -180,6 +207,7 @@ public class ChallengeSystem {
                         tieredOptins.get(c.tier).add(c);
                     }
                     allChallenges.put(c.id, c);
+                    challengeSpawns.put(c.id, 0);
                 });
     }
 
@@ -197,5 +225,19 @@ public class ChallengeSystem {
 
     public static void setSpawnChance(float newChance) {
         spawnChance = newChance;
+    }
+
+    //Sets the amount of times each challenge is spawned back to 0. Called when entering a new act or starting a new game
+    public static void resetChallengeSpawns() {
+        challengeSpawns.replaceAll((k, v) -> v = 0);
+    }
+
+    public static HashMap<String, Integer> getChallengeSpawnMap() {
+        return challengeSpawns;
+    }
+
+    //Update values of autoAdd-generated spawnMap without overwriting HashMap because new challenges could've been added
+    public static void setChallengeSpawnMap(HashMap<String, Integer> map) {
+        challengeSpawns.putAll(map);
     }
 }

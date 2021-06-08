@@ -34,6 +34,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Properties;
 
 @SpireInitializer
@@ -43,8 +44,9 @@ public class SpicyRewards implements
         StartGameSubscriber,
         EditStringsSubscriber,
         PostRenderSubscriber,
-EditCardsSubscriber,
-EditRelicsSubscriber{
+        EditCardsSubscriber,
+        EditRelicsSubscriber,
+        StartActSubscriber{
     public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
     private static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
@@ -196,6 +198,18 @@ EditRelicsSubscriber{
             }
         });
 
+        BaseMod.addSaveField("SR_CHALLENGESPAWNS", new CustomSavable<HashMap<String, Integer>>() {
+            @Override
+            public HashMap<String, Integer> onSave() {
+                return ChallengeSystem.getChallengeSpawnMap();
+            }
+
+            @Override
+            public void onLoad(HashMap<String, Integer> map) {
+                ChallengeSystem.setChallengeSpawnMap(map);
+            }
+        });
+
         if(challengeBtn == null) {
             challengeBtn = new ChallengeButton();
         }
@@ -230,8 +244,15 @@ EditRelicsSubscriber{
     @Override
     public void receiveStartGame() {
         //At the start of the run, set the spawnchance to the minimum
-        if (!CardCrawlGame.loadingSave)
+        if (!CardCrawlGame.loadingSave) {
             ChallengeSystem.resetSpawnChance();
+        }
+    }
+
+    //Also triggers when starting a new game, reset the spawnchance
+    @Override
+    public void receiveStartAct() {
+        ChallengeSystem.resetChallengeSpawns();
     }
 
     protected void addPotions() {
