@@ -7,13 +7,16 @@ import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.util.UC;
+import SpicyRewards.vfx.TextEffect;
 import basemod.helpers.CardBorderGlowManager;
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
@@ -88,6 +91,8 @@ public abstract class AbstractChallenge {
     public void fail() {
         failed = true;
         removeCustomGlowInfo();
+        if(UC.isInCombat())
+            AbstractDungeon.topLevelEffects.add(new TextEffect(Color.SALMON, FontHelper.SCP_cardEnergyFont, uiText.TEXT_DICT.get("failed") + this.name, 2.5f));
     }
 
     //Returns true if already spawned challenges exclude this one or this challenge is already in the list

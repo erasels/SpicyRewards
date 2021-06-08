@@ -19,6 +19,7 @@
   "${ModID}:Rewards": {
     "TEXT_DICT": {
       "prefix": "Reward: ",
+      "failed": "Challenge failed: ",
       "cardprefix": "Card: ",
       "retainCR": "Watcher Retain card reward",
       "greenDrawCR": "Silent Draw card reward",
