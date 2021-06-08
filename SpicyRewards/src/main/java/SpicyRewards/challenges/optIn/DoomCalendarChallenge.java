@@ -14,8 +14,8 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.colorless.TheBomb;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.relics.MercuryHourglass;
 import com.megacrit.cardcrawl.relics.StoneCalendar;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,7 +42,7 @@ public class DoomCalendarChallenge extends AbstractChallenge {
         int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
-                reward = new CustomRelicReward(new StoneCalendar());
+                reward = new CustomRelicReward(StoneCalendar.ID, MercuryHourglass.ID);
                 break;
             case 1:
                 reward = new SingleCardReward(new TheBomb());

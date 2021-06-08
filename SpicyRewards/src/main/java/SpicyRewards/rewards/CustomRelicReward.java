@@ -5,10 +5,8 @@ import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.RelicLibrary;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
-import com.megacrit.cardcrawl.relics.Circlet;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 
 public class CustomRelicReward extends RewardItem {
@@ -25,14 +23,8 @@ public class CustomRelicReward extends RewardItem {
             SpicyRewards.logger.warn(String.format("Tried to remove %s from the %s-pool but it wasn't found. Potential duplicate?", relic.name, relic.tier.name()));
     }
 
-    public CustomRelicReward(AbstractRelic relic, ArrayList<AbstractRelic> backups) {
-        this(UC.p().hasRelic(relic.relicId)?
-                backups.stream().filter(r -> !UC.p().hasRelic(r.relicId)).findFirst().orElse(new Circlet()):
-                relic);
-    }
-
     public CustomRelicReward(String... args) {
-        this(Arrays.stream(args).sequential().filter(s -> !UC.p().hasRelic(s)).findFirst().orElse(Circlet.ID));
+        this(Arrays.stream(args).sequential().filter(s -> !UC.p().hasRelic(s)).findFirst().orElse(AbstractDungeon.returnRandomRelicKey(AbstractDungeon.returnRandomRelicTier())));
     }
 
     private static boolean removeRelicFromPool(String s, boolean allPools) {

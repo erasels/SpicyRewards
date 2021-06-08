@@ -21,7 +21,6 @@ import com.megacrit.cardcrawl.relics.Orichalcum;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class SlimeChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Slimed");
@@ -48,7 +47,7 @@ public class SlimeChallenge extends AbstractChallenge {
                 reward = new RetainCardReward();
                 break;
             case 1:
-                reward = new CustomRelicReward(new BagOfPreparation(), new ArrayList<>(Arrays.asList(new Orichalcum(), new Omamori(), new ChemicalX())));
+                reward = new CustomRelicReward(BagOfPreparation.ID, Orichalcum.ID, Omamori.ID, ChemicalX.ID);
                 break;
             case 2:
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));

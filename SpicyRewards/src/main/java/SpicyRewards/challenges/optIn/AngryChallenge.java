@@ -21,7 +21,6 @@ import com.megacrit.cardcrawl.relics.RedSkull;
 import com.megacrit.cardcrawl.relics.Sling;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class AngryChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Angry");
@@ -50,7 +49,7 @@ public class AngryChallenge extends AbstractChallenge {
                 reward = new ICStrengthCardReward();
                 break;
             case 2:
-                reward = new CustomRelicReward(new Brimstone(), new ArrayList<>(Arrays.asList(new RedSkull(), new Sling())));
+                reward = new CustomRelicReward(Brimstone.ID, RedSkull.ID,Sling.ID);
                 break;
             case 3:
                 reward = new UpgradedSkillReward();

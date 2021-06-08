@@ -48,7 +48,7 @@ public class DistributedBlockChallenge extends AbstractChallenge {
                 reward = new DefectBlockCardReward();
                 break;
             case 1:
-                reward = new CustomRelicReward(new Orichalcum(), new ArrayList<>(Arrays.asList(new ToxicEgg2(), new Calipers())));
+                reward = new CustomRelicReward(Orichalcum.ID, ToxicEgg2.ID, Calipers.ID);
                 break;
             case 2:
                 AbstractPotion p = PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID)), AbstractDungeon.potionRng));
