@@ -5,7 +5,6 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.CoolBasicsCardReward;
-import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.BaseModCardTags;
@@ -43,14 +42,12 @@ public class AdvancedChallenge extends AbstractChallenge {
                 reward = new CoolBasicsCardReward();
                 break;
             case 1:
-                reward = new RemoveReward(null, AbstractCard.CardRarity.BASIC);
+                reward = new TransformReward(null, AbstractCard.CardRarity.BASIC);
                 break;
             case 2:
                 //Upgraded perfected strike
                 reward = new SingleCardReward(PerfectedStrike.ID + "|1|0");
-                break;
-            case 3:
-                reward = new TransformReward(null, AbstractCard.CardRarity.BASIC);
+                
         }
     }
 
