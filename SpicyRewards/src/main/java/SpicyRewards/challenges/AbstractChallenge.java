@@ -82,7 +82,7 @@ public abstract class AbstractChallenge {
 
     public void complete() {
         //Is in combat check should prevent potion challenges from completing in combat reward screen
-        if (!failed && UC.isInCombat()) {
+        if (!failed && !done && UC.isInCombat()) {
             SpicyRewards.challengeBtn.flash();
             done = true;
         }
