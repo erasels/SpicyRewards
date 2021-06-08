@@ -10,7 +10,7 @@ public class AoECardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("aoeCR");
 
     public AoECardReward() {
-        super(Color.LIGHT_GRAY, 0, null, false, c -> !(c.target == AbstractCard.CardTarget.ALL_ENEMY));
+        super(Color.LIGHT_GRAY, 0, null, false, c -> c.target == AbstractCard.CardTarget.ALL_ENEMY);
     }
 
     @Override

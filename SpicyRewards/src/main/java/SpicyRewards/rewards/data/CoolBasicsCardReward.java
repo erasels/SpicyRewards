@@ -12,7 +12,7 @@ public class CoolBasicsCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("coolBasicsCR");
 
     public CoolBasicsCardReward() {
-        super(Color.ORANGE, AnyCardColorPatch.ANY, 1, AbstractCard.CardRarity.BASIC, false, CoolBasicsCardReward::isSoD);
+        super(Color.ORANGE, AnyCardColorPatch.ANY, 1, AbstractCard.CardRarity.BASIC, false, c -> !isSoD(c));
     }
 
     @Override

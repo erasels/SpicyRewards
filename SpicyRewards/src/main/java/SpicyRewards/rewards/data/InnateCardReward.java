@@ -12,14 +12,14 @@ public class InnateCardReward extends ModifiedCardReward {
     public InnateCardReward() {
         super(Color.TAN, null, 0, null, false, c -> {
             if (c.isInnate)
-                return false;
+                return true;
 
             if (!c.upgraded) {
                 AbstractCard c2 = c.makeCopy();
                 c2.upgrade();
-                return !c2.isInnate;
+                return c2.isInnate;
             }
-            return true;
+            return false;
         });
     }
 

@@ -11,7 +11,7 @@ public class BigButNoDrawCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("bigNoDrawCR");
 
     public BigButNoDrawCardReward() {
-        super(null, null, 2, null, false, c -> StringUtils.containsIgnoreCase(c.rawDescription, drawString));
+        super(null, null, 2, null, false, c -> !StringUtils.containsIgnoreCase(c.rawDescription, drawString));
     }
 
     @Override

@@ -13,7 +13,7 @@ public class SilentDrawCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("greenDrawCR");
 
     public SilentDrawCardReward() {
-        super(Color.GREEN, AbstractCard.CardColor.GREEN, 0, null, false, c -> !(StringUtils.containsIgnoreCase(c.rawDescription, drawString)));
+        super(Color.GREEN, AbstractCard.CardColor.GREEN, 0, null, false, c -> StringUtils.containsIgnoreCase(c.rawDescription, drawString));
     }
 
     @Override

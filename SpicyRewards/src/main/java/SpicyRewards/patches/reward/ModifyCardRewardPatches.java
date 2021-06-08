@@ -139,7 +139,8 @@ public class ModifyCardRewardPatches {
         public static void filterList(ArrayList<AbstractCard> tmp) {
             if (ModifiedCardReward.filter != null) {
                 ArrayList<AbstractCard> actualCards = new ArrayList<>(tmp);
-                tmp.removeIf(ModifiedCardReward.filter);
+                //To work similar to a stream.filter and avoid further confusion, true return keeps the method false removes it
+                tmp.removeIf(ModifiedCardReward.filter.negate());
 
                 if (tmp.isEmpty()) {
                     tmp.addAll(actualCards);

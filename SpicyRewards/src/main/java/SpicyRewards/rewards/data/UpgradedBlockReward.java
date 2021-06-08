@@ -12,7 +12,7 @@ public class UpgradedBlockReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("upgradedBlockCR");
 
     public UpgradedBlockReward() {
-        super(Color.CYAN, null, 0, null, true, c -> !(StringUtils.containsIgnoreCase(c.rawDescription, blockString)));
+        super(Color.CYAN, null, 0, null, true, c -> StringUtils.containsIgnoreCase(c.rawDescription, blockString));
     }
 
     @Override

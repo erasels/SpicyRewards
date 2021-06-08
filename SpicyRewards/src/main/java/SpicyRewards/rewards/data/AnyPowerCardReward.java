@@ -11,7 +11,7 @@ public class AnyPowerCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("anyPowerCR");
 
     public AnyPowerCardReward() {
-        super(Color.ROYAL, AnyCardColorPatch.ANY,  0, null, false, c -> !(c.type == AbstractCard.CardType.POWER));
+        super(Color.ROYAL, AnyCardColorPatch.ANY,  0, null, false, c -> c.type == AbstractCard.CardType.POWER);
     }
 
     @Override

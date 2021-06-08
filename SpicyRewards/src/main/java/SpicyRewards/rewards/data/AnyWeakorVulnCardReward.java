@@ -14,7 +14,7 @@ public class AnyWeakorVulnCardReward extends ModifiedCardReward {
 
     public AnyWeakorVulnCardReward() {
         super(Color.SALMON, AnyCardColorPatch.ANY, 0, null, false,
-                c -> !(StringUtils.containsIgnoreCase(c.rawDescription, weakKeyword) || StringUtils.containsIgnoreCase(c.rawDescription, vulnKeyword))
+                c -> StringUtils.containsIgnoreCase(c.rawDescription, weakKeyword) || StringUtils.containsIgnoreCase(c.rawDescription, vulnKeyword)
         );
     }
 

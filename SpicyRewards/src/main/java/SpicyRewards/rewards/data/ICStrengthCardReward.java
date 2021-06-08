@@ -13,7 +13,7 @@ public class ICStrengthCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("redStrCR");
 
     public ICStrengthCardReward() {
-        super(Color.RED, AbstractCard.CardColor.RED, 0, null, false, c -> !(StringUtils.containsIgnoreCase(c.rawDescription, strString)));
+        super(Color.RED, AbstractCard.CardColor.RED, 0, null, false, c -> StringUtils.containsIgnoreCase(c.rawDescription, strString));
     }
 
     @Override

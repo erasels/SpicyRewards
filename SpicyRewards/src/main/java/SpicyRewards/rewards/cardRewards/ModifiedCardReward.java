@@ -30,6 +30,7 @@ public class ModifiedCardReward extends AbstractSpicyReward {
     public static int additionalCards;
     public static AbstractCard.CardRarity fixedRarity;
     public static boolean allUpgraded;
+    //Filter predicate, return true to keep the card, return false to remove it
     public static Predicate<AbstractCard> filter;
     public static AbstractCard.CardColor cardColor;
     public static ArrayList<AbstractCard> cardsOfColor;

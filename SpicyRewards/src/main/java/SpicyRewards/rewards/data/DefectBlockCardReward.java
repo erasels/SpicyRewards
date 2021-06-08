@@ -13,7 +13,9 @@ public class DefectBlockCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("defectBlockCR");
 
     public DefectBlockCardReward() {
-        super(Color.BLUE, AbstractCard.CardColor.BLUE, 0, null, false, c -> !(StringUtils.containsIgnoreCase(c.rawDescription, blockString) && !(c.type == AbstractCard.CardType.ATTACK && c.baseBlock < 1)));
+        super(Color.BLUE, AbstractCard.CardColor.BLUE, 0, null, false,
+                c -> StringUtils.containsIgnoreCase(c.rawDescription, blockString) && !(c.type == AbstractCard.CardType.ATTACK && c.baseBlock < 1)
+    );
     }
 
     @Override

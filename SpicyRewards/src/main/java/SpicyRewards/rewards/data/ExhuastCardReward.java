@@ -9,7 +9,7 @@ public class ExhuastCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("exhaustCR");
 
     public ExhuastCardReward() {
-        super(Color.DARK_GRAY, null,  0, null, false, c -> !(c.exhaust));
+        super(Color.DARK_GRAY, null,  0, null, false, c -> c.exhaust);
     }
 
     @Override
