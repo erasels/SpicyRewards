@@ -1,30 +1,42 @@
 package SpicyRewards.rewards.data;
 
 import SpicyRewards.SpicyRewards;
+import SpicyRewards.patches.reward.AnyCardColorPatch;
 import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.helpers.CardLibrary;
+
+import java.util.HashSet;
 
 public class InnateCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("innateCR");
+    private static HashSet<String> innateCards = new HashSet<>();
 
     public InnateCardReward() {
-        super(Color.TAN, null, 0, null, false, c -> {
-            if (c.isInnate)
-                return true;
-
-            if (!c.upgraded) {
-                AbstractCard c2 = c.makeCopy();
-                c2.upgrade();
-                return c2.isInnate;
-            }
-            return false;
+        super(Color.TAN, AnyCardColorPatch.ANY, 0, null, false, c -> {
+            if(innateCards.isEmpty())
+                initInnateSet();
+            return innateCards.contains(c.cardID);
         });
     }
 
     @Override
     public String getRewardText() {
         return rewardText;
+    }
+
+    private static void initInnateSet() {
+        CardLibrary.getAllCards().forEach(c -> {
+            if (c.isInnate) {
+                innateCards.add(c.cardID);
+            } else {
+                AbstractCard c2 = c.makeCopy();
+                c2.upgrade();
+                if(c2.isInnate)
+                    innateCards.add(c.cardID);
+            }
+        });
     }
 }
