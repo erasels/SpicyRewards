@@ -10,11 +10,13 @@ import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
 import SpicyRewards.ui.ChallengeButton;
+import SpicyRewards.util.SpawnChallengeConsoleCommand;
 import basemod.AutoAdd;
 import basemod.BaseMod;
 import basemod.ModLabeledToggleButton;
 import basemod.ModPanel;
 import basemod.abstracts.CustomSavable;
+import basemod.devcommands.ConsoleCommand;
 import basemod.helpers.RelicType;
 import basemod.interfaces.*;
 import com.badlogic.gdx.graphics.Color;
@@ -216,6 +218,8 @@ public class SpicyRewards implements
         BaseMod.addTopPanelItem(challengeBtn);
 
         BaseMod.registerModBadge(ImageMaster.loadImage("spicyRewardsResources/images/modBadge.png"), "SpicyRewards", "erasels", "TODO", settingsPanel);
+
+        ConsoleCommand.addCommand("challenge", SpawnChallengeConsoleCommand.class);
     }
 
     @Override
