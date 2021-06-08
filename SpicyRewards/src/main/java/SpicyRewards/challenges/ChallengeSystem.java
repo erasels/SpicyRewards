@@ -189,6 +189,14 @@ public class ChallengeSystem {
         return allChallenges.get(id).makeCopy();
     }
 
+    public static void addChallenge(AbstractChallenge c) {
+        if(c == null) {
+            SpicyRewards.logger.warn("Tried to add challenge which was null!");
+            return;
+        }
+        challenges.add(c);
+    }
+
     public static void populateTieredMaps() {
         tieredChallenges.put(AbstractChallenge.Tier.EASY, new ArrayList<>());
         tieredChallenges.put(AbstractChallenge.Tier.NORMAL, new ArrayList<>());
