@@ -61,7 +61,7 @@ public class NormalityChallenge extends AbstractChallenge {
 
     @Override
     public boolean canPlayCard(AbstractCard c) {
-        return cardsPlayed <= 3;
+        return cardsPlayed <= AMT;
     }
 
     @Override
