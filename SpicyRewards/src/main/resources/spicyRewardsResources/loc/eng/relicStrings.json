@@ -12,5 +12,12 @@
     "DESCRIPTIONS": [
       "Whenever you play %d or less cards during your turn, gain %d #yBlock at the end of your turn."
     ]
+  },
+  "${ModID}:DowsingRod": {
+    "NAME": "Dowsing Rod",
+    "FLAVOR": "A pair of gadgets meant to lead its wielders to riches.",
+    "DESCRIPTIONS": [
+      "Whenever an enemy dies, gain %d #yBlock."
+    ]
   }
 }
