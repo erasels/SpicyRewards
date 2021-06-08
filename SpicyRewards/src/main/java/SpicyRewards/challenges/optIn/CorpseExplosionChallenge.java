@@ -22,7 +22,7 @@ import java.util.ArrayList;
 public class CorpseExplosionChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("CorpseExplosion");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
-    private static final int AMT = 20;
+    private static final int AMT = 15;
 
     protected static ArrayList<String> exclusions = new ArrayList<>();
 
