@@ -10,7 +10,7 @@ public class UpgradedSkillReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("upgradedSkillCR");
 
     public UpgradedSkillReward() {
-        super(Color.GREEN, null,  1, null, true, c -> c.type == AbstractCard.CardType.SKILL);
+        super(Color.GREEN, null,  1, null, true, c -> c.type != AbstractCard.CardType.SKILL);
     }
 
     @Override
