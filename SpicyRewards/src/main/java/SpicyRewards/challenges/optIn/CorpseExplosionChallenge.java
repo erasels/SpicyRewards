@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.relics.DowsingRod;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.FatalChoiceReward;
@@ -49,7 +50,7 @@ public class CorpseExplosionChallenge extends AbstractChallenge {
                 reward = new UpgradedCardReward();
                 break;
             case 3:
-                reward = new CustomRelicReward(new GremlinHorn());
+                reward = new CustomRelicReward(DowsingRod.ID, GremlinHorn.ID);
         }
     }
 
