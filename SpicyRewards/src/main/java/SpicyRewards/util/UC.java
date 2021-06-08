@@ -129,6 +129,14 @@ public class UC {
         }
     }
 
+    public static void doDef(int amount, AbstractCreature source, boolean top) {
+        if (top) {
+            att(new GainBlockAction(p(), source, amount));
+        } else {
+            atb(new GainBlockAction(p(), source, amount));
+        }
+    }
+
     public static void doPow(AbstractPower p) {
         doPow(p.owner, p, false);
     }
