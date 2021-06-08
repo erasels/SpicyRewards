@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.red.PerfectedStrike;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
 import java.util.ArrayList;
@@ -67,9 +66,12 @@ public class AdvancedChallenge extends AbstractChallenge {
     //Has at least 4 Strike/Defends in deck and at Floor 7 to get some cards
     @Override
     public boolean canSpawn() {
-        return UC.p().masterDeck.group.stream()
+        int sod = (int) UC.p().masterDeck.group.stream()
                 .filter(AdvancedChallenge::isSoD)
-                .count() >= 4 && AbstractDungeon.floorNum > 7;
+                .count();
+        float ratio = (float)sod / (float)UC.p().masterDeck.size();
+        //If Strikes and Defends make up less than 40% and more than 10% of your deck
+        return  ratio <= 0.5f && ratio >= 0.1f;
     }
 
     @Override
