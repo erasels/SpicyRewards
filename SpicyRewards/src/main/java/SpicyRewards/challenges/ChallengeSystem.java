@@ -23,7 +23,7 @@ import java.util.stream.Collectors;
 
 public class ChallengeSystem {
     private static final float BASE_CHANCE = 0.05F;
-    private static final float INC_CHANCE = 0.2F;
+    private static final float INC_CHANCE = 0.15F;
     private static float spawnChance = BASE_CHANCE;
     private static final int MAX_CHALLENGE_SPAWN_AMOUNT = 3;
 
