@@ -3,23 +3,28 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.BigButNoDrawCardReward;
 import SpicyRewards.rewards.data.NoDrawChoice;
 import SpicyRewards.util.UC;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.DamageAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.purple.Scrawl;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
 
 import java.util.ArrayList;
 
-public class DrawLoseCardChallenge extends AbstractChallenge {
+public class DrawLoseCardChallenge extends AbstractChallenge implements IUIRenderChallenge {
     public static final String ID = SpicyRewards.makeID("DrawLoseCard");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int AMT = 5;
@@ -75,6 +80,14 @@ public class DrawLoseCardChallenge extends AbstractChallenge {
     @Override
     public void atEndOfRound() {
         drawCounter = 0;
+    }
+
+    @Override
+    public void renderUI(SpriteBatch sb, float xOffset, float curY) {
+        Color c = drawCounter <= AMT? Settings.CREAM_COLOR : Settings.RED_TEXT_COLOR;
+        String s = String.format(uiText.TEXT_DICT.get("render"), drawCounter, AMT);
+        xOffset-= FontHelper.getWidth(FontHelper.panelNameFont, s, 1f);
+        FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, s, xOffset, curY, c);
     }
 
     @Override

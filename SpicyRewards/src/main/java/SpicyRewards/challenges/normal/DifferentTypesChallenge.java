@@ -3,20 +3,24 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.rewards.data.UpgradedAnyReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class DifferentTypesChallenge extends AbstractChallenge {
+public class DifferentTypesChallenge extends AbstractChallenge implements IUIRenderChallenge {
     public static final String ID = SpicyRewards.makeID("DifferentTypes");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
@@ -73,6 +77,43 @@ public class DifferentTypesChallenge extends AbstractChallenge {
         if(!failed) {
             complete();
         }
+    }
+
+    @Override
+    public boolean shouldRender() {
+        return !failed;
+    }
+
+    private static final UIStrings cardTypes = CardCrawlGame.languagePack.getUIString("SingleCardViewPopup");
+    @Override
+    public void renderUI(SpriteBatch sb, float xOffset, float curY) {
+        String text;
+        if(lastType != null) {
+            switch (lastType) {
+                case ATTACK:
+                    text = cardTypes.TEXT[0];
+                    break;
+                case SKILL:
+                    text = cardTypes.TEXT[1];
+                    break;
+                case POWER:
+                    text = cardTypes.TEXT[2];
+                    break;
+                case CURSE:
+                    text = cardTypes.TEXT[3];
+                    break;
+                case STATUS:
+                    text = cardTypes.TEXT[7];
+                    break;
+                default:
+                    text = lastType.name();
+            }
+        } else {
+            text = "---";
+        }
+        String s = String.format(uiText.TEXT_DICT.get("render"), text);
+        xOffset-= FontHelper.getWidth(FontHelper.panelNameFont, s, 1f);
+        FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, s, xOffset, curY, Settings.CREAM_COLOR);
     }
 
     @Override

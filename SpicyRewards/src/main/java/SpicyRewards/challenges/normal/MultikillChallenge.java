@@ -3,17 +3,21 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.rewards.data.AoECardReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 
 import java.util.ArrayList;
 
-public class MultikillChallenge extends AbstractChallenge {
+public class MultikillChallenge extends AbstractChallenge implements IUIRenderChallenge {
     public static final String ID = SpicyRewards.makeID("Multikill");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
@@ -59,6 +63,18 @@ public class MultikillChallenge extends AbstractChallenge {
     @Override
     public boolean canSpawn() {
         return UC.getAliveMonsters().size() > 1;
+    }
+
+    @Override
+    public boolean shouldRender() {
+        return !done;
+    }
+
+    @Override
+    public void renderUI(SpriteBatch sb, float xOffset, float curY) {
+        String s = String.format(uiText.TEXT_DICT.get("render"), killCount);
+        xOffset-= FontHelper.getWidth(FontHelper.panelNameFont, s, 1f);
+        FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, s, xOffset, curY, Settings.CREAM_COLOR);
     }
 
     @Override

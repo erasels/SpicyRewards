@@ -128,13 +128,15 @@
   "${ModID}:DoomCalendarChallenge": {
     "TEXT_DICT": {
       "desc": "At the end of turn %d, take %d damage.",
-      "name": "Doom Calendar"
+      "name": "Doom Calendar",
+      "render": "Doom turn: %d/%d"
     }
   },
   "${ModID}:MultikillChallenge": {
     "TEXT_DICT": {
       "desc": "Kill more than 1 enemy in a single turn.",
-      "name": "M-M-Multi-Kill"
+      "name": "M-M-Multi-Kill",
+      "render": "Monsters killed this turn: %d"
     }
   },
   "${ModID}:PowerlessChallenge": {
@@ -164,7 +166,8 @@
   "${ModID}:DrawLoseCardChallenge": {
     "TEXT_DICT": {
       "desc": "Each turn, whenever you draw a card beyond the %s, take %d damage.",
-      "name": "Card Sharp"
+      "name": "Card Sharp",
+      "render": "Cards drawn: %d/%d"
     }
   },
   "${ModID}:CorpseExplosionChallenge": {
@@ -176,7 +179,8 @@
   "${ModID}:DifferentTypesChallenge": {
     "TEXT_DICT": {
       "desc": "Do not play the same card type in a row per turn.",
-      "name": "Dance Baby Dance"
+      "name": "Dance Baby Dance",
+      "render": "Last played type: %s"
     }
   },
   "${ModID}:PotionholicChallenge": {
@@ -224,7 +228,8 @@
   "${ModID}:NormalityChallenge": {
     "TEXT_DICT": {
       "desc": "You cannot play more than %d cards per turn.",
-      "name": "Strikeout"
+      "name": "Strikeout",
+      "render": "Cards played: %d/%d"
     }
   }
 }

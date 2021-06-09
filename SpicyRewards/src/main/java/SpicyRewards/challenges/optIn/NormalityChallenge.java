@@ -3,20 +3,25 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.relics.Pearl;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.HighCostCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.Pocketwatch;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class NormalityChallenge extends AbstractChallenge {
+public class NormalityChallenge extends AbstractChallenge implements IUIRenderChallenge {
     public static final String ID = SpicyRewards.makeID("Normality");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int AMT = 3;
@@ -62,6 +67,14 @@ public class NormalityChallenge extends AbstractChallenge {
     @Override
     public boolean canPlayCard(AbstractCard c) {
         return cardsPlayed < AMT;
+    }
+
+    @Override
+    public void renderUI(SpriteBatch sb, float xOffset, float curY) {
+        Color c = cardsPlayed < AMT? Settings.CREAM_COLOR : Settings.RED_TEXT_COLOR;
+        String s = String.format(uiText.TEXT_DICT.get("render"), cardsPlayed, AMT);
+        xOffset-= FontHelper.getWidth(FontHelper.panelNameFont, s, 1f);
+        FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, s, xOffset, curY, c);
     }
 
     @Override
