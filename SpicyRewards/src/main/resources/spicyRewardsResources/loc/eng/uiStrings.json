@@ -241,7 +241,8 @@
   "${ModID}:TimedRegenerationChallenge": {
     "TEXT_DICT": {
       "desc": "At the end of every %s round, ALL enemies heal for %d\\% of their max HP.",
-      "name": "Time Heals All Wounds"
+      "name": "Time Heals All Wounds",
+      "render": "Turns until heal: %d/%d"
     }
   }
 }
