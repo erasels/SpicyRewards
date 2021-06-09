@@ -231,5 +231,11 @@
       "name": "Strikeout",
       "render": "Cards played: %d/%d"
     }
+  },
+  "${ModID}:HeartAcheChallenge": {
+    "TEXT_DICT": {
+      "desc": "At the start of combat, shuffle a copy of every base game Status into your draw pile.",
+      "name": "Heart Ache"
+    }
   }
 }
