@@ -5,10 +5,13 @@ import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import SpicyRewards.util.WeightedList;
 import basemod.AutoAdd;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
+import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
@@ -104,6 +107,16 @@ public class ChallengeSystem {
             }
         }
         return true;
+    }
+
+    //Called pre AbstractRoom battle UI render in ChallengeSystemPatches
+    public static void renderChallengeUIs(SpriteBatch sb, float xOffset, float startY) {
+        for(AbstractChallenge c : challenges) {
+            if(c instanceof IUIRenderChallenge && ((IUIRenderChallenge)c).shouldRender()) {
+                ((IUIRenderChallenge) c).renderUI(sb, xOffset, startY);
+                startY -= FontHelper.getHeight(FontHelper.panelNameFont) + (10f * Settings.yScale);
+            }
+        }
     }
 
     public static void claimRewards(ArrayList<RewardItem> rewards) {

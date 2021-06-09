@@ -6,9 +6,14 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
+import basemod.ReflectionHacks;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
+import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.NeowsLament;
@@ -56,6 +61,28 @@ public class ChallengeSystemPatches {
         private static class Locator extends SpireInsertLocator {
             public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
                 Matcher finalMatcher = new Matcher.MethodCallMatcher(AbstractRoom.class, "getMapSymbol");
+                return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch2(clz = AbstractRoom.class, method = "render")
+    public static class RenderChallenges {
+        private static float X_OFFSET = Settings.WIDTH - (50f * Settings.scale);
+        private static float START_Y = ((float) ReflectionHacks.getPrivateStatic(AbstractRelic.class, "START_Y")) - ((64f * Settings.scale) * (Loader.isModLoaded("mintySpire")?2:1));;
+        @SpireInsertPatch(locator = Locator.class)
+        public static void patch(SpriteBatch sb) {
+            AbstractGameAction curAction = AbstractDungeon.actionManager.currentAction;
+            //Render if Battle isn't over, and the ChallengeScreen isn't in selection mode
+            if(!AbstractDungeon.getCurrRoom().isBattleOver
+                    && !(curAction instanceof ChallengeScreenAction) || !((ChallengeScreenAction) curAction).selection) {
+                ChallengeSystem.renderChallengeUIs(sb, X_OFFSET, START_Y);
+            }
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            public int[] Locate(CtBehavior ctMethodToPatch) throws CannotCompileException, PatchingException {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(AbstractPlayer.class, "renderPlayerBattleUi");
                 return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
         }
