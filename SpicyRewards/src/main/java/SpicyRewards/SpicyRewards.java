@@ -4,6 +4,7 @@ import SpicyRewards.cards.AbstractSpicyCard;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.patches.reward.NewRewardtypePatches;
 import SpicyRewards.potions.AntiExhaustPotion;
+import SpicyRewards.potions.MomentumPotion;
 import SpicyRewards.relics.AbstractSpicyRelic;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
@@ -261,6 +262,7 @@ public class SpicyRewards implements
 
     protected void addPotions() {
         BaseMod.addPotion(AntiExhaustPotion.class, Color.BLACK, Color.PURPLE, null, AntiExhaustPotion.POTION_ID);
+        BaseMod.addPotion(MomentumPotion.class, Color.LIGHT_GRAY, Color.DARK_GRAY, null, MomentumPotion.POTION_ID);
 
         if (Loader.isModLoaded("widepotions")) {
             WidePotionsMod.whitelistSimplePotion(AntiExhaustPotion.POTION_ID);

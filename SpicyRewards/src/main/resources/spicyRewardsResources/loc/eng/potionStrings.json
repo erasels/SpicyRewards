@@ -4,5 +4,8 @@
     "DESCRIPTIONS": [
       "The next #b%d cards that would #yexhaust, are discarded instead."
     ]
+  },
+  "${ModID}:MomentumPotion": {
+    "NAME": "Momentum Potion"
   }
 }
