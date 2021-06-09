@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.potions.MomentumPotion;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.DefectBlockCardReward;
 import SpicyRewards.rewards.data.UpgradedBlockReward;
@@ -13,17 +14,14 @@ import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
-import com.megacrit.cardcrawl.helpers.PotionHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.potions.*;
 import com.megacrit.cardcrawl.relics.Calipers;
 import com.megacrit.cardcrawl.relics.Orichalcum;
 import com.megacrit.cardcrawl.relics.ToxicEgg2;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 public class DistributedBlockChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("DistributedBlock");
@@ -51,8 +49,7 @@ public class DistributedBlockChallenge extends AbstractChallenge {
                 reward = new CustomRelicReward(Orichalcum.ID, ToxicEgg2.ID, Calipers.ID);
                 break;
             case 2:
-                AbstractPotion p = PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID)), AbstractDungeon.potionRng));
-                reward = new RewardItem(p);
+                reward = new RewardItem(new MomentumPotion());
                 break;
             case 3:
                 reward = new UpgradeReward(AbstractCard.CardType.SKILL, null);
