@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.potions.MomentumPotion;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.UpgradedSkillReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
@@ -50,7 +51,7 @@ public class AfterImageChallenge extends AbstractChallenge {
                 reward = new RemoveReward();
                 break;
             case 2:
-                AbstractPotion p = PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID)), AbstractDungeon.potionRng));
+                AbstractPotion p = PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID, MomentumPotion.POTION_ID)), AbstractDungeon.potionRng));
                 reward = new RewardItem(p);
                 break;
             case 3:
