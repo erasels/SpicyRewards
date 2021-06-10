@@ -4,8 +4,8 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
-import SpicyRewards.rewards.data.RetainCardReward;
-import SpicyRewards.rewards.selectCardsRewards.TransformReward;
+import SpicyRewards.rewards.data.SmallRareCardReward;
+import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.status.*;
@@ -14,7 +14,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
-import com.megacrit.cardcrawl.relics.*;
+import com.megacrit.cardcrawl.relics.MedicalKit;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
@@ -35,22 +35,22 @@ public class HeartAcheChallenge extends AbstractChallenge {
         shouldShowTip = false;
     }
 
-    //TODO: Make rewards
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(3);
+        int i = ChallengeSystem.challengeRng.random(4);
         switch (i) {
             case 0:
-                reward = new RetainCardReward();
+                reward = new SmallRareCardReward();
                 break;
             case 1:
+            case 2:
                 reward = new CustomRelicReward(MedicalKit.ID);
                 break;
-            case 2:
+            case 3:
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
                 break;
-            case 3:
-                reward = new TransformReward();
+            case 4:
+                reward = new RemoveReward();
         }
     }
 
