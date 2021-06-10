@@ -4,10 +4,9 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.IUIRenderChallenge;
-import SpicyRewards.relics.Pearl;
 import SpicyRewards.rewards.CustomRelicReward;
-import SpicyRewards.rewards.data.HighCostCardReward;
-import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
+import SpicyRewards.rewards.HealReward;
+import SpicyRewards.rewards.data.HealingCardChoice;
 import SpicyRewards.util.UC;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -19,7 +18,13 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.relics.Pocketwatch;
+import com.megacrit.cardcrawl.potions.BloodPotion;
+import com.megacrit.cardcrawl.potions.FruitJuice;
+import com.megacrit.cardcrawl.relics.BurningBlood;
+import com.megacrit.cardcrawl.relics.Mango;
+import com.megacrit.cardcrawl.relics.Pear;
+import com.megacrit.cardcrawl.relics.Waffle;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -45,20 +50,22 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
                 Type.OPTIN);
         turnLimit = getTurnLimit();
     }
-
-    //TODO make reewards
+    
     @Override
     protected void rollReward() {
         int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
-                reward = new RemoveReward();
+                reward = new HealReward((int) (UC.p().maxHealth * 0.25f));
                 break;
             case 1:
-                reward = new HighCostCardReward();
+                reward = new HealingCardChoice();
                 break;
             case 2:
-                reward = new CustomRelicReward(Pearl.ID, Pocketwatch.ID);
+                reward = new CustomRelicReward(Waffle.ID, Pear.ID, Mango.ID, BurningBlood.ID);
+                break;
+            case 3:
+                reward = new RewardItem(ChallengeSystem.challengeRng.randomBoolean()? new BloodPotion() : new FruitJuice());
         }
     }
 

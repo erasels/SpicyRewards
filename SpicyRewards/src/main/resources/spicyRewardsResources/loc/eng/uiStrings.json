@@ -41,7 +41,8 @@
       "defectBlockCR": "Defect Block card reward",
       "upgradedBlockCR": "Upgraded Block card reward",
       "blockBreakCC": "Block interaction card choice",
-      "highCostCR": "2+ cost card reward"
+      "highCostCR": "2+ cost card reward",
+      "healingCC": "Upgraded Healing card choice"
     }
   },
   "${ModID}:ChallengeButton": {
