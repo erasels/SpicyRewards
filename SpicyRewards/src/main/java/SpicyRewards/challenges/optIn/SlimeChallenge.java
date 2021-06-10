@@ -14,10 +14,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
-import com.megacrit.cardcrawl.relics.BagOfPreparation;
-import com.megacrit.cardcrawl.relics.ChemicalX;
-import com.megacrit.cardcrawl.relics.Omamori;
-import com.megacrit.cardcrawl.relics.Orichalcum;
+import com.megacrit.cardcrawl.relics.*;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
@@ -47,7 +44,7 @@ public class SlimeChallenge extends AbstractChallenge {
                 reward = new RetainCardReward();
                 break;
             case 1:
-                reward = new CustomRelicReward(BagOfPreparation.ID, Orichalcum.ID, Omamori.ID, ChemicalX.ID);
+                reward = new CustomRelicReward(BagOfPreparation.ID, ChemicalX.ID, SelfFormingClay.ID, Omamori.ID);
                 break;
             case 2:
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
