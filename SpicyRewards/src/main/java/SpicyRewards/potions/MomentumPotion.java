@@ -17,7 +17,7 @@ public class MomentumPotion extends AbstractSpicyPotion{
     private static final int BASE_POTENCY = 3;
 
     public MomentumPotion() {
-        super(potText.NAME, POTION_ID, SpecialPotionTypePatch.SPECIAL, PotionSize.MOON, PotionColor.WHITE);
+        super(potText.NAME, POTION_ID, SpecialPotionTypePatch.SPECIAL, PotionSize.BOLT, PotionColor.WHITE);
     }
 
     @Override
