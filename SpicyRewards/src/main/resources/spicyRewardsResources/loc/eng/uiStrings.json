@@ -42,7 +42,8 @@
       "upgradedBlockCR": "Upgraded Block card reward",
       "blockBreakCC": "Block interaction card choice",
       "highCostCR": "2+ cost card reward",
-      "healingCC": "Upgraded Healing card choice"
+      "healingCC": "Upgraded Healing card choice",
+      "sRareCR": "Small rare card reward"
     }
   },
   "${ModID}:ChallengeButton": {
