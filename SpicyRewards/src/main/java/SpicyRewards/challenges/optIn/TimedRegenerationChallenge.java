@@ -50,10 +50,10 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
                 Type.OPTIN);
         turnLimit = getTurnLimit();
     }
-    
+
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(2);
+        int i = ChallengeSystem.challengeRng.random(3);
         switch (i) {
             case 0:
                 reward = new HealReward((int) (UC.p().maxHealth * 0.25f));
