@@ -12,7 +12,6 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.common.HealAction;
-import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -81,11 +80,6 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
     @Override
     public void atStartOfTurn() {
         turnsPassed++;
-    }
-
-    @Override
-    public boolean canPlayCard(AbstractCard c) {
-        return turnsPassed < AMT;
     }
 
     @Override
