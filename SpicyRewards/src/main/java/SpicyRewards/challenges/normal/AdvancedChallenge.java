@@ -35,7 +35,7 @@ public class AdvancedChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(3);
+        int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
                 reward = new CoolBasicsCardReward();
@@ -46,7 +46,6 @@ public class AdvancedChallenge extends AbstractChallenge {
             case 2:
                 //Upgraded perfected strike
                 reward = new SingleCardReward(PerfectedStrike.ID + "|1|0");
-
         }
     }
 
