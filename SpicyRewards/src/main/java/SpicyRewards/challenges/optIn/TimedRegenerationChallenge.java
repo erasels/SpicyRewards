@@ -35,6 +35,7 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
     public static final String ID = SpicyRewards.makeID("TimedRegeneration");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int NORM_TURN = 3, ELITE_TURN = 5;
+    private static final int MIN_HEALTH = 40;
     private static final float AMT = 0.5f;
 
     protected static ArrayList<String> exclusions = new ArrayList<>();
@@ -96,6 +97,11 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
     }
 
     @Override
+    public boolean canSpawn() {
+        return UC.getAliveMonsters().stream().map(m -> m.maxHealth).reduce(0, Integer::sum) >= MIN_HEALTH;
+    }
+
+    @Override
     protected ArrayList<String> getExclusions() {
         return exclusions;
     }
@@ -105,6 +111,9 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
     }
 
     private static int getTurnLimit() {
+        if(!UC.isInCombat()) {
+            return NORM_TURN;
+        }
         boolean elite = AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
         return (elite? ELITE_TURN : NORM_TURN) + NumberUtils.min(AbstractDungeon.actNum, 3) - 1;
     }
