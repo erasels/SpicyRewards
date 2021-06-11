@@ -197,7 +197,9 @@ public class SpicyRewards implements
 
             @Override
             public void onLoad(Float i) {
-                ChallengeSystem.setSpawnChance(i);
+                if(i != null) {
+                    ChallengeSystem.setSpawnChance(i);
+                }
             }
         });
 
@@ -209,7 +211,9 @@ public class SpicyRewards implements
 
             @Override
             public void onLoad(HashMap<String, Integer> map) {
-                ChallengeSystem.setChallengeSpawnMap(map);
+                if(map != null) {
+                    ChallengeSystem.setChallengeSpawnMap(map);
+                }
             }
         });
 
