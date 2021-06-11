@@ -90,10 +90,12 @@ public abstract class AbstractChallenge {
     }
 
     public void fail() {
-        failed = true;
-        removeCustomGlowInfo();
-        if(UC.isInCombat())
-            AbstractDungeon.topLevelEffects.add(new TextEffect(Color.SALMON, FontHelper.SCP_cardEnergyFont, uiText.TEXT_DICT.get("failed") + this.name, 2.5f));
+        if(!failed) {
+            failed = true;
+            removeCustomGlowInfo();
+            if (UC.isInCombat())
+                AbstractDungeon.topLevelEffects.add(new TextEffect(Color.SALMON, FontHelper.SCP_cardEnergyFont, uiText.TEXT_DICT.get("failed") + this.name, 2.5f));
+        }
     }
 
     //Returns true if already spawned challenges exclude this one or this challenge is already in the list
