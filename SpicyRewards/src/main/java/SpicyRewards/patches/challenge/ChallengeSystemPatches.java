@@ -69,15 +69,16 @@ public class ChallengeSystemPatches {
     @SpirePatch2(clz = AbstractRoom.class, method = "render")
     public static class RenderChallenges {
         private static float X_OFFSET = Settings.WIDTH - (50f * Settings.scale);
-        private static float START_Y = ((float) ReflectionHacks.getPrivateStatic(AbstractRelic.class, "START_Y")) - ((64f * Settings.scale) * (Loader.isModLoaded("mintySpire")?2:1));;
+        private static float START_Y = ((float) ReflectionHacks.getPrivateStatic(AbstractRelic.class, "START_Y")) - ((64f * Settings.scale) * (Loader.isModLoaded("mintyspire") ? 2 : 1));
+        ;
+
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(SpriteBatch sb) {
             AbstractGameAction curAction = AbstractDungeon.actionManager.currentAction;
             //Render if Battle isn't over, and the ChallengeScreen isn't in selection mode
-            if(!AbstractDungeon.getCurrRoom().isBattleOver
-                    && !(curAction instanceof ChallengeScreenAction) || !((ChallengeScreenAction) curAction).selection) {
-                ChallengeSystem.renderChallengeUIs(sb, X_OFFSET, START_Y);
-            }
+            if (!isBattleOver())
+                if (!(curAction instanceof ChallengeScreenAction) || !((ChallengeScreenAction) curAction).selection)
+                    ChallengeSystem.renderChallengeUIs(sb, X_OFFSET, START_Y);
         }
 
         private static class Locator extends SpireInsertLocator {
@@ -85,6 +86,13 @@ public class ChallengeSystemPatches {
                 Matcher finalMatcher = new Matcher.MethodCallMatcher(AbstractPlayer.class, "renderPlayerBattleUi");
                 return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
+        }
+
+        private static boolean isBattleOver() {
+            if (AbstractDungeon.currMapNode != null)
+                if (AbstractDungeon.getCurrRoom() != null)
+                    return AbstractDungeon.getCurrRoom().isBattleOver;
+            return true;
         }
     }
 }

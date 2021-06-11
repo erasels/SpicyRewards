@@ -31,7 +31,7 @@ import java.util.Arrays;
 public class DoomCalendarChallenge extends AbstractChallenge implements IUIRenderChallenge {
     public static final String ID = SpicyRewards.makeID("DoomCalendar");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("DoomCalendarChallenge"));
-    private static final boolean mintyEnabled = Loader.isModLoaded("mintySpire");
+    private static final boolean mintyEnabled = Loader.isModLoaded("mintyspire");
     //private static final HashMap<String, ArrayList<String>> weakMonstersPerDungeon = new HashMap<>();
 
     private static final int TURN = 7, AMOUNT = 36;
