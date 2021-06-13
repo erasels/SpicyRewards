@@ -57,7 +57,8 @@ public class MasochismChallenge extends AbstractChallenge {
                     potentialRelics.add(OddMushroom.ID);
                 }
                 potentialRelics.removeIf(r -> UC.p().hasRelic(r));
-                reward = new CustomRelicReward((String[]) potentialRelics.toArray());
+                String[] arr = new String[potentialRelics.size()];
+                reward = new CustomRelicReward(potentialRelics.toArray(arr));
         }
     }
 
