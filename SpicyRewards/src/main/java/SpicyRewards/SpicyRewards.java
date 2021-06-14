@@ -185,7 +185,7 @@ public class SpicyRewards implements
 
         BaseMod.registerCustomReward(NewRewardtypePatches.SR_CARDCHOICEREWARD,
                 RewardSaveLoader::onLoadCardChoice,
-                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_SINGLECARDREWARD, customReward)
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_CARDCHOICEREWARD, customReward)
         );
 
         ChallengeSystem.populateTieredMaps();
