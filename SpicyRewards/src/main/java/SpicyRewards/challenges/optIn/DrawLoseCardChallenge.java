@@ -18,6 +18,7 @@ import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.purple.Scrawl;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
@@ -63,7 +64,7 @@ public class DrawLoseCardChallenge extends AbstractChallenge implements IUIRende
                 reward = new SingleCardReward(new Scrawl());
                 break;
             case 2:
-                reward = new MaxHpReward(6 + drawLimit);
+                reward = new MaxHpReward(6 + (drawLimit - (4 - AbstractDungeon.actNum)));
                 break;
             case 3:
                 reward = new BigButNoDrawCardReward();
