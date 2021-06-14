@@ -202,6 +202,15 @@ public class ChallengeSystem {
         return allChallenges.get(id).makeCopy();
     }
 
+    public static boolean hasChallenge(String id) {
+        for(AbstractChallenge c : challenges) {
+            if(id.equals(c.id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     public static void addChallenge(AbstractChallenge c) {
         if(c == null) {
             SpicyRewards.logger.warn("Tried to add challenge which was null!");
