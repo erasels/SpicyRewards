@@ -109,7 +109,7 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
             return NORM_TURN;
         }
         boolean elite = AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
-        return (elite? ELITE_TURN : NORM_TURN) + NumberUtils.min(AbstractDungeon.actNum, 3) - 1;
+        return (elite? ELITE_TURN : NORM_TURN) + NumberUtils.min(AbstractDungeon.actNum, 2) - 1;
     }
 
     private static String getTurnLimitDesc() {
