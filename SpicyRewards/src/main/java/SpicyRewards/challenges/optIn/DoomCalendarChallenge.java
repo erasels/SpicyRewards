@@ -11,7 +11,6 @@ import SpicyRewards.rewards.data.SevenCardReward;
 import SpicyRewards.util.UC;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.Loader;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.GameActionManager;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -31,7 +30,6 @@ import java.util.Arrays;
 public class DoomCalendarChallenge extends AbstractChallenge implements IUIRenderChallenge {
     public static final String ID = SpicyRewards.makeID("DoomCalendar");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("DoomCalendarChallenge"));
-    private static final boolean mintyEnabled = Loader.isModLoaded("mintyspire");
     //private static final HashMap<String, ArrayList<String>> weakMonstersPerDungeon = new HashMap<>();
 
     private static final int TURN = 7, AMOUNT = 36;
@@ -103,7 +101,7 @@ public class DoomCalendarChallenge extends AbstractChallenge implements IUIRende
 
     @Override
     public boolean shouldRender() {
-        return !mintyEnabled && GameActionManager.turn <= TURN;
+        return !SpicyRewards.hasMinty && GameActionManager.turn <= TURN;
     }
 
     //Only called if MintySpire is not active

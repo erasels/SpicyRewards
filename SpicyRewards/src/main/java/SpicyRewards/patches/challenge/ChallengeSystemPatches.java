@@ -8,7 +8,6 @@ import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.UC;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.evacipated.cardcrawl.modthespire.Loader;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.evacipated.cardcrawl.modthespire.patcher.PatchingException;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -69,7 +68,7 @@ public class ChallengeSystemPatches {
     @SpirePatch2(clz = AbstractRoom.class, method = "render")
     public static class RenderChallenges {
         private static float X_OFFSET = Settings.WIDTH - (50f * Settings.scale);
-        private static float START_Y = ((float) ReflectionHacks.getPrivateStatic(AbstractRelic.class, "START_Y")) - ((64f * Settings.scale) * (Loader.isModLoaded("mintyspire") ? 2 : 1));
+        private static float START_Y = ((float) ReflectionHacks.getPrivateStatic(AbstractRelic.class, "START_Y")) - ((64f * Settings.scale) * (SpicyRewards.hasMinty ? 2 : 1));
         ;
 
         @SpireInsertPatch(locator = Locator.class)

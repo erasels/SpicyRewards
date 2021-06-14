@@ -51,6 +51,7 @@ public class SpicyRewards implements
         EditRelicsSubscriber,
         StartActSubscriber{
     public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
+    public static final boolean hasMinty = Loader.isModLoaded("mintyspire");
     private static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
 
