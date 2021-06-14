@@ -107,12 +107,10 @@
     }
   },
   "${ModID}:RushChallenge": {
-    "TEXT": [
-      "Select a card to transform"
-    ],
     "TEXT_DICT": {
-      "desc": "End the combat before turn %d.",
-      "name": "Rush"
+      "desc": "End the combat within %d turns.",
+      "name": "Rush",
+      "render": "Turns to beat: %d/%d"
     }
   },
   "${ModID}:SlimedChallenge": {
