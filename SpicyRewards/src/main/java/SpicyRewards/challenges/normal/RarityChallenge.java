@@ -3,56 +3,67 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.CoolBasicsCardReward;
-import SpicyRewards.rewards.selectCardsRewards.TransformReward;
+import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
+import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.util.UC;
-import basemod.helpers.BaseModCardTags;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.red.PerfectedStrike;
+import com.megacrit.cardcrawl.cards.blue.HelloWorld;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.relics.CeramicFish;
+import com.megacrit.cardcrawl.relics.EternalFeather;
+import com.megacrit.cardcrawl.relics.StrikeDummy;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class AdvancedChallenge extends AbstractChallenge {
-    public static final String ID = SpicyRewards.makeID("Advanced");
+public class RarityChallenge extends AbstractChallenge {
+    public static final String ID = SpicyRewards.makeID("Rarity");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
-    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(RarityChallenge.ID));
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(PowerlessChallenge.ID, AdvancedChallenge.ID));
 
-    public AdvancedChallenge() {
+    public RarityChallenge() {
         super(ID,
                 uiText.TEXT_DICT.get("desc"),
                 uiText.TEXT_DICT.get("name"),
                 null,
-                Tier.EASY,
+                Tier.NORMAL,
                 AbstractChallenge.Type.NORMAL);
     }
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(2);
+        int i = ChallengeSystem.challengeRng.random(4);
         switch (i) {
             case 0:
                 reward = new CoolBasicsCardReward();
                 break;
             case 1:
-                reward = new TransformReward(null, AbstractCard.CardRarity.BASIC);
+                reward = new DuplicationReward(null, AbstractCard.CardRarity.COMMON);
                 break;
             case 2:
+                //Maybe replace with common card reward
+                reward = new RemoveReward(null, AbstractCard.CardRarity.UNCOMMON);
+                break;
+            case 3:
                 //Upgraded perfected strike
-                reward = new SingleCardReward(PerfectedStrike.ID + "|1|0");
+                reward = new SingleCardReward(HelloWorld.ID);
+                break;
+            case 4:
+                reward = new CustomRelicReward(StrikeDummy.ID, CeramicFish.ID, EternalFeather.ID);
         }
     }
 
     @Override
     public void onUseCard(AbstractCard card, UseCardAction action) {
-        if(isSoD(card)) {
+        if(!isOfRarity(card)) {
             fail();
         }
     }
@@ -63,15 +74,14 @@ public class AdvancedChallenge extends AbstractChallenge {
             complete();
     }
 
-    //Has at least 4 Strike/Defends in deck and at Floor 7 to get some cards
     @Override
     public boolean canSpawn() {
-        int sod = (int) UC.p().masterDeck.group.stream()
-                .filter(AdvancedChallenge::isSoD)
+        int rar = (int) UC.p().masterDeck.group.stream()
+                .filter(RarityChallenge::isOfRarity)
                 .count();
-        float ratio = (float)sod / (float)UC.p().masterDeck.size();
-        //If Strikes and Defends make up less than 40% and more than 10% of your deck
-        return  ratio <= 0.5f && ratio >= 0.1f;
+        float ratio = (float)rar / (float)UC.p().masterDeck.size();
+        //If Cards of that rarity make up less than 75% and more than 20% of your deck
+        return  ratio <= 0.75f && ratio >= 0.2f;
     }
 
     @Override
@@ -81,13 +91,13 @@ public class AdvancedChallenge extends AbstractChallenge {
 
     @Override
     protected CardBorderGlowManager.GlowInfo getCustomGlowInfo() {
-        return SDHighlighter;
+        return RHighlighter;
     }
 
-    private static final CardBorderGlowManager.GlowInfo SDHighlighter = new CardBorderGlowManager.GlowInfo() {
+    private static final CardBorderGlowManager.GlowInfo RHighlighter = new CardBorderGlowManager.GlowInfo() {
         @Override
         public boolean test(AbstractCard c) {
-            return isSoD(c);
+            return !isOfRarity(c);
         }
 
         @Override
@@ -97,16 +107,12 @@ public class AdvancedChallenge extends AbstractChallenge {
 
         @Override
         public String glowID() {
-            return "SPICY_CHALLENGE_ADVANCED";
+            return "SPICY_CHALLENGE_RARITY";
         }
     };
 
-    private static boolean isSoD(AbstractCard c) {
-        for(AbstractCard.CardTags t : c.tags) {
-            if(t.equals(AbstractCard.CardTags.STARTER_DEFEND) || t.equals(AbstractCard.CardTags.STARTER_STRIKE) || t.equals(BaseModCardTags.BASIC_DEFEND) || t.equals(BaseModCardTags.BASIC_STRIKE))
-                return true;
-        }
-
-        return false;
+    private static boolean isOfRarity(AbstractCard c) {
+        return c.rarity != AbstractCard.CardRarity.RARE &&
+                c.rarity != AbstractCard.CardRarity.UNCOMMON;
     }
 }

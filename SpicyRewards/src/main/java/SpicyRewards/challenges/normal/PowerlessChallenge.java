@@ -16,6 +16,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class PowerlessChallenge  extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Powerless");
@@ -23,7 +24,7 @@ public class PowerlessChallenge  extends AbstractChallenge {
 
     private static final int MIN_POWERS = 3;
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(RarityChallenge.ID));
 
     public PowerlessChallenge() {
         super(ID,

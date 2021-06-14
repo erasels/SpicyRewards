@@ -244,5 +244,11 @@
       "name": "Time Heals All Wounds",
       "render": "Turns until heal: %d/%d"
     }
+  },
+  "${ModID}:RarityChallenge": {
+    "TEXT_DICT": {
+      "desc": "Do not play cards that are of uncommon or rare rarity.",
+      "name": "Common Trash"
+    }
   }
 }
