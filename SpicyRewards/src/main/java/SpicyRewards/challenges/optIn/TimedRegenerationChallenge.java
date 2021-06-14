@@ -56,7 +56,7 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
         int i = ChallengeSystem.challengeRng.random(3);
         switch (i) {
             case 0:
-                reward = new HealReward((int) (UC.p().maxHealth * 0.25f));
+                reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
                 break;
             case 1:
                 reward = new HealingCardChoice();

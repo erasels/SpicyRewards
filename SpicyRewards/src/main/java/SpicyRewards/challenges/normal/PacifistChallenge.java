@@ -44,7 +44,7 @@ public class PacifistChallenge  extends AbstractChallenge {
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.UNCOMMON, false));
                 break;
             case 2:
-                reward = new HealReward((int) (UC.p().maxHealth * 0.25f));
+                reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
         }
     }
 

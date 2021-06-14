@@ -49,7 +49,7 @@ public class MasochismChallenge extends AbstractChallenge {
                 reward = new AnyWeakorVulnCardReward();
                 break;
             case 2:
-                reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
+                reward = new HealReward((int) (UC.p().maxHealth * 0.15f));
                 break;
             case 3:
                 ArrayList<String> potentialRelics = new ArrayList<>(Arrays.asList(PaperCrane.ID, PaperFrog.ID, ChampionsBelt.ID, BagOfMarbles.ID, HandDrill.ID));
