@@ -68,7 +68,7 @@ public class RushChallenge extends AbstractChallenge implements IUIRenderChallen
     //Only render turn counter if Doom challenge isn't a challenge and minty isn't loaded
     @Override
     public boolean shouldRender() {
-        return !SpicyRewards.hasMinty && ChallengeSystem.hasChallenge(DoomCalendarChallenge.ID);
+        return !failed && !SpicyRewards.hasMinty && ChallengeSystem.hasChallenge(DoomCalendarChallenge.ID);
     }
 
     @Override
