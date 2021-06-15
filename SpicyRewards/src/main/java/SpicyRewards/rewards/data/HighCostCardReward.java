@@ -9,7 +9,7 @@ public class HighCostCardReward extends ModifiedCardReward {
     private static final String rewardText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards")).TEXT_DICT.get("highCostCR");
 
     public HighCostCardReward() {
-        super(Color.DARK_GRAY, null,  0, null, true, c -> c.cost >= 2);
+        super(Color.DARK_GRAY, null,  0, null, false, c -> c.cost >= 2);
     }
 
     @Override
