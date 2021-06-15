@@ -101,7 +101,7 @@ public class ModifyCardRewardPatches {
         }
     }
 
-    //Patches getRandomCard to affect both this and the prismatic shard any color card reward
+    //Patches getRandomCard to affect normal card reward
     @SpirePatch2(clz = CardGroup.class, method = "getRandomCard", paramtypez = {boolean.class})
     public static class FilterCondition {
         private static ArrayList<AbstractCard> actualCards;
@@ -113,7 +113,7 @@ public class ModifyCardRewardPatches {
                 //back up modified pool
                 actualCards = new ArrayList<>(__instance.group);
                 //Apply filter on pool that is backed up
-                __instance.group.removeIf(ModifiedCardReward.filter);
+                __instance.group.removeIf(ModifiedCardReward.filter.negate());
 
                 //If there are no remaining results remove filter condition
                 if (__instance.group.isEmpty()) {
