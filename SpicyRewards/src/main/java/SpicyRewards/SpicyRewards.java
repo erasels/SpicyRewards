@@ -52,6 +52,7 @@ public class SpicyRewards implements
         StartActSubscriber{
     public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
     public static final boolean hasMinty = Loader.isModLoaded("mintyspire");
+    public static final boolean hasWidepots = Loader.isModLoaded("widepotions");
     private static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
 
@@ -269,7 +270,7 @@ public class SpicyRewards implements
         BaseMod.addPotion(AntiExhaustPotion.class, Color.BLACK, Color.PURPLE, null, AntiExhaustPotion.POTION_ID);
         BaseMod.addPotion(MomentumPotion.class, Color.LIGHT_GRAY, Color.DARK_GRAY, null, MomentumPotion.POTION_ID);
 
-        if (Loader.isModLoaded("widepotions")) {
+        if (hasWidepots) {
             WidePotionsMod.whitelistSimplePotion(AntiExhaustPotion.POTION_ID);
         }
     }

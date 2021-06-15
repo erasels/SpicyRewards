@@ -1,7 +1,9 @@
 package SpicyRewards.cards;
 
+import SpicyRewards.SpicyRewards;
 import SpicyRewards.util.CardInfo;
 import SpicyRewards.util.UC;
+import SpicyRewards.util.WidepotionDependencyHelper;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.characters.AbstractPlayer;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
@@ -42,6 +44,11 @@ public class Abstinence extends AbstractSpicyCard{
                         i++;
                     }
                 }
+
+                if(SpicyRewards.hasWidepots) {
+                    i += WidepotionDependencyHelper.countWideSlots();
+                }
+
                 if(i > 0)
                     UC.doPow(UC.p(), new StrengthPower(UC.p(), i * Abstinence.this.magicNumber), true);
                 isDone = true;
