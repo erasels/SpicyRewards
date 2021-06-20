@@ -14,6 +14,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
+import com.megacrit.cardcrawl.relics.ChemicalX;
 import com.megacrit.cardcrawl.relics.MedicalKit;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
@@ -44,7 +45,7 @@ public class HeartAcheChallenge extends AbstractChallenge {
                 break;
             case 1:
             case 2:
-                reward = new CustomRelicReward(MedicalKit.ID);
+                reward = new CustomRelicReward(MedicalKit.ID, ChemicalX.ID);
                 break;
             case 3:
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
