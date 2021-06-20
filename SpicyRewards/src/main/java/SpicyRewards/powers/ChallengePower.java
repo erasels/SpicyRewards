@@ -111,6 +111,11 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     }
 
     @Override
+    public void wasHPLost(DamageInfo info, int damageAmount) {
+        ChallengeSystem.wasHPLost(info, damageAmount);
+    }
+
+    @Override
     public boolean canPlayCard(AbstractCard c) {
         return ChallengeSystem.canPlayCard(c);
     }

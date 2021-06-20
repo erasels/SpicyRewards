@@ -250,5 +250,11 @@
       "desc": "Do not play cards that are of uncommon or rare rarity.",
       "name": "Common Trash"
     }
+  },
+  "${ModID}:MercantileChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you lose HP, lose %d%% of your current Gold.",
+      "name": "Mercantile"
+    }
   }
 }

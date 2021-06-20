@@ -182,6 +182,9 @@ public abstract class AbstractChallenge {
     public void onDecrementBlock(AbstractCreature target, DamageInfo info, int damageAmount) {
     }
 
+    public void wasHPLost(DamageInfo info, int damageAmount) {
+    }
+
     public boolean canPlayCard(AbstractCard c) {
         return true;
     }

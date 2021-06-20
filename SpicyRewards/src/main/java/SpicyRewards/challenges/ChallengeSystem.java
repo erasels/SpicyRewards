@@ -100,6 +100,10 @@ public class ChallengeSystem {
         challenges.forEach(c -> c.onDecrementBlock(target, info, damageAmount));
     }
 
+    public static void wasHPLost(DamageInfo info, int damageAmount) {
+        challenges.forEach(c -> c.wasHPLost(info, damageAmount));
+    }
+
     public static boolean canPlayCard(AbstractCard c) {
         for(AbstractChallenge ch : challenges) {
             if(!ch.canPlayCard(c)) {
