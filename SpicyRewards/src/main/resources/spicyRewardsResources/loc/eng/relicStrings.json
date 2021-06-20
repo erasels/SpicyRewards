@@ -19,5 +19,12 @@
     "DESCRIPTIONS": [
       "Whenever an enemy dies, gain %d #yBlock."
     ]
+  },
+  "${ModID}:CremationUrn": {
+    "NAME": "Cremation Urn",
+    "FLAVOR": "Collecting ashes within seems to empower you.",
+    "DESCRIPTIONS": [
+      "Whenever you #yexhaust a card, #yUpgrade a random card in your hand for the rest of combat."
+    ]
   }
 }
