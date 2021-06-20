@@ -254,16 +254,18 @@ public class SpicyRewards implements
 
     @Override
     public void receiveStartGame() {
-        //At the start of the run, set the spawnchance to the minimum
+        //At the start of the run, set the spawnchance to the minimum and reset challenge spawns
         if (!CardCrawlGame.loadingSave) {
             ChallengeSystem.resetSpawnChance();
+            ChallengeSystem.resetChallengeSpawns();
         }
     }
 
-    //Also triggers when starting a new game, reset the spawnchance
+    //Reset challenge spawns per act if playing on endless
     @Override
     public void receiveStartAct() {
-        ChallengeSystem.resetChallengeSpawns();
+        if(Settings.isEndless)
+            ChallengeSystem.resetChallengeSpawns();
     }
 
     protected void addPotions() {
