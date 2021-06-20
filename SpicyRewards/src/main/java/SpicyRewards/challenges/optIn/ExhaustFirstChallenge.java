@@ -4,15 +4,16 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.potions.AntiExhaustPotion;
+import SpicyRewards.relics.CremationUrn;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.ExhuastCardReward;
-import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.relics.CharonsAshes;
 import com.megacrit.cardcrawl.relics.StrangeSpoon;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
@@ -43,10 +44,8 @@ public class ExhaustFirstChallenge extends AbstractChallenge {
                 reward = new ExhuastCardReward();
                 break;
             case 1:
-                if(!UC.p().hasRelic(StrangeSpoon.ID)) {
-                    reward = new CustomRelicReward(new StrangeSpoon());
-                    break;
-                }
+                reward = new CustomRelicReward(CremationUrn.ID, StrangeSpoon.ID, CharonsAshes.ID);
+                break;
             case 2:
                 reward = new RewardItem(new AntiExhaustPotion());
         }
