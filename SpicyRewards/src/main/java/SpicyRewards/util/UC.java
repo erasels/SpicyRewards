@@ -317,6 +317,10 @@ public class UC {
         return twoDecFormat.format(MathUtils.round(num));
     }
 
+    public static int makePercentage(float in) {
+        return MathUtils.floor(in * 100f);
+    }
+
     public static int getPercentageInc(float val) {
         return MathUtils.floor((val - 1f) * 100f);
     }

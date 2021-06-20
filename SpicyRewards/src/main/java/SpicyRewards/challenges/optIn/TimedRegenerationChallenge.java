@@ -43,7 +43,7 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
 
     public TimedRegenerationChallenge() {
         super(ID,
-                String.format(uiText.TEXT_DICT.get("desc"), getTurnLimitDesc(), makePercentage(AMT)),
+                String.format(uiText.TEXT_DICT.get("desc"), getTurnLimitDesc(), UC.makePercentage(AMT)),
                 uiText.TEXT_DICT.get("name"),
                 null,
                 Tier.HARD,
@@ -98,10 +98,6 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
     @Override
     protected ArrayList<String> getExclusions() {
         return exclusions;
-    }
-
-    private static int makePercentage(float in) {
-        return MathUtils.floor(in * 100f);
     }
 
     private static int getTurnLimit() {
