@@ -116,7 +116,8 @@ public class ChallengeSystem {
     //Called pre AbstractRoom battle UI render in ChallengeSystemPatches
     public static void renderChallengeUIs(SpriteBatch sb, float xOffset, float startY) {
         for(AbstractChallenge c : challenges) {
-            if(!c.failed && !c.done && c instanceof IUIRenderChallenge && ((IUIRenderChallenge)c).shouldRender()) {
+            //Render only if challenge isn't failed and not done if side challenge (optins always count as being done)
+            if(!c.failed && (c.type == AbstractChallenge.Type.OPTIN || !c.done) && c instanceof IUIRenderChallenge && ((IUIRenderChallenge)c).shouldRender()) {
                 ((IUIRenderChallenge) c).renderUI(sb, xOffset, startY);
                 startY -= FontHelper.getHeight(FontHelper.panelNameFont) + (10f * Settings.yScale);
             }
