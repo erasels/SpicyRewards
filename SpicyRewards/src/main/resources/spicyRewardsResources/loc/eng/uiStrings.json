@@ -256,5 +256,11 @@
       "desc": "Whenever you lose HP, lose %d%% of your current Gold.",
       "name": "Mercantile"
     }
+  },
+  "${ModID}:BigDamageChallenge": {
+    "TEXT_DICT": {
+      "desc": "Deal more than %d unblocked attack damage with all attacks this combat.",
+      "name": "Big Damage"
+    }
   }
 }
