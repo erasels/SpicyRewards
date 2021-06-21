@@ -66,11 +66,6 @@ public class MultikillChallenge extends AbstractChallenge implements IUIRenderCh
     }
 
     @Override
-    public boolean shouldRender() {
-        return !done;
-    }
-
-    @Override
     public void renderUI(SpriteBatch sb, float xOffset, float curY) {
         String s = String.format(uiText.TEXT_DICT.get("render"), killCount);
         xOffset-= FontHelper.getWidth(FontHelper.panelNameFont, s, 1f);

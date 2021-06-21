@@ -79,11 +79,6 @@ public class DifferentTypesChallenge extends AbstractChallenge implements IUIRen
         }
     }
 
-    @Override
-    public boolean shouldRender() {
-        return !failed;
-    }
-
     private static final UIStrings cardTypes = CardCrawlGame.languagePack.getUIString("SingleCardViewPopup");
     @Override
     public void renderUI(SpriteBatch sb, float xOffset, float curY) {
