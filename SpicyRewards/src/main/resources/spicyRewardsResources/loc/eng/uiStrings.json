@@ -260,7 +260,14 @@
   "${ModID}:BigDamageChallenge": {
     "TEXT_DICT": {
       "desc": "Deal more than %d unblocked attack damage with all attacks this combat.",
-      "name": "Big Damage"
+      "name": "Unga Bunga"
+    }
+  },
+  "${ModID}:LimitedDrawChallenge": {
+    "TEXT_DICT": {
+      "desc": "Do not draw more than 7 cards a turn.",
+      "name": "Limited Draw",
+      "render": "Draw limit: %d/%d"
     }
   }
 }
