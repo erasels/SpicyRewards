@@ -16,13 +16,14 @@ import com.megacrit.cardcrawl.relics.Boot;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class BigDamageChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("BigDamage");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int MIN_DMG = 5;
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(PerfectBreakChallenge.ID));
 
     public BigDamageChallenge() {
         super(ID,

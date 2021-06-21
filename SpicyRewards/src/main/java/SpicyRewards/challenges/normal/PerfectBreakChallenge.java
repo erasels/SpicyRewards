@@ -49,7 +49,7 @@ public class PerfectBreakChallenge extends AbstractChallenge {
             SpireShield.ID
     ));
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(BigDamageChallenge.ID));
 
     public PerfectBreakChallenge() {
         super(ID,
