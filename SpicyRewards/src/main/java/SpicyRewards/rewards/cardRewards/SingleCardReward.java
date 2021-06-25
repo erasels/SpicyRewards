@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.cards.colorless.Madness;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
@@ -14,6 +15,8 @@ import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
+
+import java.util.Arrays;
 
 import static SpicyRewards.patches.reward.NewRewardtypePatches.SR_SINGLECARDREWARD;
 
@@ -30,10 +33,33 @@ public class SingleCardReward extends CustomReward {
         init();
     }
 
-    public SingleCardReward(String cardSave) {
+    public SingleCardReward(String... args) {
         super(null, "", SR_SINGLECARDREWARD);
-        String[] params = cardSave.split("\\|");
-        card = CardLibrary.getCopy(params[0], Integer.parseInt(params[1]), Integer.parseInt(params[2]));
+
+        //Loading save
+        if(args.length == 1 && args[0].contains("|")) {
+            String[] params = args[0].split("\\|");
+            if(params.length < 3) {
+                card = CardLibrary.getCopy(params[0], 0, 0);
+            } else {
+                card = CardLibrary.getCopy(params[0], Integer.parseInt(params[1]), Integer.parseInt(params[2]));
+            }
+        } else {
+            //Initializing a card
+            int i = 0, j = 0;
+            switch (args.length) {
+                case 3:
+                    i = Integer.parseInt(args[2]);
+                case 2:
+                    j = Integer.parseInt(args[1]);
+                case 1:
+                    card = CardLibrary.getCopy(args[0], j, i);
+                    break;
+                default:
+                    SpicyRewards.logger.warn(String.format("Tried to generate a SingleCardReward with %d parameters.\nInput: %s", args.length, Arrays.toString(args)));
+                    card = CardLibrary.getCard(Madness.ID);
+            }
+        }
         init();
     }
 
