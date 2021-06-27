@@ -76,11 +76,13 @@ public class CycleCardReward extends ModifiedCardReward {
     }
 
     protected void cycleColor(AbstractCard.CardColor color) {
-        int pos = cycleColors.indexOf(color);
-        pos = pos == 0 ? cycleColors.size() - 1 : pos - 1;
-        selectedColor = cycleColors.get(pos);
+        if(cycleColors.contains(color)) {
+            selectedColor = color;
+        } else {
+            selectedColor = PLAYER;
+        }
 
-        cycleColor();
+        updateColor();
     }
 
     protected void cycleColor() {
@@ -88,6 +90,10 @@ public class CycleCardReward extends ModifiedCardReward {
         pos = pos == cycleColors.size() - 1 ? 0 : pos + 1;
         selectedColor = cycleColors.get(pos);
 
+        updateColor();
+    }
+
+    private void updateColor() {
         if (selectedColor == AbstractCard.CardColor.RED) {
             col = Color.SCARLET;
             text = String.format(uiStrings.TEXT_DICT.get("ModText"), Ironclad.NAMES[0]);
