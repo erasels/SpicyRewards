@@ -3,33 +3,30 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
-import SpicyRewards.rewards.HealReward;
-import SpicyRewards.rewards.cardRewards.CycleCardReward;
-import SpicyRewards.util.UC;
-import com.megacrit.cardcrawl.cards.DamageInfo;
-import com.megacrit.cardcrawl.core.AbstractCreature;
+import SpicyRewards.rewards.MaxHpReward;
+import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
+import com.megacrit.cardcrawl.actions.utility.UseCardAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class PacifistChallenge  extends AbstractChallenge {
-    public static final String ID = SpicyRewards.makeID("Pacifist");
+public class AttackStartChallenge extends AbstractChallenge {
+    public static final String ID = SpicyRewards.makeID("AttackStart");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
-    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(DifferentTypesChallenge.ID, AttackStartChallenge.ID));
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(PacifistChallenge.ID));
 
-    public PacifistChallenge() {
+    public AttackStartChallenge() {
         super(ID,
                 uiText.TEXT_DICT.get("desc"),
                 uiText.TEXT_DICT.get("name"),
                 null,
-                Tier.NORMAL,
+                Tier.EASY,
                 Type.NORMAL);
         shouldShowTip = true;
     }
@@ -39,19 +36,20 @@ public class PacifistChallenge  extends AbstractChallenge {
         int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
-                reward = new CycleCardReward();
+                reward = new RewardItem(10 + AbstractDungeon.actNum * 7);
                 break;
             case 1:
-                reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.UNCOMMON, false));
+                reward = new DuplicationReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.COMMON);
                 break;
             case 2:
-                reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
+                reward = new MaxHpReward(2 + AbstractDungeon.actNum);
         }
     }
 
     @Override
-    public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if(target instanceof AbstractMonster && ((AbstractMonster) target).getIntentBaseDmg() < 0) {
+    public void onUseCard(AbstractCard card, UseCardAction action) {
+        //Cards gets added to the arraylist before palyer.useCard and consequently this hook is called
+        if(AbstractDungeon.actionManager.cardsPlayedThisTurn.size() == 1 && card.type != AbstractCard.CardType.ATTACK) {
             fail();
         }
     }

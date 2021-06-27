@@ -286,5 +286,11 @@
       "desc": "The last card played every turn must be a Skill.",
       "name": "Skilled Finish"
     }
+  },
+  "${ModID}:AttackStartChallenge": {
+    "TEXT_DICT": {
+      "desc": "The first card played every turn must be an Attack.",
+      "name": "Aggressive Start"
+    }
   }
 }
