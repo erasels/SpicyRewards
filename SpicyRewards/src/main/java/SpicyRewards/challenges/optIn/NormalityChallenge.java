@@ -16,9 +16,12 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.relics.Pocketwatch;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -56,7 +59,11 @@ public class NormalityChallenge extends AbstractChallenge implements IUIRenderCh
                 reward = new HighCostCardReward();
                 break;
             case 2:
-                reward = new CustomRelicReward(Pearl.ID, Pocketwatch.ID);
+                if(AbstractDungeon.actNum > 1 || UC.p().energy.energyMaster > 3) {
+                    reward = new CustomRelicReward(Pearl.ID, Pocketwatch.ID);
+                } else {
+                    reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
+                }
         }
     }
 

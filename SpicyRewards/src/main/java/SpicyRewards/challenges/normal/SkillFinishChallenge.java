@@ -16,7 +16,7 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 
-public class SkillFinishChallenge  extends AbstractChallenge {
+public class SkillFinishChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("SkillFinish");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
