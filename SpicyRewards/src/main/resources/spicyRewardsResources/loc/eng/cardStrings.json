@@ -10,5 +10,9 @@
   "${ModID}:Breakthrough": {
     "NAME": "Breakthrough",
     "DESCRIPTION": "Deal !D! damage. NL If this breaks the target's Block, deal !D! damage again."
+  },
+  "${ModID}:PerfectedDefend": {
+    "NAME": "Perfected Defend",
+    "DESCRIPTION": "Gain !B! Block. NL Gains !M! additional Block for ALL your cards containing \"Defend\"."
   }
 }

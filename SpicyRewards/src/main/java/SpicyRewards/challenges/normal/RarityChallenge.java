@@ -52,7 +52,6 @@ public class RarityChallenge extends AbstractChallenge {
                 reward = new CycleCardReward();
                 break;
             case 3:
-                //Upgraded perfected strike
                 reward = new SingleCardReward(HelloWorld.ID);
                 break;
             case 4:
