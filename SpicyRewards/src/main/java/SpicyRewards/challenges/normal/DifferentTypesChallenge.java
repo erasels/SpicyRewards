@@ -4,6 +4,7 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.IUIRenderChallenge;
+import SpicyRewards.rewards.cardRewards.CycleCardReward;
 import SpicyRewards.rewards.data.UpgradedAnyReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import basemod.helpers.CardBorderGlowManager;
@@ -15,7 +16,6 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -45,7 +45,7 @@ public class DifferentTypesChallenge extends AbstractChallenge implements IUIRen
                 reward = new UpgradedAnyReward();
                 break;
             case 1:
-                reward = new RewardItem();
+                reward = new CycleCardReward();
                 break;
             case 2:
                 //Upgraded perfected strike

@@ -6,6 +6,7 @@ import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.challenges.optIn.DrawLoseCardChallenge;
 import SpicyRewards.rewards.CustomRelicReward;
+import SpicyRewards.rewards.cardRewards.CycleCardReward;
 import SpicyRewards.util.UC;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -49,7 +50,7 @@ public class LimitedDrawChallenge extends AbstractChallenge implements IUIRender
                 }
             case 1:
                 if(AbstractDungeon.actNum < 3) {
-                    reward = new RewardItem();
+                    reward = new CycleCardReward();
                 } else {
                     reward = new RewardItem(30);
                 }

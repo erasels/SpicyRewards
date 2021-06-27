@@ -4,6 +4,7 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.HealReward;
+import SpicyRewards.rewards.cardRewards.CycleCardReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
@@ -38,7 +39,7 @@ public class PacifistChallenge  extends AbstractChallenge {
         int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
-                reward = new RewardItem();
+                reward = new CycleCardReward();
                 break;
             case 1:
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.UNCOMMON, false));
