@@ -39,7 +39,7 @@ public class DifferentTypesChallenge extends AbstractChallenge implements IUIRen
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(3);
+        int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
                 reward = new UpgradedAnyReward();
@@ -48,10 +48,6 @@ public class DifferentTypesChallenge extends AbstractChallenge implements IUIRen
                 reward = new CycleCardReward();
                 break;
             case 2:
-                //Upgraded perfected strike
-                reward = getRandomGeneralReward();
-                break;
-            case 3:
                 reward = new TransformReward();
         }
     }
