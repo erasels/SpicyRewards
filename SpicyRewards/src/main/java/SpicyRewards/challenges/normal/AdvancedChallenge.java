@@ -3,8 +3,8 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
-import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.CoolBasicsCardReward;
+import SpicyRewards.rewards.data.PerfectedBasicCardChoice;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.BaseModCardTags;
@@ -12,7 +12,6 @@ import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
-import com.megacrit.cardcrawl.cards.red.PerfectedStrike;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
@@ -45,8 +44,7 @@ public class AdvancedChallenge extends AbstractChallenge {
                 reward = new TransformReward(null, AbstractCard.CardRarity.BASIC);
                 break;
             case 2:
-                //Upgraded perfected strike
-                reward = new SingleCardReward(PerfectedStrike.ID, "1");
+                reward = new PerfectedBasicCardChoice();
         }
     }
 
