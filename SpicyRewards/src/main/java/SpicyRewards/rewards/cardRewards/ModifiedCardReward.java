@@ -25,21 +25,38 @@ import java.util.function.Predicate;
 
 public class ModifiedCardReward extends AbstractSpicyReward {
     private static final Texture ICON = TextureLoader.getTexture(SpicyRewards.makeUIPath("cards.png"));
-    private static final float REWARD_X_POS = Settings.WIDTH * 0.434F;
+    protected static final float REWARD_X_POS = Settings.WIDTH * 0.434F;
 
     public static int additionalCards;
     public static AbstractCard.CardRarity fixedRarity;
     public static boolean allUpgraded;
-    //Filter predicate, return true to keep the card, return false to remove it
+    //Filter predicate, return true to keep the card, return false to remove it (negated now, do the opposite)
     public static Predicate<AbstractCard> filter;
     public static AbstractCard.CardColor cardColor;
     public static ArrayList<AbstractCard> cardsOfColor;
 
     protected Color col;
 
-    public ModifiedCardReward(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
+    public ModifiedCardReward(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter, boolean init) {
         super(ICON, TEXT[2], RewardType.CARD);
 
+        if(init)
+            initialize(iconColor, cardColor, cAmt, rar, upg, filter);
+    }
+
+    public ModifiedCardReward(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
+        this(iconColor, cardColor, cAmt, rar, upg, filter, true);
+    }
+
+    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
+        this(c, null, cAmt, rar, upg, filter);
+    }
+
+    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg) {
+        this(c, cAmt, rar, upg, null);
+    }
+
+    protected void initialize(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
         if(cardColor != AnyCardColorPatch.ANY && rar == AbstractCard.CardRarity.BASIC) {
             SpicyRewards.logger.error("Card rewards for BASIC without color set to ANY will crash.");
         }
@@ -55,14 +72,6 @@ public class ModifiedCardReward extends AbstractSpicyReward {
         }
         resetModifiers();
         text = getRewardText();
-    }
-
-    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter) {
-        this(c, null, cAmt, rar, upg, filter);
-    }
-
-    public ModifiedCardReward(Color c, int cAmt, AbstractCard.CardRarity rar, boolean upg) {
-        this(c, cAmt, rar, upg, null);
     }
 
     @Override
@@ -128,8 +137,8 @@ public class ModifiedCardReward extends AbstractSpicyReward {
         float ypos = y + 5.0f * Settings.scale;
         float lineWidth = hb.width * 0.75f;
         float lineSpacing = FontHelper.getHeight(FontHelper.charDescFont) + 5f * Settings.scale;
-        //If the font is a little larger than the line width, upshift ypos to center the text once broken in two lines (0.9 scale because a little leeway is needed)
-        if(FontHelper.getSmartWidth(FontHelper.charDescFont, text, 9999f, 0f, 0.9f) > lineWidth) {
+        //If the font is a little larger than the line width, upshift ypos to center the text once broken in two lines (0.8 scale because a little leeway is needed)
+        if(FontHelper.getSmartWidth(FontHelper.charDescFont, text, 9999f, 0f, 0.8f) > lineWidth) {
             ypos += lineSpacing/2f;
         }
         FontHelper.renderSmartText(sb, FontHelper.cardDescFont_N, text, REWARD_X_POS, ypos, lineWidth, lineSpacing, c);
