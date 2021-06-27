@@ -106,6 +106,16 @@
       "NoType": "card"
     }
   },
+  "${ModID}:CycleCardReward": {
+    "TEXT": [
+      "Right-click to cycle between card colors."
+    ],
+    "TEXT_DICT": {
+      "FullText": "Color-cyclable card reward",
+      "ModText": "%s card reward",
+      "any": "Any color"
+    }
+  },
   "${ModID}:RushChallenge": {
     "TEXT_DICT": {
       "desc": "End the combat within %d turns.",
