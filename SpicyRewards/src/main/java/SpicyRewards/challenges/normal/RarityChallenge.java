@@ -4,10 +4,10 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
+import SpicyRewards.rewards.cardRewards.CycleCardReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.CoolBasicsCardReward;
 import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
-import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
@@ -49,8 +49,7 @@ public class RarityChallenge extends AbstractChallenge {
                 reward = new DuplicationReward(null, AbstractCard.CardRarity.COMMON);
                 break;
             case 2:
-                //Maybe replace with common card reward
-                reward = new RemoveReward(null, AbstractCard.CardRarity.UNCOMMON);
+                reward = new CycleCardReward();
                 break;
             case 3:
                 //Upgraded perfected strike
