@@ -6,6 +6,7 @@ import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.data.BlockBreakCardChoice;
 import SpicyRewards.rewards.data.UpgradedCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -71,13 +72,17 @@ public class PerfectBreakChallenge extends AbstractChallenge {
                 reward = new UpgradedCardReward();
                 break;
             case 2:
-                reward = new RemoveReward(null, AbstractCard.CardRarity.COMMON);
+                if (UC.p().masterDeck.size() >= 17) {
+                    reward = new RemoveReward(null, AbstractCard.CardRarity.COMMON);
+                } else {
+                    reward = new TransformReward();
+                }
         }
     }
 
     @Override
     public void onDecrementBlock(AbstractCreature target, DamageInfo info, int damageAmount) {
-        if(target.currentBlock == damageAmount) {
+        if (target.currentBlock == damageAmount) {
             complete();
         }
     }
@@ -86,8 +91,8 @@ public class PerfectBreakChallenge extends AbstractChallenge {
     public boolean canSpawn() {
         boolean hasBlockMonster = false;
         //Use instrument to check for GainBlockAction and powers that give block (Malleable,
-        for(AbstractMonster m : UC.getAliveMonsters()) {
-            if(blockMonsters.contains(m.id)) {
+        for (AbstractMonster m : UC.getAliveMonsters()) {
+            if (blockMonsters.contains(m.id)) {
                 hasBlockMonster = true;
                 break;
             }

@@ -7,6 +7,7 @@ import SpicyRewards.potions.MomentumPotion;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.UpgradedSkillReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
@@ -48,7 +49,11 @@ public class AfterImageChallenge extends AbstractChallenge {
                 reward = new SingleCardReward(c);
                 break;
             case 1:
-                reward = new RemoveReward();
+                if(UC.p().masterDeck.size() >= 17) {
+                    reward = new RemoveReward();
+                } else {
+                    reward = new TransformReward();
+                }
                 break;
             case 2:
                 AbstractPotion p = PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID, MomentumPotion.POTION_ID)), AbstractDungeon.potionRng));

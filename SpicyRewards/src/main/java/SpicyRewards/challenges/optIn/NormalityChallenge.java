@@ -8,6 +8,8 @@ import SpicyRewards.relics.Pearl;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.HighCostCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
+import SpicyRewards.rewards.selectCardsRewards.TransformReward;
+import SpicyRewards.util.UC;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
@@ -44,7 +46,11 @@ public class NormalityChallenge extends AbstractChallenge implements IUIRenderCh
         int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
-                reward = new RemoveReward();
+                if(UC.p().masterDeck.size() >= 17) {
+                    reward = new RemoveReward();
+                } else {
+                    reward = new TransformReward();
+                }
                 break;
             case 1:
                 reward = new HighCostCardReward();
