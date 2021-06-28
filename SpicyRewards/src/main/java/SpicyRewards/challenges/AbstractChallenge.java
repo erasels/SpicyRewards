@@ -76,6 +76,10 @@ public abstract class AbstractChallenge {
 
     protected abstract void rollReward();
 
+    public void addRewards(ArrayList<RewardItem> rew) {
+        rew.add(reward);
+    }
+
     public void initAtBattleStart() {
         addCustomGlowInfo();
     }

@@ -126,7 +126,7 @@ public class ChallengeSystem {
     }
 
     public static void claimRewards(ArrayList<RewardItem> rewards) {
-        challenges.stream().filter(AbstractChallenge::isDone).forEachOrdered(c -> rewards.add(c.reward));
+        challenges.stream().filter(AbstractChallenge::isDone).forEachOrdered(c -> c.addRewards(rewards));
     }
 
     public static void clearChallenges() {
