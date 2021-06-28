@@ -44,7 +44,8 @@
       "highCostCR": "2+ cost card reward",
       "healingCC": "Upgraded Healing card choice",
       "sRareCR": "Small rare card reward",
-      "skillCR": "Skill card reward"
+      "skillCR": "Skill card reward",
+      "commonCR": "Common card reward"
     }
   },
   "${ModID}:ChallengeButton": {
@@ -291,6 +292,12 @@
     "TEXT_DICT": {
       "desc": "The first card played every turn must be an Attack.",
       "name": "Aggressive Start"
+    }
+  },
+  "${ModID}:ChallengeYourselfChallenge": {
+    "TEXT_DICT": {
+      "desc": "Activate an Opt-In Challenge.",
+      "name": "Challenge Yourself"
     }
   }
 }
