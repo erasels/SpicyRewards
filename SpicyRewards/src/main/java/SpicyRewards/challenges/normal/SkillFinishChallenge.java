@@ -5,7 +5,7 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.SkillCardReward;
-import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseBlockReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -46,7 +46,7 @@ public class SkillFinishChallenge extends AbstractChallenge {
                 if(AbstractDungeon.actNum > 2 && !UC.p().hasRelic(ArtOfWar.ID)) {
                     reward = new CustomRelicReward(ArtOfWar.ID);
                 } else {
-                    reward = new UpgradeReward(AbstractCard.CardType.SKILL, AbstractCard.CardRarity.COMMON);
+                    reward = new IncreaseBlockReward(3);
                 }
         }
     }

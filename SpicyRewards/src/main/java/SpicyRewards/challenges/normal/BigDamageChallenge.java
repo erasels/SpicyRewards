@@ -4,6 +4,7 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -40,7 +41,11 @@ public class BigDamageChallenge extends AbstractChallenge {
         int i = ChallengeSystem.challengeRng.random(2);
         switch (i) {
             case 0:
-                reward = new RewardItem(30);
+                if(AbstractDungeon.actNum == 1) {
+                    reward = new IncreaseDamageReward(null, AbstractCard.CardRarity.COMMON,5);
+                } else {
+                    reward = new RewardItem(30);
+                }
                 break;
             case 1:
                 reward = new RewardItem(AbstractDungeon.returnRandomPotion());

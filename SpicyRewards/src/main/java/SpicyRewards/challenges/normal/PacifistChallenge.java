@@ -5,15 +5,14 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.cardRewards.CycleCardReward;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseBlockReward;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.potions.AbstractPotion;
-import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -42,10 +41,14 @@ public class PacifistChallenge  extends AbstractChallenge {
                 reward = new CycleCardReward();
                 break;
             case 1:
-                reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.UNCOMMON, false));
+                reward = new IncreaseDamageReward(4);
                 break;
             case 2:
-                reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
+                if(UC.p().currentHealth < UC.p().maxHealth/2f) {
+                    reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
+                } else {
+                    reward = new IncreaseBlockReward(3);
+                }
         }
     }
 

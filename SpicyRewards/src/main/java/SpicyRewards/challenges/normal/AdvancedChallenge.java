@@ -5,6 +5,7 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.data.CoolBasicsCardReward;
 import SpicyRewards.rewards.data.PerfectedBasicCardChoice;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import basemod.helpers.BaseModCardTags;
@@ -13,6 +14,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 
 import java.util.ArrayList;
@@ -41,7 +43,11 @@ public class AdvancedChallenge extends AbstractChallenge {
                 reward = new CoolBasicsCardReward();
                 break;
             case 1:
-                reward = new TransformReward(null, AbstractCard.CardRarity.BASIC);
+                if(AbstractDungeon.actNum == 1) {
+                    reward = new TransformReward(null, AbstractCard.CardRarity.BASIC);
+                } else {
+                    reward = new IncreaseDamageReward(null, AbstractCard.CardRarity.BASIC, 7);
+                }
                 break;
             case 2:
                 reward = new PerfectedBasicCardChoice();

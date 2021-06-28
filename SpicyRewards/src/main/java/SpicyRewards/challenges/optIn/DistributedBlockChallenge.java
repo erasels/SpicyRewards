@@ -7,6 +7,7 @@ import SpicyRewards.potions.MomentumPotion;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.DefectBlockCardReward;
 import SpicyRewards.rewards.data.UpgradedBlockReward;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseBlockReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
@@ -16,8 +17,10 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
+import com.megacrit.cardcrawl.potions.PotionSlot;
 import com.megacrit.cardcrawl.relics.Calipers;
 import com.megacrit.cardcrawl.relics.Orichalcum;
+import com.megacrit.cardcrawl.relics.Sozu;
 import com.megacrit.cardcrawl.relics.ToxicEgg2;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
@@ -43,19 +46,31 @@ public class DistributedBlockChallenge extends AbstractChallenge {
         int i = ChallengeSystem.challengeRng.random(4);
         switch (i) {
             case 0:
-                reward = new DefectBlockCardReward();
+                if(UC.p().potions.stream().anyMatch(p -> (p instanceof PotionSlot)) && !UC.p().hasRelic(Sozu.ID)) {
+                    reward = new RewardItem(new MomentumPotion());
+                } else {
+                    reward = new IncreaseBlockReward(2 + AbstractDungeon.actNum);
+                }
                 break;
             case 1:
                 reward = new CustomRelicReward(Orichalcum.ID, ToxicEgg2.ID, Calipers.ID);
                 break;
             case 2:
-                reward = new RewardItem(new MomentumPotion());
+                if(!UC.p().hasRelic(Sozu.ID)) {
+                    reward = new RewardItem(new MomentumPotion());
+                } else {
+                    reward = new IncreaseBlockReward(2 + AbstractDungeon.actNum);
+                }
                 break;
             case 3:
                 reward = new UpgradeReward(AbstractCard.CardType.SKILL, null);
                 break;
             case 4:
-                reward = new UpgradedBlockReward();
+                if(AbstractDungeon.actNum == 1) {
+                    reward = new DefectBlockCardReward();
+                } else {
+                    reward = new UpgradedBlockReward();
+                }
         }
     }
 

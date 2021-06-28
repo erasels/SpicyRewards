@@ -3,8 +3,8 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
-import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -42,7 +42,7 @@ public class AttackStartChallenge extends AbstractChallenge {
                 reward = new DuplicationReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.COMMON);
                 break;
             case 2:
-                reward = new MaxHpReward(2 + AbstractDungeon.actNum);
+                reward = new IncreaseDamageReward(3);
         }
     }
 
