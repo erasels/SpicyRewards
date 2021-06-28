@@ -65,6 +65,10 @@ public class ChallengeSystem {
         challenges.forEach(AbstractChallenge::atEndOfTurn);
     }
 
+    public static void atEndOfTurnPreEndTurnCards() {
+        challenges.forEach(AbstractChallenge::atEndOfTurnPreEndTurnCards);
+    }
+
     public static void atEndOfRound() {
         challenges.forEach(AbstractChallenge::atEndOfRound);
     }

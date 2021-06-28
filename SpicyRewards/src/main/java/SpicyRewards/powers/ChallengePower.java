@@ -62,6 +62,12 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     }
 
     @Override
+    public void atEndOfTurnPreEndTurnCards(boolean isPlayer) {
+        //isPlayer ignored because this power is only on the player
+        ChallengeSystem.atEndOfTurnPreEndTurnCards();
+    }
+
+    @Override
     public void atEndOfRound() {
         ChallengeSystem.atEndOfRound();
     }

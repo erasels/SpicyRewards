@@ -162,6 +162,9 @@ public abstract class AbstractChallenge {
     public void atEndOfTurn() {
     }
 
+    public void atEndOfTurnPreEndTurnCards() {
+    }
+
     public void atEndOfRound() {
     }
 
