@@ -2,7 +2,6 @@ package SpicyRewards.challenges;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.powers.ChallengePower;
-import SpicyRewards.util.UC;
 import SpicyRewards.util.WeightedList;
 import basemod.AutoAdd;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -203,8 +202,8 @@ public class ChallengeSystem {
 
         //All challenges that can spawn have spawned more than MAX_CHALLENGE_SPAWN_AMOUNT times.
         if(wcs.isEmpty()) {
-            SpicyRewards.logger.info(String.format("All available challenges have spawned more than %d times, returning truly random challenge.", MAX_CHALLENGE_SPAWN_AMOUNT));
-            return UC.getRandomItem(list, challengeRng);
+            SpicyRewards.logger.warn(String.format("All available challenges have spawned more than %d times, returning truly random challenge.", MAX_CHALLENGE_SPAWN_AMOUNT));
+            list.forEach(challenge -> wcs.add(challenge, 1));
         }
 
         AbstractChallenge c = wcs.getRandom(challengeRng);
