@@ -35,7 +35,7 @@ public class PacifistChallenge  extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(2);
+        int i = ChallengeSystem.challengeRewardRng.random(2);
         switch (i) {
             case 0:
                 reward = new CycleCardReward();

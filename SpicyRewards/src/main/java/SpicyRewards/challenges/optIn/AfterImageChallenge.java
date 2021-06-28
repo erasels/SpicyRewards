@@ -41,7 +41,7 @@ public class AfterImageChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(3);
+        int i = ChallengeSystem.challengeRewardRng.random(3);
         switch (i) {
             case 0:
                 AbstractCard c = new AfterImage();

@@ -40,7 +40,7 @@ public class RarityChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(4);
+        int i = ChallengeSystem.challengeRewardRng.random(4);
         switch (i) {
             case 0:
                 reward = new CoolBasicsCardReward();

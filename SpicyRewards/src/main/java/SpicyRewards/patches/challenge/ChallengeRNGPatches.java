@@ -18,9 +18,11 @@ import java.util.HashMap;
 public class ChallengeRNGPatches {
     //Keys
     private static final String challengeRngCountID = "SPICY_REWARDS_CHALLENGE_RNG_COUNT";
+    private static final String rewardRngCountID = "SPICY_REWARDS_REWARD_RNG_COUNT";
 
     //Data
     public static int challengeRngCount = 0;
+    public static int rewardRngCount = 0;
 
     //Save data whenever SaveFile is constructed
     @SpirePatch(
@@ -32,7 +34,9 @@ public class ChallengeRNGPatches {
         @SpirePostfixPatch
         public static void saveAllTheSaveData(SaveFile __instance, SaveFile.SaveType type) {
             challengeRngCount = ChallengeSystem.challengeRng.counter;
+            rewardRngCount = ChallengeSystem.challengeRewardRng.counter;
             SpicyRewards.logger.info("Saved Spicy Rewards challenge RNG Counter: " + challengeRngCount);
+            SpicyRewards.logger.info("Saved Spicy Rewards reward RNG Counter: " + rewardRngCount);
         }
     }
 
@@ -46,7 +50,9 @@ public class ChallengeRNGPatches {
         public static void loadSeed(SaveFile file) {
             //Actual data is loaded in LoadDataFromFile; this just sets it afterwards to ensure it is saved again properly.
             ChallengeSystem.challengeRng = new Random(Settings.seed, challengeRngCount);
+            ChallengeSystem.challengeRewardRng = new Random(Settings.seed, rewardRngCount);
             SpicyRewards.logger.info("Loaded Spicy Rewards challenge RNG Counter: " + challengeRngCount);
+            SpicyRewards.logger.info("Loaded Spicy Rewards reward RNG Counter: " + rewardRngCount);
         }
     }
 
@@ -57,8 +63,9 @@ public class ChallengeRNGPatches {
     public static class generateSeeds {
         @SpirePostfixPatch
         public static void generate() {
-            SpicyRewards.logger.info("Generated Spicy Rewards challenge Random with seed " + Settings.seed.toString());
+            SpicyRewards.logger.info("Generated Spicy Rewards Random with seed " + Settings.seed.toString());
             ChallengeSystem.challengeRng = new Random(Settings.seed);
+            ChallengeSystem.challengeRewardRng = new Random(Settings.seed);
         }
     }
 
@@ -74,6 +81,7 @@ public class ChallengeRNGPatches {
         )
         public static void addCustomSaveData(SaveFile save, HashMap<Object, Object> params) {
             params.put(challengeRngCountID, challengeRngCount);
+            params.put(rewardRngCountID, rewardRngCount);
         }
 
         private static class Locator extends SpireInsertLocator {
@@ -100,6 +108,7 @@ public class ChallengeRNGPatches {
                 SpicySavedata data = gson.fromJson(savestr, SpicySavedata.class);
 
                 challengeRngCount = data.SPICY_REWARDS_CHALLENGE_RNG_COUNT;
+                rewardRngCount = data.SPICY_REWARDS_REWARD_RNG_COUNT;
             } catch (Exception e) {
                 SpicyRewards.logger.error("Failed to load SpicyRewards savedata: " + e);
             }

@@ -190,7 +190,7 @@ public abstract class AbstractChallenge {
     }
 
     protected RewardItem getRandomGeneralReward() {
-        int i = ChallengeSystem.challengeRng.random(3);
+        int i = ChallengeSystem.challengeRewardRng.random(3);
         switch (tier) {
             case HARD:
                 switch (i) {

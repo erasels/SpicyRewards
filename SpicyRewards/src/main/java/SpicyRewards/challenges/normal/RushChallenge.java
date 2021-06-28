@@ -36,7 +36,7 @@ public class RushChallenge extends AbstractChallenge implements IUIRenderChallen
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(1);
+        int i = ChallengeSystem.challengeRewardRng.random(1);
         switch (i) {
             case 0:
                 reward = new InnateCardReward();

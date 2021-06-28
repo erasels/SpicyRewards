@@ -40,6 +40,7 @@ public class ChallengeSystem {
     private static final HashMap<String, Integer> challengeSpawns = new HashMap<>();
 
     public static Random challengeRng = new Random();
+    public static Random challengeRewardRng = new Random();
 
     public static void atBattleStart() {
         for(AbstractChallenge c : challenges) {

@@ -63,7 +63,7 @@ public class CursedDrawChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(2);
+        int i = ChallengeSystem.challengeRewardRng.random(2);
         if(hasCurse) {
             switch (i) {
                 case 0:

@@ -43,7 +43,7 @@ public class DistributedBlockChallenge extends AbstractChallenge {
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(4);
+        int i = ChallengeSystem.challengeRewardRng.random(4);
         switch (i) {
             case 0:
                 if(UC.p().potions.stream().anyMatch(p -> (p instanceof PotionSlot)) && !UC.p().hasRelic(Sozu.ID)) {

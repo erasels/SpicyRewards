@@ -53,7 +53,7 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
 
     @Override
     protected void rollReward() {
-        int i = ChallengeSystem.challengeRng.random(3);
+        int i = ChallengeSystem.challengeRewardRng.random(3);
         switch (i) {
             case 0:
                 reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
@@ -65,7 +65,7 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
                 reward = new CustomRelicReward(Waffle.ID, Pear.ID, Mango.ID, BurningBlood.ID);
                 break;
             case 3:
-                reward = new RewardItem(ChallengeSystem.challengeRng.randomBoolean()? new BloodPotion() : new FruitJuice());
+                reward = new RewardItem(ChallengeSystem.challengeRewardRng.randomBoolean()? new BloodPotion() : new FruitJuice());
         }
     }
 
