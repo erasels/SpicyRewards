@@ -108,6 +108,26 @@
       "NoType": "card"
     }
   },
+  "${ModID}:InkAtkReward": {
+    "TEXT": [
+      "Select a card to increase the damage of"
+    ],
+    "TEXT_DICT": {
+      "FullText": "Increase damage of a card by %d",
+      "ModText": "Increase damage of a %s %s by %d",
+      "NoType": "card"
+    }
+  },
+  "${ModID}:InkDefReward": {
+    "TEXT": [
+      "Select a card to increase the Block of"
+    ],
+    "TEXT_DICT": {
+      "FullText": "Increase Block of a card by %d",
+      "ModText": "Increase Block of a %s %s by %d",
+      "NoType": "card"
+    }
+  },
   "${ModID}:CycleCardReward": {
     "TEXT": [
       "Right-click to cycle between card colors."

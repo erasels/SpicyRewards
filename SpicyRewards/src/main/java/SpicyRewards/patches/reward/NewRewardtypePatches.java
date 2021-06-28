@@ -20,4 +20,8 @@ public class NewRewardtypePatches {
     public static RewardItem.RewardType SR_CARDCHOICEREWARD;
     @SpireEnum
     public static RewardItem.RewardType SR_DUPEREWARD;
+    @SpireEnum
+    public static RewardItem.RewardType SR_INCATKREWARD;
+    @SpireEnum
+    public static RewardItem.RewardType SR_INCEDEFREWARD;
 }
