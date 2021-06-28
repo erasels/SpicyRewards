@@ -4,6 +4,7 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.HealReward;
+import SpicyRewards.rewards.cardRewards.CycleCardReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.localization.UIStrings;
@@ -33,7 +34,7 @@ public class PotionholicChallenge  extends AbstractChallenge {
         int i = ChallengeSystem.challengeRewardRng.random(2);
         switch (i) {
             case 0:
-                reward = new RewardItem();
+                reward = new CycleCardReward();
                 break;
             case 1:
                 reward = new RewardItem(25);
