@@ -30,6 +30,10 @@ public class CustomRelicReward extends RewardItem {
             SpicyRewards.logger.info("All custom reward relics are already obtained, returned a random relic.");
     }
 
+    public CustomRelicReward(AbstractRelic.RelicTier tier) {
+        this(AbstractDungeon.returnRandomRelicKey(tier));
+    }
+
     private static boolean removeRelicFromPool(String s, boolean allPools) {
         return removeRelicFromPool(RelicLibrary.getRelic(s), allPools);
     }
