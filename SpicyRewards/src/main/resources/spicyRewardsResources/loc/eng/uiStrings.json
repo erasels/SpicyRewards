@@ -45,7 +45,8 @@
       "healingCC": "Upgraded Healing card choice",
       "sRareCR": "Small rare card reward",
       "skillCR": "Skill card reward",
-      "commonCR": "Common card reward"
+      "commonCR": "Common card reward",
+      "rareCR": "Rare card reward"
     }
   },
   "${ModID}:ChallengeButton": {
@@ -318,6 +319,13 @@
     "TEXT_DICT": {
       "desc": "Activate an Opt-In Challenge.",
       "name": "Challenge Yourself"
+    }
+  },
+  "${ModID}:EmeraldChallenge": {
+    "TEXT_DICT": {
+      "desc": "Apply two emerald/burning elite buffs to this combat.",
+      "name": "Charged Emerald",
+      "keyAdd": ", Emerald Key"
     }
   }
 }
