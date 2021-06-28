@@ -46,7 +46,8 @@
       "sRareCR": "Small rare card reward",
       "skillCR": "Skill card reward",
       "commonCR": "Common card reward",
-      "rareCR": "Rare card reward"
+      "rareCR": "Rare card reward",
+      "scryCR": "Big Scry card reward"
     }
   },
   "${ModID}:ChallengeButton": {
@@ -326,6 +327,12 @@
       "desc": "Apply two emerald/burning elite buffs to this combat.",
       "name": "Charged Emerald",
       "keyAdd": ", Emerald Key"
+    }
+  },
+  "${ModID}:ShivgretChallenge": {
+    "TEXT_DICT": {
+      "desc": "At the end of your turn, add a Shiv to your discard pile for every card in your hand.",
+      "name": "No Shivgrets"
     }
   }
 }
