@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rewards.RewardItem;
+import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -147,15 +148,27 @@ public class ChallengeSystem {
 
     public static void generateChallenges(AbstractChallenge.Type type, int amount) {
         HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> m = type == AbstractChallenge.Type.OPTIN ? tieredOptins : tieredChallenges;
+        //Amount based distribution system, unused because it's not actually useful to spawn the challenges there are the most of with the max-challenge spawns system in use
+        //float total = m.values().stream().mapToLong(ArrayList::size).sum();
+        //float hard = tieredChallenges.get(AbstractChallenge.Tier.HARD).size() / (float)total;
+        //float norm = m.get(AbstractChallenge.Tier.NORMAL).size() / total;
+        //float easy = m.get(AbstractChallenge.Tier.EASY).size() / total;
+        float easy = 0.26f, norm = 0.40f;
+
         for (int i = 0; i < amount; i++) {
+            //System.out.printf("Easy: %f , Norm: %f , hard: %f\n", easy, norm, 1 - (easy + norm));
             AbstractChallenge.Tier t;
             float roll = ChallengeSystem.challengeRng.random(1f);
-            if (roll > 0.66f) {
+            if (roll > easy + norm) {
                 t = AbstractChallenge.Tier.HARD;
-            } else if (roll > 0.33f) {
+                easy += 0.15f;
+                norm += 0.15f;
+            } else if (roll > easy) {
                 t = AbstractChallenge.Tier.NORMAL;
+                norm = NumberUtils.max(norm - 0.2f, 0);
             } else {
                 t = AbstractChallenge.Tier.EASY;
+                easy = NumberUtils.max(easy - 0.2f, 0);
             }
             AbstractChallenge c = getRandomChallenge(m, t);
             //System.out.printf("Type: %s, challenge: %s\n", type, c);
