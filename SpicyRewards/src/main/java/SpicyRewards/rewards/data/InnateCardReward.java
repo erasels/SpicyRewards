@@ -28,7 +28,9 @@ public class InnateCardReward extends ModifiedCardReward {
     }
 
     private static void initInnateSet() {
-        CardLibrary.getAllCards().forEach(c -> {
+        CardLibrary.getAllCards().stream()
+                .filter(c -> c.type != AbstractCard.CardType.CURSE && c.type != AbstractCard.CardType.STATUS && c.rarity != AbstractCard.CardRarity.CURSE && c.rarity != AbstractCard.CardRarity.SPECIAL)
+                .forEach(c -> {
             if (c.isInnate) {
                 innateCards.add(c.cardID);
             } else {
