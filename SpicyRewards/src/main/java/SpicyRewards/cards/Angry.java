@@ -11,7 +11,7 @@ import static SpicyRewards.SpicyRewards.makeID;
 public class Angry extends AbstractSpicyCard {
     private final static CardInfo cardInfo = new CardInfo(
             "Angry",
-            1,
+            2,
             CardType.POWER,
             CardTarget.SELF,
             CardRarity.SPECIAL);
