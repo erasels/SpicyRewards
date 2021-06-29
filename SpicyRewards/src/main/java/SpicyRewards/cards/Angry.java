@@ -25,6 +25,7 @@ public class Angry extends AbstractSpicyCard {
         super(CardColor.COLORLESS, cardInfo, false);
 
         setMagic(MAGIC, MAGIC_UPG);
+        setRetain(true);
     }
 
     @Override
