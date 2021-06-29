@@ -34,10 +34,13 @@ public class InnateCardReward extends ModifiedCardReward {
             if (c.isInnate) {
                 innateCards.add(c.cardID);
             } else {
-                AbstractCard c2 = c.makeCopy();
-                c2.upgrade();
-                if(c2.isInnate)
-                    innateCards.add(c.cardID);
+                try {
+                    AbstractCard c2 = c.makeCopy();
+                    c2.upgrade();
+                    if (c2.isInnate)
+                        innateCards.add(c.cardID);
+                } catch (Exception ignored) {}
+                //Disciple crashes when upgrading cards
             }
         });
     }
