@@ -21,7 +21,6 @@ import java.util.ArrayList;
 public class ShivRegretChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Shivgret");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
-    private static final int AMT = 6;
 
     protected static ArrayList<String> exclusions = new ArrayList<>();
 

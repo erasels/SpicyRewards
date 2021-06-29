@@ -19,7 +19,7 @@ public class Angry extends AbstractSpicyCard {
     public final static String ID = makeID(cardInfo.cardName);
 
     private static final int MAGIC = 3;
-    private static final int MAGIC_UPG = 2;
+    private static final int MAGIC_UPG = 1;
 
     public Angry() {
         super(CardColor.COLORLESS, cardInfo, false);
