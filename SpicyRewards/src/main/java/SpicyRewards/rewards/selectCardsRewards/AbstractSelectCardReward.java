@@ -69,7 +69,12 @@ public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
 
         //Adds in the relevant info and then removes duplicate whitespace if one of them was null
         if(type != null || rarity != null) {
-            this.text = String.format(text.TEXT_DICT.get("ModText"), rar, typ).replaceAll("\\s+", " ");
+            //Can't use String.format because it breaks if I don't fill out everything here
+            String format = text.TEXT_DICT.get("ModText");
+            format = format.replaceFirst("%s", rar);
+            format = format.replaceFirst("%s", typ);
+
+            this.text = format.replaceAll("\\s+", " ");
         } else {
             this.text = text.TEXT_DICT.get("FullText");
         }
