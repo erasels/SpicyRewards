@@ -3,6 +3,7 @@ package SpicyRewards.rewards.selectCardsRewards;
 import SpicyRewards.rewards.AbstractSpicyReward;
 import SpicyRewards.util.UC;
 import SpicyRewards.vfx.RemoveRewardItemEffect;
+import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
@@ -10,6 +11,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.screens.select.GridCardSelectScreen;
 
 public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
     //The reward has been clicked and the select screen has been opened
@@ -123,6 +125,9 @@ public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
             //Hides the Spoils thingy from the CombatRewardScreen
             AbstractDungeon.dynamicBanner.hide();
             openScreen(cards);
+            //Workaround for non Upgrade/Transform/Purge screens not letting you cancel
+            if(ReflectionHacks.getPrivate(AbstractDungeon.gridSelectScreen, GridCardSelectScreen.class, "canCancel"))
+                AbstractDungeon.overlayMenu.cancelButton.show(GridCardSelectScreen.TEXT[1]);
         }
 
         return false;
