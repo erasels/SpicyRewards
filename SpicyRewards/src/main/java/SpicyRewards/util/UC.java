@@ -38,6 +38,7 @@ public class UC {
         return AbstractDungeon.player;
     }
     public static CardGroup hand() { return AbstractDungeon.player.hand;}
+    public static CardGroup deck() { return AbstractDungeon.player.masterDeck;}
 
     private static DecimalFormat twoDecFormat = new DecimalFormat("#0.00");
     public static GlyphLayout layout = new GlyphLayout();

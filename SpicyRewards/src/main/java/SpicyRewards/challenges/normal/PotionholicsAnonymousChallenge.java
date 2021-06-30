@@ -4,10 +4,12 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.cards.Abstinence;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.rewards.RewardItem;
@@ -35,13 +37,17 @@ public class PotionholicsAnonymousChallenge extends AbstractChallenge {
         int i = ChallengeSystem.challengeRewardRng.random(2);
         switch (i) {
             case 0:
-                reward = new SingleCardReward(new Abstinence());
+                if(UC.deck().findCardById(Abstinence.ID) != null) {
+                    reward = new SingleCardReward(new Abstinence());
+                } else {
+                    reward = new HealReward(4 + AbstractDungeon.actNum);
+                }
                 break;
             case 1:
                 reward = new RewardItem(40);
                 break;
             case 2:
-                reward = new MaxHpReward(5);
+                reward = new MaxHpReward(4 + (AbstractDungeon.actNum - 1));
         }
     }
 
