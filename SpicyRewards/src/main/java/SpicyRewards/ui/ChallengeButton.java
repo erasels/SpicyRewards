@@ -72,7 +72,13 @@ public class ChallengeButton extends TopPanelItem {
     @Override
     protected void onClick() {
         CardCrawlGame.sound.play("STAB_BOOK_DEATH");
-        UC.att(new ChallengeScreenAction(false));
+        if(AbstractDungeon.actionManager.currentAction instanceof ChallengeScreenAction) {
+            //Don't close the selection screen when clicking on the ChallengeButton, only when it's the overview
+            if(!((ChallengeScreenAction) AbstractDungeon.actionManager.currentAction).selection)
+                ((ChallengeScreenAction) AbstractDungeon.actionManager.currentAction).closeInstantly();
+        } else {
+            UC.att(new ChallengeScreenAction(false));
+        }
     }
 
     public void flash() {
@@ -81,8 +87,8 @@ public class ChallengeButton extends TopPanelItem {
 
     @Override
     public void update() {
-        //Can only be clicked in combat when the screen isn't open, the screen opening hasn't been triggered already and challenges have been spawned
-        setClickable(UC.isInCombat() && !ChallengeSystem.challenges.isEmpty() && !(AbstractDungeon.actionManager.currentAction instanceof ChallengeScreenAction) && AbstractDungeon.actionManager.actions.stream().noneMatch(a -> a instanceof ChallengeScreenAction));
+        //Can only be clicked in combat, the screen opening hasn't been triggered already and challenges have been spawned
+        setClickable(UC.isInCombat() && !ChallengeSystem.challenges.isEmpty() && AbstractDungeon.actionManager.actions.stream().noneMatch(a -> a instanceof ChallengeScreenAction));
         updateFlash();
         super.update();
     }
