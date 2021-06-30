@@ -5,6 +5,8 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
 import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
+import basemod.helpers.CardBorderGlowManager;
+import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -64,4 +66,26 @@ public class AttackStartChallenge extends AbstractChallenge {
     protected ArrayList<String> getExclusions() {
         return exclusions;
     }
+
+    @Override
+    protected CardBorderGlowManager.GlowInfo getCustomGlowInfo() {
+        return AFHighlighter;
+    }
+
+    private static final CardBorderGlowManager.GlowInfo AFHighlighter = new CardBorderGlowManager.GlowInfo() {
+        @Override
+        public boolean test(AbstractCard c) {
+            return AbstractDungeon.actionManager.cardsPlayedThisTurn.isEmpty() && c.type != AbstractCard.CardType.ATTACK;
+        }
+
+        @Override
+        public Color getColor(AbstractCard abstractCard) {
+            return Color.SALMON.cpy();
+        }
+
+        @Override
+        public String glowID() {
+            return "SPICY_CHALLENGE_ATTACKFIRST";
+        }
+    };
 }
