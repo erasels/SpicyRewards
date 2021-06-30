@@ -62,7 +62,7 @@ public class CycleCardReward extends ModifiedCardReward {
         super.render(sb);
         //render bottom text
         if (!claimed)
-            FontHelper.renderSmartText(sb, FontCreationPatches.tipFont, uiStrings.TEXT[0], 833.0f * Settings.scale, this.y - FontHelper.getHeight(FontHelper.cardDescFont_N, text, Settings.scale) - 6f * Settings.scale, 1000.0f * Settings.scale, 0.0f, Color.WHITE);
+            FontHelper.renderSmartText(sb, FontCreationPatches.tipFont, uiStrings.TEXT[0], REWARD_X_POS, this.y - FontHelper.getHeight(FontHelper.cardDescFont_N, text, Settings.scale) - 6f * Settings.scale, 1000.0f * Settings.scale, 0.0f, Color.WHITE);
 
     }
 

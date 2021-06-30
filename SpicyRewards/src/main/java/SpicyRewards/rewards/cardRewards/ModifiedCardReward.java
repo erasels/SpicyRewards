@@ -115,7 +115,7 @@ public class ModifiedCardReward extends AbstractSpicyReward {
         if (flashTimer != 0.0f) {
             sb.setColor(0.6f, 1.0f, 1.0f, flashTimer * 1.5f);
             sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE);
-            sb.draw(ImageMaster.REWARD_SCREEN_ITEM, Settings.WIDTH / 2.0f - 232.0f, y - 49.0f, 232.0f, 49.0f, 464.0f, 98.0f, Settings.scale * 1.03f, Settings.scale * 1.15f, 0.0f, 0, 0, 464, 98, false, false);
+            sb.draw(ImageMaster.REWARD_SCREEN_ITEM, Settings.WIDTH / 2.0f - 232.0f, y - 49.0f, 232.0f, 49.0f, 464.0f, 98.0f, Settings.xScale * 1.03f, Settings.scale * 1.15f, 0.0f, 0, 0, 464, 98, false, false);
             sb.setBlendFunction(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
         }
 
