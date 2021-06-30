@@ -1,6 +1,7 @@
 package SpicyRewards.rewards.cardRewards;
 
 import SpicyRewards.SpicyRewards;
+import SpicyRewards.util.UC;
 import basemod.abstracts.CustomReward;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
@@ -14,6 +15,7 @@ import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.helpers.input.InputHelper;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.vfx.cardManip.ShowCardAndObtainEffect;
 
 import java.util.Arrays;
@@ -64,6 +66,9 @@ public class SingleCardReward extends CustomReward {
     }
 
     protected void init() {
+        for(AbstractRelic r: UC.p().relics)
+            r.onPreviewObtainCard(card);
+
         renderCard = card.makeStatEquivalentCopy();
         text = prefixText + card.name;
     }
