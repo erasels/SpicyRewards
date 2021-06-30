@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.monsters.beyond.Transient;
 import com.megacrit.cardcrawl.relics.MercuryHourglass;
 import com.megacrit.cardcrawl.relics.StoneCalendar;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
@@ -96,7 +97,8 @@ public class DoomCalendarChallenge extends AbstractChallenge implements IUIRende
             }
         }*/
 
-        return AbstractDungeon.actNum > 1 || AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite;
+        //Don't spawn in act 1 non elite rooms and not for Transient
+        return (AbstractDungeon.actNum > 1 || AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite) && UC.getAliveMonsters().stream().anyMatch(m -> Transient.ID.equals(m.id));
     }
 
     @Override
