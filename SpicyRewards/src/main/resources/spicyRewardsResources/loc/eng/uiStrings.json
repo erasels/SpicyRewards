@@ -307,7 +307,8 @@
   "${ModID}:SkillFinishChallenge": {
     "TEXT_DICT": {
       "desc": "The last card played every turn must be a Skill.",
-      "name": "Skilled Finish"
+      "name": "Skilled Finish",
+      "render": "Last played type: %s"
     }
   },
   "${ModID}:AttackStartChallenge": {
