@@ -44,7 +44,7 @@ public class LimitedDrawChallenge extends AbstractChallenge implements IUIRender
         int i = ChallengeSystem.challengeRewardRng.random(1);
         switch (i) {
             case 0:
-                if(UC.p().masterDeck.size() >= 20 && !UC.p().hasRelic(BagOfPreparation.ID)) {
+                if(UC.p().masterDeck.size() >= 22 && !UC.p().hasRelic(BagOfPreparation.ID)) {
                     reward = new CustomRelicReward(BagOfPreparation.ID);
                     break;
                 }
@@ -52,7 +52,7 @@ public class LimitedDrawChallenge extends AbstractChallenge implements IUIRender
                 if(AbstractDungeon.actNum < 3) {
                     reward = new CycleCardReward();
                 } else {
-                    reward = new RewardItem(30);
+                    reward = new RewardItem(25 + 10 * (AbstractDungeon.actNum - 1));
                 }
         }
     }
