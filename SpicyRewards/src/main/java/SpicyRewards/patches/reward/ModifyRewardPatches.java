@@ -28,7 +28,8 @@ public class ModifyRewardPatches {
                 Iterator<RewardItem> iter = rew.iterator();
                 while (iter.hasNext()) {
                     RewardItem r = iter.next();
-                    if (r.type == RewardItem.RewardType.CARD) {
+                    //Check to see if the card reward wasn't special
+                    if (r.type == RewardItem.RewardType.CARD && !Fields.specialCard.get(r)) {
                         iter.remove();
                         break;
                     }
@@ -48,6 +49,20 @@ public class ModifyRewardPatches {
                 Matcher finalMatcher = new Matcher.MethodCallMatcher(CombatRewardScreen.class, "positionRewards");
                 return LineFinder.findInOrder(ctMethodToPatch, finalMatcher);
             }
+        }
+    }
+
+    //Only card rewards made by the basic ctor are not considered special
+    @SpirePatch(clz = RewardItem.class, method = SpirePatch.CLASS)
+    public static class Fields {
+        public static SpireField<Boolean> specialCard = new SpireField<>(()->true);
+    }
+
+    @SpirePatch2(clz = RewardItem.class, method = SpirePatch.CONSTRUCTOR, paramtypez = {})
+    public static class MarkSpecialCardRewards {
+        @SpirePostfixPatch
+        public static void patch(RewardItem __instance) {
+            Fields.specialCard.set(__instance, false);
         }
     }
 
