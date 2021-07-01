@@ -20,6 +20,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
+import com.megacrit.cardcrawl.relics.AbstractRelic;
 import com.megacrit.cardcrawl.relics.Pocketwatch;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
@@ -85,7 +86,9 @@ public class NormalityChallenge extends AbstractChallenge implements IUIRenderCh
     @Override
     public boolean canSpawn() {
         return UC.p().energy.energyMaster > 3 ||
-                UC.deck().group.stream().filter(c -> c.cost == 0 || c.rawDescription.matches("\\[[a-zA-Z]\\]")).count() >= 3;
+                UC.deck().group.stream().filter(c -> c.cost == 0 || c.rawDescription.matches("\\[[a-zA-Z]\\]")).count() +
+                        UC.p().relics.stream().filter(r -> r.tier != AbstractRelic.RelicTier.BOSS).filter(r -> r.getUpdatedDescription().matches("\\[[a-zA-Z]\\]")).count()
+                        >= 3;
     }
 
     @Override
