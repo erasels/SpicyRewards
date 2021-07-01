@@ -83,6 +83,12 @@ public class NormalityChallenge extends AbstractChallenge implements IUIRenderCh
     }
 
     @Override
+    public boolean canSpawn() {
+        return UC.p().energy.energyMaster > 3 ||
+                UC.deck().group.stream().filter(c -> c.cost == 0 || c.rawDescription.matches("\\[[a-zA-Z]\\]")).count() >= 3;
+    }
+
+    @Override
     public void renderUI(SpriteBatch sb, float xOffset, float curY) {
         Color c = cardsPlayed < AMT? Settings.CREAM_COLOR : Settings.RED_TEXT_COLOR;
         String s = String.format(uiText.TEXT_DICT.get("render"), cardsPlayed, AMT);
