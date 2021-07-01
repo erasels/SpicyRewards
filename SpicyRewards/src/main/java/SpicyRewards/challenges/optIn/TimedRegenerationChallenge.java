@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.monsters.beyond.Transient;
 import com.megacrit.cardcrawl.potions.BloodPotion;
 import com.megacrit.cardcrawl.potions.FruitJuice;
 import com.megacrit.cardcrawl.relics.BurningBlood;
@@ -92,7 +93,8 @@ public class TimedRegenerationChallenge extends AbstractChallenge implements IUI
 
     @Override
     public boolean canSpawn() {
-        return UC.getAliveMonsters().stream().map(m -> m.maxHealth).reduce(0, Integer::sum) >= MIN_HEALTH;
+        return UC.getAliveMonsters().stream().map(m -> m.maxHealth).reduce(0, Integer::sum) >= MIN_HEALTH &&
+                UC.getAliveMonsters().stream().anyMatch(m -> Transient.ID.equals(m.id));
     }
 
     @Override
