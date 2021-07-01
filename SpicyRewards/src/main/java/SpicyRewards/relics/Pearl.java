@@ -22,14 +22,16 @@ public class Pearl extends AbstractSpicyRelic{
         if (counter <= AMT) {
             UC.doDef(BLK);
         }
+    }
 
+    @Override
+    public void atTurnStart() {
         counter = 0;
         beginLongPulse();
     }
 
     public void onPlayCard(AbstractCard card, AbstractMonster m) {
-        counter++;
-        if (counter > AMT)
+        if (++counter > AMT)
             stopPulse();
     }
 
