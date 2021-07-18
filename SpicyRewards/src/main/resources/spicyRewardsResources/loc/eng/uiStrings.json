@@ -16,6 +16,13 @@
       "optin": "Opt-In Challenges:"
     }
   },
+  "${ModID}:EXTENDED": {
+    "TEXT": [
+      "Per turn: ",
+      "Per combat: ",
+      "Floor obtained: "
+    ]
+  },
   "${ModID}:Rewards": {
     "TEXT_DICT": {
       "prefix": "Reward: ",
