@@ -84,7 +84,7 @@ public abstract class StatRelic extends AbstractSpicyRelic{
         stats.computeIfPresent(s, (k,v) -> v+i);
     }
 
-    public void incrementStat(StatRelic r, String s) {
+    public void incrementStat(String s) {
         incrementStat(s, 1);
     }
 
