@@ -40,6 +40,7 @@ public class ChallengeSystemPatches {
                         AbstractDungeon.actionManager.addToTop(new ChallengeScreenAction(true));
 
                         //Populate challenges before action is executed
+                        ChallengeSystem.challenges.clear();
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.NORMAL, ChallengeSystem.CHALLENGE_AMT);
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.OPTIN, ChallengeSystem.OPTIN_AMT);
 
