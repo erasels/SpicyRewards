@@ -116,7 +116,10 @@ public class SkillFinishChallenge extends AbstractChallenge implements IUIRender
         FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, s, xOffset, curY, c);
     }
 
-    private static final AbstractCard lastPlayed() {
-        return AbstractDungeon.actionManager.cardsPlayedThisTurn.get(AbstractDungeon.actionManager.cardsPlayedThisTurn.size() - 1);
+    private static AbstractCard lastPlayed() {
+        if(!AbstractDungeon.actionManager.cardsPlayedThisTurn.isEmpty()) {
+            return AbstractDungeon.actionManager.cardsPlayedThisTurn.get(AbstractDungeon.actionManager.cardsPlayedThisTurn.size() - 1);
+        }
+        return null;
     }
 }
