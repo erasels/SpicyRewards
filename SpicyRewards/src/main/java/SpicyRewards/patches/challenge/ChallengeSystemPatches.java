@@ -44,7 +44,8 @@ public class ChallengeSystemPatches {
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.NORMAL, ChallengeSystem.CHALLENGE_AMT);
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.OPTIN, ChallengeSystem.OPTIN_AMT);
 
-                        UC.doPow(new ChallengePower(UC.p()));
+                        //Add power/system to top, to allow completing challenges on the ChallengeScreen
+                        UC.doPow(UC.p(), new ChallengePower(UC.p()), true);
                     }
             }
         }

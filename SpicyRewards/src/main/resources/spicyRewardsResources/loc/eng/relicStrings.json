@@ -26,5 +26,12 @@
     "DESCRIPTIONS": [
       "Whenever you #yexhaust a card, #yUpgrade a random card in your hand for the rest of combat."
     ]
+  },
+  "${ModID}:StickyGlove": {
+    "NAME": "Sticky Glove",
+    "FLAVOR": "It sticks to your hand as much as it sticks to anything else it touches.",
+    "DESCRIPTIONS": [
+      "At the start of combat, add a #ySlimed into your hand. The leftmost card in your hand is #yretained each turn."
+    ]
   }
 }
