@@ -20,5 +20,7 @@ public class BreakthroughAction extends AbstractGameAction {
         if(hadBlock && target.currentBlock == 0) {
             UC.doDmg(target, c, AttackEffect.BLUNT_HEAVY, true);
         }
+		
+		isDone = true;
     }
 }
