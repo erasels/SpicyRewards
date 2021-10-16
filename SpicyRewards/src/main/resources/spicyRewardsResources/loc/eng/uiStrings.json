@@ -206,7 +206,7 @@
   },
   "${ModID}:DrawLoseCardChallenge": {
     "TEXT_DICT": {
-      "desc": "Each turn, whenever you draw a card beyond the %s, take %d damage.",
+      "desc": "Each turn, whenever you draw a card beyond the %s, take %d damage at the end of your turn.",
       "name": "Card Sharp",
       "render": "Cards drawn: %d/%d"
     }

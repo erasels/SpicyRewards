@@ -73,8 +73,13 @@ public class DrawLoseCardChallenge extends AbstractChallenge implements IUIRende
 
     @Override
     public void onCardDraw(AbstractCard card) {
-        if(++drawCounter > drawLimit) {
-            UC.atb(new DamageAction(UC.p(), new DamageInfo(null, AMT, DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL, true));
+        drawCounter++;
+    }
+
+    @Override
+    public void atEndOfTurn() {
+        if(drawCounter > drawLimit) {
+            UC.atb(new DamageAction(UC.p(), new DamageInfo(null, AMT * (drawCounter - drawLimit), DamageInfo.DamageType.THORNS), AbstractGameAction.AttackEffect.SLASH_HORIZONTAL));
         }
     }
 
@@ -85,8 +90,8 @@ public class DrawLoseCardChallenge extends AbstractChallenge implements IUIRende
 
     @Override
     public void renderUI(SpriteBatch sb, float xOffset, float curY) {
-        Color c = drawCounter <= AMT? Settings.CREAM_COLOR : Settings.RED_TEXT_COLOR;
-        String s = String.format(uiText.TEXT_DICT.get("render"), drawCounter, AMT);
+        Color c = drawCounter <= drawLimit? Settings.CREAM_COLOR : Settings.RED_TEXT_COLOR;
+        String s = String.format(uiText.TEXT_DICT.get("render"), drawCounter, drawLimit);
         xOffset-= FontHelper.getWidth(FontHelper.panelNameFont, s, 1f);
         FontHelper.renderFontLeft(sb, FontHelper.panelNameFont, s, xOffset, curY, c);
     }
