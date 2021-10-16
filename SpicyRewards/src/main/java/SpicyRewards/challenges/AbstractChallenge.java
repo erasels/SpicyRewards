@@ -70,9 +70,20 @@ public abstract class AbstractChallenge {
     // Generate the reward of this challenge and check if the generated reward is faulty, if so, generate a new one
     public AbstractChallenge initReward() {
         if (reward == null) {
+            boolean rerollReward;
+            int cardCounter, cardBlizz;
             do {
+                cardCounter = AbstractDungeon.cardRng.counter;
+                cardBlizz = AbstractDungeon.cardBlizzRandomizer;
+
                 rollReward();
-            } while(reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward);
+
+                rerollReward = reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward;
+                if(rerollReward) {
+                    AbstractDungeon.cardRng.counter = cardCounter;
+                    AbstractDungeon.cardBlizzRandomizer = cardBlizz;
+                }
+            } while(rerollReward);
         }
         initText();
         return this;
