@@ -54,7 +54,7 @@ public class PacifistChallenge  extends AbstractChallenge {
 
     @Override
     public void onAttack(DamageInfo info, int damageAmount, AbstractCreature target) {
-        if(target instanceof AbstractMonster && ((AbstractMonster) target).getIntentBaseDmg() < 0) {
+        if(info.type == DamageInfo.DamageType.NORMAL && damageAmount > 0 && target instanceof AbstractMonster && ((AbstractMonster) target).getIntentBaseDmg() < 0) {
             fail();
         }
     }
