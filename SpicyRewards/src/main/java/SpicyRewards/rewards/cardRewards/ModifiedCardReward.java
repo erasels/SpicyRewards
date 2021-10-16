@@ -35,10 +35,10 @@ public class ModifiedCardReward extends AbstractSpicyReward {
     public static AbstractCard.CardColor cardColor;
     public static ArrayList<AbstractCard> cardsOfColor;
     //Condition unmet is a field that declares whether there were enough cards that met the modified card reward filter conditions
-    public static Boolean conditionUnmet;
+    public static boolean conditionUnmet;
 
     //Filed for other processes to access and check whether a condition was unmet or not
-    public Boolean badCardReward = false;
+    public boolean badCardReward = false;
     protected Color col;
 
     public ModifiedCardReward(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter, boolean init) {
