@@ -34,7 +34,11 @@ public class ModifiedCardReward extends AbstractSpicyReward {
     public static Predicate<AbstractCard> filter;
     public static AbstractCard.CardColor cardColor;
     public static ArrayList<AbstractCard> cardsOfColor;
+    //Condition unmet is a field that declares whether there were enough cards that met the modified card reward filter conditions
+    public static Boolean conditionUnmet;
 
+    //Filed for other processes to access and check whether a condition was unmet or not
+    public Boolean badCardReward = false;
     protected Color col;
 
     public ModifiedCardReward(Color iconColor, AbstractCard.CardColor cardColor, int cAmt, AbstractCard.CardRarity rar, boolean upg, Predicate<AbstractCard> filter, boolean init) {
@@ -66,9 +70,14 @@ public class ModifiedCardReward extends AbstractSpicyReward {
         fixedRarity = rar;
         allUpgraded = upg;
         ModifiedCardReward.filter = filter;
+        conditionUnmet = false;
         cards = AbstractDungeon.getRewardCards();
         if (allUpgraded) {
             cards.stream().filter(AbstractCard::canUpgrade).forEach(AbstractCard::upgrade);
+        }
+
+        if(conditionUnmet) {
+            badCardReward = true;
         }
         resetModifiers();
         text = getRewardText();
@@ -96,6 +105,7 @@ public class ModifiedCardReward extends AbstractSpicyReward {
         filter = null;
         cardColor = null;
         cardsOfColor = null;
+        conditionUnmet = false;
     }
 
     @Override

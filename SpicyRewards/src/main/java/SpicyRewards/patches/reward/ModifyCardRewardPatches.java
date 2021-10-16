@@ -30,7 +30,6 @@ public class ModifyCardRewardPatches {
         Finally the forced upgrade is done in my reward itself.
      */
 
-
     @SpirePatch2(clz = AbstractDungeon.class, method = "getRewardCards")
     public static class ModifyRewardMethod {
         @SpireInsertPatch(locator = NumCardsLocator.class, localvars = {"numCards"})
@@ -86,6 +85,7 @@ public class ModifyCardRewardPatches {
         public static boolean shouldBreakDupeLoop(boolean dupe) {
             if (dupe) {
                 if (++dupeLoops >= MAX_LOOPS) {
+                    ModifiedCardReward.conditionUnmet = true;
                     return false;
                 }
             }
@@ -98,6 +98,15 @@ public class ModifyCardRewardPatches {
         @SpirePrefixPatch
         public static SpireReturn<AbstractCard.CardRarity> patch() {
             return ModifiedCardReward.fixedRarity != null ? SpireReturn.Return(ModifiedCardReward.fixedRarity) : SpireReturn.Continue();
+        }
+
+        //Precheck selected rarity to see if it contains enough cards
+        @SpirePostfixPatch
+        public static AbstractCard.CardRarity rewardCheck(AbstractCard.CardRarity __result) {
+            if(ModifiedCardReward.fixedRarity == null) {
+
+            }
+            return __result;
         }
     }
 
@@ -117,6 +126,7 @@ public class ModifyCardRewardPatches {
 
                 //If there are no remaining results remove filter condition
                 if (__instance.group.isEmpty()) {
+                    ModifiedCardReward.conditionUnmet = true;
                     __instance.group = actualCards;
                     actualCards = null;
                 }
@@ -143,6 +153,7 @@ public class ModifyCardRewardPatches {
                 tmp.removeIf(ModifiedCardReward.filter.negate());
 
                 if (tmp.isEmpty()) {
+                    ModifiedCardReward.conditionUnmet = true;
                     tmp.addAll(actualCards);
                 }
             }

@@ -55,6 +55,7 @@ public abstract class AbstractChallenge {
         initText();
     }
 
+    // Fill text for rewards that are shown on the challenge screen
     protected void initText() {
         if (reward != null) {
             rewardText = uiText.TEXT_DICT.get("prefix");
@@ -66,9 +67,12 @@ public abstract class AbstractChallenge {
         }
     }
 
+    // Generate the reward of this challenge and check if the generated reward is faulty, if so, generate a new one
     public AbstractChallenge initReward() {
         if (reward == null) {
-            rollReward();
+            do {
+                rollReward();
+            } while(reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward);
         }
         initText();
         return this;
