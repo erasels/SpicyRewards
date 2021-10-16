@@ -19,7 +19,7 @@ public class Breakthrough extends AbstractSpicyCard {
 
     public final static String ID = makeID(cardInfo.cardName);
 
-    private static final int DMG = 18, UPG_DMG = 22;
+    private static final int DMG = 18, UPG_DMG = 4;
 
     public Breakthrough() {
         super(CardColor.COLORLESS, cardInfo, false);
