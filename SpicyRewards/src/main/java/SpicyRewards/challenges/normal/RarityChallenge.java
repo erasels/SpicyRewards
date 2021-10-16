@@ -15,6 +15,7 @@ import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.blue.HelloWorld;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.relics.CeramicFish;
 import com.megacrit.cardcrawl.relics.EternalFeather;
@@ -79,7 +80,7 @@ public class RarityChallenge extends AbstractChallenge {
                 .count();
         float ratio = (float)rar / (float)UC.p().masterDeck.size();
         //If Cards of that rarity make up less than 75% and more than 20% of your deck
-        return  ratio <= 0.75f && ratio >= 0.2f;
+        return AbstractDungeon.actNum < 3 && ratio <= 0.75f && ratio >= 0.2f;
     }
 
     @Override
