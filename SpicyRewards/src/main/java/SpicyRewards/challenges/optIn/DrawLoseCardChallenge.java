@@ -97,6 +97,11 @@ public class DrawLoseCardChallenge extends AbstractChallenge implements IUIRende
     }
 
     @Override
+    public boolean canSpawn() {
+        return AbstractDungeon.actNum > 1;
+    }
+
+    @Override
     protected ArrayList<String> getExclusions() {
         return exclusions;
     }
