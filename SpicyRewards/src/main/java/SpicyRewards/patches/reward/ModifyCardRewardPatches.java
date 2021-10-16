@@ -100,14 +100,14 @@ public class ModifyCardRewardPatches {
             return ModifiedCardReward.fixedRarity != null ? SpireReturn.Return(ModifiedCardReward.fixedRarity) : SpireReturn.Continue();
         }
 
-        //Precheck selected rarity to see if it contains enough cards
+        /*Precheck selected rarity to see if it contains enough cards
         @SpirePostfixPatch
         public static AbstractCard.CardRarity rewardCheck(AbstractCard.CardRarity __result) {
             if(ModifiedCardReward.fixedRarity == null) {
 
             }
             return __result;
-        }
+        }*/
     }
 
     //Patches getRandomCard to affect normal card reward
