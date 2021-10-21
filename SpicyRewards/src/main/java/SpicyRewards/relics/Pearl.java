@@ -11,7 +11,7 @@ public class Pearl extends StatRelic{
     private static final String STAT1 = "Block gained: ";
     private static final String STAT2 = "Activation chance: ";
     private static final String STAT3 = "turns: ";
-    public static final int AMT = 3, BLK = 7;
+    public static final int AMT = 3, BLK = 6;
 
     public Pearl() {
         super(ID, RelicTier.SPECIAL, LandingSound.FLAT);
