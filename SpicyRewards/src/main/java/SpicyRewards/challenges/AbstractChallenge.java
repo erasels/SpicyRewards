@@ -70,23 +70,40 @@ public abstract class AbstractChallenge {
     // Generate the reward of this challenge and check if the generated reward is faulty, if so, generate a new one
     public AbstractChallenge initReward() {
         if (reward == null) {
-            boolean rerollReward;
             int cardCounter, cardBlizz;
-            do {
-                cardCounter = AbstractDungeon.cardRng.counter;
-                cardBlizz = AbstractDungeon.cardBlizzRandomizer;
+            cardCounter = AbstractDungeon.cardRng.counter;
+            cardBlizz = AbstractDungeon.cardBlizzRandomizer;
 
-                rollReward();
+            rollReward();
 
-                rerollReward = reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward;
-                if(rerollReward) {
-                    AbstractDungeon.cardRng.counter = cardCounter;
-                    AbstractDungeon.cardBlizzRandomizer = cardBlizz;
-                }
-            } while(rerollReward);
+            if(reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward) {
+                AbstractDungeon.cardRng.counter = cardCounter;
+                AbstractDungeon.cardBlizzRandomizer = cardBlizz;
+
+                //Replace reward with replacement in case it's a bad reward
+                reward = ((ModifiedCardReward) reward).spawnReplacementReward();
+            }
         }
         initText();
         return this;
+    }
+
+    //legacy method of rolling rewards until a non-bad reward is rolled (leads to a certain card rewards never being rolled)
+    private void rollUntilViableReward() {
+        boolean rerollReward;
+        int cardCounter, cardBlizz;
+        do {
+            cardCounter = AbstractDungeon.cardRng.counter;
+            cardBlizz = AbstractDungeon.cardBlizzRandomizer;
+
+            rollReward();
+
+            rerollReward = reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward;
+            if(rerollReward) {
+                AbstractDungeon.cardRng.counter = cardCounter;
+                AbstractDungeon.cardBlizzRandomizer = cardBlizz;
+            }
+        } while(rerollReward);
     }
 
     protected abstract void rollReward();
