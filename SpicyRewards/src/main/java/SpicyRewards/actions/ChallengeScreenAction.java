@@ -79,7 +79,10 @@ public class ChallengeScreenAction extends AbstractGameAction {
     public void render(SpriteBatch sb) {
         if(!AbstractDungeon.isScreenUp) {
             renderBlackscreen(sb);
-            renderText(sb);
+            //Don't render text until black screen has faded in, black screen hasn't started fading out
+            if(blackScreenColor.a == blackScreenTarget) {
+                renderText(sb);
+            }
             closeBtn.render(sb);
         }
     }
@@ -181,7 +184,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
     protected void updateBlackScreen() {
         if (this.blackScreenColor.a != this.blackScreenTarget)
             if (this.blackScreenTarget > this.blackScreenColor.a) {
-                this.blackScreenColor.a += Gdx.graphics.getRawDeltaTime() * 2.0F;
+                this.blackScreenColor.a += Gdx.graphics.getRawDeltaTime() * 3.5F;
                 if (this.blackScreenColor.a > this.blackScreenTarget)
                     this.blackScreenColor.a = this.blackScreenTarget;
             } else {
