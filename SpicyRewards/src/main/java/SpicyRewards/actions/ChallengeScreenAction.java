@@ -167,8 +167,13 @@ public class ChallengeScreenAction extends AbstractGameAction {
         updateBlackScreen();
 
         if (isDone) {
-            if(selection)
+            if(selection) {
+                //Remove unwanted challenges from the challenge list
                 ChallengeSystem.challenges.removeIf(c -> buttonMap.containsKey(c) && !buttonMap.get(c).enabled);
+
+                //Call the relevant atBattleStart logic for the remaining challenges
+                ChallengeSystem.power.onInitialSetup();
+            }
             dispose();
         }
     }

@@ -37,6 +37,10 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
     @Override
     public void onInitialApplication() {
         ChallengeSystem.power = this;
+    }
+
+    //Called by ChallengeScreenAction in selection mode once challenges have been removed
+    public void onInitialSetup() {
         ChallengeSystem.atBattleStart();
     }
 
