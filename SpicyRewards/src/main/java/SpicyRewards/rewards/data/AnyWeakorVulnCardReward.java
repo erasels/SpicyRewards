@@ -3,9 +3,12 @@ package SpicyRewards.rewards.data;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.patches.reward.AnyCardColorPatch;
 import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
+import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import com.badlogic.gdx.graphics.Color;
+import com.megacrit.cardcrawl.cards.red.Uppercut;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.GameDictionary;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 import org.apache.commons.lang3.StringUtils;
 
 public class AnyWeakorVulnCardReward extends ModifiedCardReward {
@@ -21,5 +24,10 @@ public class AnyWeakorVulnCardReward extends ModifiedCardReward {
     @Override
     public String getRewardText() {
         return rewardText;
+    }
+
+    @Override
+    public RewardItem spawnReplacementReward() {
+        return new SingleCardReward(new Uppercut());
     }
 }
