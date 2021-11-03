@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.potions.RetainPotion;
 import SpicyRewards.relics.StickyGlove;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.RetainCardReward;
@@ -11,11 +12,12 @@ import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
 import com.megacrit.cardcrawl.cards.status.Slimed;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.CardLibrary;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.potions.AbstractPotion;
-import com.megacrit.cardcrawl.relics.*;
+import com.megacrit.cardcrawl.relics.BagOfPreparation;
+import com.megacrit.cardcrawl.relics.ChemicalX;
+import com.megacrit.cardcrawl.relics.Omamori;
+import com.megacrit.cardcrawl.relics.SelfFormingClay;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ public class SlimeChallenge extends AbstractChallenge {
                 reward = new CustomRelicReward(StickyGlove.ID, BagOfPreparation.ID, ChemicalX.ID, SelfFormingClay.ID, Omamori.ID);
                 break;
             case 2:
-                reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
+                reward = new RewardItem(new RetainPotion());
                 break;
             case 3:
                 reward = new TransformReward();
