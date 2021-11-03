@@ -14,7 +14,7 @@ public abstract class AbstractSpicyReward extends CustomReward {
     }
 
     //To be called whenever the reward spawned is bad and is supposed to replace the original roll
-    public RewardItem spawnReplacementReward() {
-        return new RewardItem(100);
+    public RewardItem spawnReplacementReward(RewardItem previousReward) {
+        return new RewardItem(75);
     }
 }

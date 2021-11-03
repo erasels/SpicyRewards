@@ -27,7 +27,7 @@ public class AnyWeakorVulnCardReward extends ModifiedCardReward {
     }
 
     @Override
-    public RewardItem spawnReplacementReward() {
+    public RewardItem spawnReplacementReward(RewardItem previousReward) {
         return new SingleCardReward(new Uppercut());
     }
 }

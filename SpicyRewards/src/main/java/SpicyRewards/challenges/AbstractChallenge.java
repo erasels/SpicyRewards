@@ -81,7 +81,7 @@ public abstract class AbstractChallenge {
                 AbstractDungeon.cardBlizzRandomizer = cardBlizz;
 
                 //Replace reward with replacement in case it's a bad reward
-                reward = ((ModifiedCardReward) reward).spawnReplacementReward();
+                reward = ((ModifiedCardReward) reward).spawnReplacementReward(reward);
             }
         }
         initText();
