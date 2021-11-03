@@ -44,6 +44,8 @@ public class ChallengeSystemPatches {
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.NORMAL, ChallengeSystem.CHALLENGE_AMT);
                         ChallengeSystem.generateChallenges(AbstractChallenge.Type.OPTIN, ChallengeSystem.OPTIN_AMT);
 
+                        ChallengeSystem.spawnedRelicReward = false;
+
                         //Add power/system to top, to allow completing challenges on the ChallengeScreen
                         UC.doPow(UC.p(), new ChallengePower(UC.p()), true);
                     }
@@ -71,7 +73,6 @@ public class ChallengeSystemPatches {
     public static class RenderChallenges {
         private static float X_OFFSET = Settings.WIDTH - (50f * Settings.scale);
         private static float START_Y = ((float) ReflectionHacks.getPrivateStatic(AbstractRelic.class, "START_Y")) - ((64f * Settings.scale) * (SpicyRewards.hasMinty ? 2 : 1));
-        ;
 
         @SpireInsertPatch(locator = Locator.class)
         public static void patch(SpriteBatch sb) {

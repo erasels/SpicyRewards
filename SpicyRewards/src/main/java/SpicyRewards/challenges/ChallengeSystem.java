@@ -35,6 +35,9 @@ public class ChallengeSystem {
     public static ArrayList<AbstractChallenge> challenges = new ArrayList<>();
     public static ChallengePower power;
 
+    //Keeps track of whether a challenge spawned with a relic reward or not
+    public static boolean spawnedRelicReward = false;
+
     private static final HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredChallenges = new HashMap<>();
     private static final HashMap<AbstractChallenge.Tier, ArrayList<AbstractChallenge>> tieredOptins = new HashMap<>();
     private static final HashMap<String, Integer> challengeSpawns = new HashMap<>();
