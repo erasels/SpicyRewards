@@ -80,7 +80,7 @@ public class ChallengeScreenAction extends AbstractGameAction {
         if(!AbstractDungeon.isScreenUp) {
             renderBlackscreen(sb);
             //Don't render text until black screen has faded in, black screen hasn't started fading out
-            if(blackScreenColor.a == blackScreenTarget) {
+            if(blackScreenColor.a == BLACKSCREEN_INTENSITY) {
                 renderText(sb);
             }
             closeBtn.render(sb);
