@@ -6,6 +6,7 @@ import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
 import com.badlogic.gdx.graphics.Color;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.helpers.GameDictionary;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 public class ScryCardReward extends ModifiedCardReward {
     private static final String ScryString = GameDictionary.SCRY.NAMES[0].toLowerCase();
@@ -18,5 +19,10 @@ public class ScryCardReward extends ModifiedCardReward {
     @Override
     public String getRewardText() {
         return rewardText;
+    }
+
+    @Override
+    public RewardItem spawnReplacementReward(RewardItem previousReward) {
+        return new UpgradedSkillReward();
     }
 }
