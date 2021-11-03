@@ -54,7 +54,8 @@
       "skillCR": "Skill card reward",
       "commonCR": "Common card reward",
       "rareCR": "Rare card reward",
-      "scryCR": "Big Scry card reward"
+      "scryCR": "Big Scry card reward",
+      "aoECC": "Mutli-target card choice"
     }
   },
   "${ModID}:ChallengeButton": {
