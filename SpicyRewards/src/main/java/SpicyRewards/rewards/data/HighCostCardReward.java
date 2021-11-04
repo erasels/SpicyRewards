@@ -2,8 +2,8 @@ package SpicyRewards.rewards.data;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
+import SpicyRewards.util.WidepotionDependencyHelper;
 import com.badlogic.gdx.graphics.Color;
-import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotion;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.potions.EnergyPotion;
@@ -25,7 +25,7 @@ public class HighCostCardReward extends ModifiedCardReward {
     public RewardItem spawnReplacementReward(RewardItem previousReward) {
         AbstractPotion p;
         if(SpicyRewards.hasWidepots) {
-            p = new WidePotion(new EnergyPotion());
+            p = WidepotionDependencyHelper.getWide(new EnergyPotion());
         } else {
             p = new EnergyPotion();
         }

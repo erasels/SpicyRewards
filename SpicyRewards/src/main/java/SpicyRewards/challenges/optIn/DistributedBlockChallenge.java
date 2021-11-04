@@ -10,7 +10,7 @@ import SpicyRewards.rewards.data.UpgradedBlockReward;
 import SpicyRewards.rewards.selectCardsRewards.IncreaseBlockReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
-import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotion;
+import SpicyRewards.util.WidepotionDependencyHelper;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -47,7 +47,7 @@ public class DistributedBlockChallenge extends AbstractChallenge {
         if(!UC.p().hasRelic(Sozu.ID)) {
             AbstractPotion p = new MomentumPotion();
             if(SpicyRewards.hasWidepots && AbstractDungeon.actNum >= 2) {
-                p = new WidePotion(p);
+                p = WidepotionDependencyHelper.getWide(p);
             }
             AbstractPotion finalP = p;
             rewardList.add(() -> new RewardItem(finalP), HIGH_WEIGHT);

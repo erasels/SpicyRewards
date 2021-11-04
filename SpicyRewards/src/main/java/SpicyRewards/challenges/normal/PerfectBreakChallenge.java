@@ -6,7 +6,7 @@ import SpicyRewards.rewards.data.BlockBreakCardChoice;
 import SpicyRewards.rewards.data.UpgradedCardReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
-import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotion;
+import SpicyRewards.util.WidepotionDependencyHelper;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -66,7 +66,7 @@ public class PerfectBreakChallenge extends AbstractChallenge {
         rewardList.add(() -> new BlockBreakCardChoice(), NORMAL_WEIGHT);
         rewardList.add(() -> new UpgradedCardReward(), NORMAL_WEIGHT);
         if(SpicyRewards.hasWidepots)
-            rewardList.add(() -> new RewardItem(new WidePotion(new BlockPotion())), NORMAL_WEIGHT);
+            rewardList.add(() -> new RewardItem(WidepotionDependencyHelper.getWide(new BlockPotion())), NORMAL_WEIGHT);
         rewardList.add(() -> new TransformReward(), NORMAL_WEIGHT - 1);
     }
 

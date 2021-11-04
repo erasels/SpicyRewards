@@ -1,5 +1,6 @@
 package SpicyRewards.util;
 
+import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotion;
 import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotionSlot;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.potions.PotionSlot;
@@ -13,5 +14,9 @@ public class WidepotionDependencyHelper {
             }
         }
         return i;
+    }
+
+    public static AbstractPotion getWide(AbstractPotion pot) {
+        return new WidePotion(pot);
     }
 }
