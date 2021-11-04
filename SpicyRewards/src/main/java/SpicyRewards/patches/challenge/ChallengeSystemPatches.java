@@ -41,8 +41,8 @@ public class ChallengeSystemPatches {
 
                         //Populate challenges before action is executed
                         ChallengeSystem.challenges.clear();
-                        ChallengeSystem.generateChallenges(AbstractChallenge.Type.NORMAL, ChallengeSystem.CHALLENGE_AMT);
-                        ChallengeSystem.generateChallenges(AbstractChallenge.Type.OPTIN, ChallengeSystem.OPTIN_AMT);
+                        ChallengeSystem.generateChallenges(AbstractChallenge.Type.NORMAL, ChallengeSystem.getNormalChallengeSpawnAmount());
+                        ChallengeSystem.generateChallenges(AbstractChallenge.Type.OPTIN, ChallengeSystem.getOptinChallengeSpawnAmount());
 
                         ChallengeSystem.spawnedRelicReward = false;
 

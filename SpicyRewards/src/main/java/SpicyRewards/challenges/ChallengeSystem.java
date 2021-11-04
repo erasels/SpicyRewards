@@ -10,6 +10,7 @@ import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.potions.AbstractPotion;
@@ -221,6 +222,26 @@ public class ChallengeSystem {
         int weight = MAX_CHALLENGE_SPAWN_AMOUNT - spawns;
         weight = (weight * 3) - spawns;
         return weight;
+    }
+
+    public static int getNormalChallengeSpawnAmount() {
+        int i = CHALLENGE_AMT;
+        if(AbstractDungeon.actNum == 1) {
+            if(!challengeRng.randomBoolean()) {
+                --i;
+            }
+        }
+        return i;
+    }
+
+    public static int getOptinChallengeSpawnAmount() {
+        int i = OPTIN_AMT;
+        if(AbstractDungeon.actNum == 1) {
+            if(!challengeRng.randomBoolean(0.25f)) {
+                --i;
+            }
+        }
+        return i;
     }
 
     public static AbstractChallenge getChallenge(String id) {
