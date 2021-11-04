@@ -13,12 +13,15 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.evacipated.cardcrawl.modthespire.lib.*;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.megacrit.cardcrawl.characters.AbstractPlayer;
+import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.ui.panels.TopPanel;
 import javassist.CtBehavior;
 
@@ -226,6 +229,35 @@ public class ChallengeScreenAction extends AbstractGameAction {
                 Matcher finalMatcher = new Matcher.MethodCallMatcher(TopPanel.class, "render");
                 return LineFinder.findInOrder(ctBehavior, finalMatcher);
             }
+        }
+    }
+
+    @SpirePatch2(clz = AbstractPlayer.class, method = "renderPlayerBattleUi")
+    public static class DontRenderPowerTipsDuringScreen {
+        @SpireInsertPatch(locator = Locator.class)
+        public static SpireReturn<Void> patch() {
+            //Check if the current action isn't the challenge screen (don't render challenge tips when hovering player during Challenge screen)
+            if (AbstractDungeon.actionManager.currentAction instanceof ChallengeScreenAction) {
+                return SpireReturn.Return();
+            }
+            return SpireReturn.Continue();
+        }
+
+        private static class Locator extends SpireInsertLocator {
+            @Override
+            public int[] Locate(CtBehavior ctBehavior) throws Exception {
+                Matcher finalMatcher = new Matcher.MethodCallMatcher(AbstractPlayer.class, "renderPowerTips");
+                return LineFinder.findInOrder(ctBehavior, finalMatcher);
+            }
+        }
+    }
+
+    @SpirePatch2(clz = AbstractMonster.class, method = "renderTip")
+    @SpirePatch2(clz = AbstractCreature.class, method = "renderPowerTips")
+    public static class DontRenderTipsOnMonstersDuringChallengeScreen {
+        @SpirePrefixPatch
+        public static SpireReturn<Void> patch() {
+            return DontRenderPowerTipsDuringScreen.patch();
         }
     }
 }
