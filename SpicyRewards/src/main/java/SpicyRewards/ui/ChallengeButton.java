@@ -15,6 +15,7 @@ import com.badlogic.gdx.math.Interpolation;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
+import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ShaderHelper;
 import com.megacrit.cardcrawl.helpers.TipHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
@@ -43,6 +44,11 @@ public class ChallengeButton extends TopPanelItem {
         if(notClickable)
             ShaderHelper.setShader(sb, ShaderHelper.Shader.DEFAULT);
         renderFlash(sb);
+
+        if(notClickable) {
+            FontHelper.cardTitleFont.getData().setScale(1.0f);
+            FontHelper.renderFontCentered(sb, FontHelper.cardTitleFont, ChallengeSystem.getSpawnChanceDisplay(), this.x + (this.hb_w / 2), this.y + 16f * Settings.scale, Settings.CREAM_COLOR.cpy());
+        }
 
         if (this.getHitbox().hovered) {
             String body;

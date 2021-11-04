@@ -5,6 +5,7 @@ import SpicyRewards.powers.ChallengePower;
 import SpicyRewards.util.WeightedList;
 import basemod.AutoAdd;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.MathUtils;
 import com.megacrit.cardcrawl.actions.utility.UseCardAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.DamageInfo;
@@ -295,6 +296,11 @@ public class ChallengeSystem {
             sc += ELITE_ADD_CHANCE;
         }
         return sc;
+    }
+
+    public static String getSpawnChanceDisplay() {
+        return NumberUtils.min(MathUtils.round(spawnChance * 100), 100)
+                + "%";
     }
 
     public static void resetSpawnChance() {
