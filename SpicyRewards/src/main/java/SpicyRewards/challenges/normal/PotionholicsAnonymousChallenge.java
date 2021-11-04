@@ -3,7 +3,6 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.cards.Abstinence;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
@@ -33,22 +32,17 @@ public class PotionholicsAnonymousChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                if(UC.deck().findCardById(Abstinence.ID) != null) {
-                    reward = new SingleCardReward(new Abstinence());
-                } else {
-                    reward = new HealReward(4 + AbstractDungeon.actNum);
-                }
-                break;
-            case 1:
-                reward = new RewardItem(40);
-                break;
-            case 2:
-                reward = new MaxHpReward(4 + (AbstractDungeon.actNum - 1));
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> {
+            if(UC.deck().findCardById(Abstinence.ID) == null) {
+                return new SingleCardReward(new Abstinence());
+            } else {
+                return new HealReward(4 + AbstractDungeon.actNum);
+            }
+        }, NORMAL_WEIGHT);
+        rewardList.add(() -> new SingleCardReward(new Abstinence()), LOW_WEIGHT);
+        rewardList.add(() -> new RewardItem(45), NORMAL_WEIGHT);
+        rewardList.add(() -> new MaxHpReward(4 + (AbstractDungeon.actNum - 1)), NORMAL_WEIGHT);
     }
 
     @Override

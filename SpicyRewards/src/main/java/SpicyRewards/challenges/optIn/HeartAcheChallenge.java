@@ -37,22 +37,12 @@ public class HeartAcheChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(4);
-        switch (i) {
-            case 0:
-                reward = new SmallRareCardReward();
-                break;
-            case 1:
-            case 2:
-                reward = new CustomRelicReward(MedicalKit.ID, ChemicalX.ID);
-                break;
-            case 3:
-                reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
-                break;
-            case 4:
-                reward = new RemoveReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RemoveReward(), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new SmallRareCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(MedicalKit.ID, ChemicalX.ID), NORMAL_WEIGHT);
     }
 
     @Override

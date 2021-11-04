@@ -39,21 +39,12 @@ public class AngryChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(3);
-        switch (i) {
-            case 0:
-                reward = new SingleCardReward(new Angry());
-                break;
-            case 1:
-                reward = new ICStrengthCardReward();
-                break;
-            case 2:
-                reward = new CustomRelicReward(Brimstone.ID, RedSkull.ID,Sling.ID);
-                break;
-            case 3:
-                reward = new UpgradedSkillReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new SingleCardReward(new Angry()), NORMAL_WEIGHT);
+        rewardList.add(() -> new ICStrengthCardReward(), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new UpgradedSkillReward(), NORMAL_WEIGHT - 1);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(Brimstone.ID, RedSkull.ID,Sling.ID), NORMAL_WEIGHT);
     }
 
     @Override

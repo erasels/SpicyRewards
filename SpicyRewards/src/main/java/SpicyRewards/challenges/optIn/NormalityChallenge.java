@@ -46,26 +46,13 @@ public class NormalityChallenge extends AbstractChallenge implements IUIRenderCh
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                if(UC.p().masterDeck.size() >= 17) {
-                    reward = new RemoveReward();
-                } else {
-                    reward = new TransformReward();
-                }
-                break;
-            case 1:
-                reward = new HighCostCardReward();
-                break;
-            case 2:
-                if(AbstractDungeon.actNum > 1 || UC.p().energy.energyMaster > 3) {
-                    reward = new CustomRelicReward(Pearl.ID, Pocketwatch.ID);
-                } else {
-                    reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
-                }
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RemoveReward(), LOW_WEIGHT);
+        rewardList.add(() -> new TransformReward(), LOW_WEIGHT);
+        rewardList.add(() -> new HighCostCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(Pearl.ID, Pocketwatch.ID), NORMAL_WEIGHT);
     }
 
     @Override

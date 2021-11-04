@@ -62,30 +62,17 @@ public class CursedDrawChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
+    protected void fillRewardList() {
         if(hasCurse) {
-            switch (i) {
-                case 0:
-                    reward = new CustomRelicReward(GoldenRod.ID, BlueCandle.ID, Omamori.ID, DarkstonePeriapt.ID);
-                    break;
-                case 1:
-                    reward = new RemoveReward(AbstractCard.CardType.CURSE, null);
-                    break;
-                case 2:
-                    reward = new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false));
-            }
+            rewardList.add(() -> new RemoveReward(AbstractCard.CardType.CURSE, null), NORMAL_WEIGHT);
+            rewardList.add(() -> new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)), NORMAL_WEIGHT);
+            if (!ChallengeSystem.spawnedRelicReward)
+                rewardList.add(() -> new CustomRelicReward(GoldenRod.ID, BlueCandle.ID, Omamori.ID, DarkstonePeriapt.ID), NORMAL_WEIGHT);
         } else {
-            switch (i) {
-                case 0:
-                    reward = new CustomRelicReward(CharonsAshes.ID, MedicalKit.ID, ArtOfWar.ID);
-                    break;
-                case 1:
-                    reward = new DuplicationReward();
-                    break;
-                case 2:
-                    reward = new RewardItem(55 + 5* AbstractDungeon.actNum);
-            }
+            rewardList.add(() -> new DuplicationReward(), NORMAL_WEIGHT);
+            rewardList.add(() -> new RewardItem(45 + 15 * AbstractDungeon.actNum), NORMAL_WEIGHT);
+            if (!ChallengeSystem.spawnedRelicReward)
+                rewardList.add(() -> new CustomRelicReward(CharonsAshes.ID, MedicalKit.ID, ArtOfWar.ID), NORMAL_WEIGHT);
         }
     }
 

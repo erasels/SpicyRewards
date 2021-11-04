@@ -2,7 +2,6 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
@@ -37,26 +36,22 @@ public class BigDamageChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                if(AbstractDungeon.actNum == 1) {
-                    reward = new IncreaseDamageReward(null, AbstractCard.CardRarity.COMMON,5);
-                } else {
-                    reward = new RewardItem(30);
-                }
-                break;
-            case 1:
-                reward = new RewardItem(AbstractDungeon.returnRandomPotion());
-                break;
-            case 2:
-                if(!UC.p().hasRelic(Boot.ID)) {
-                    reward = new CustomRelicReward(Boot.ID);
-                } else {
-                    reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
-                }
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RewardItem(AbstractDungeon.returnRandomPotion()), NORMAL_WEIGHT);
+        rewardList.add(() -> {
+            if(AbstractDungeon.actNum == 1) {
+                return new IncreaseDamageReward(null, AbstractCard.CardRarity.COMMON,5);
+            } else {
+                return new RewardItem(30);
+            }
+        }, NORMAL_WEIGHT);
+        rewardList.add(() -> {
+            if(!UC.p().hasRelic(Boot.ID)) {
+                return new CustomRelicReward(Boot.ID);
+            } else {
+                return new UpgradeReward(AbstractCard.CardType.ATTACK, null);
+            }
+        }, NORMAL_WEIGHT - 1);
     }
 
     @Override

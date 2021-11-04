@@ -38,22 +38,12 @@ public class SkillFinishChallenge extends AbstractChallenge implements IUIRender
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new SkillCardReward();
-                break;
-            case 1:
-                reward = new RewardItem(AbstractDungeon.returnRandomPotion());
-                break;
-            case 2:
-                if(AbstractDungeon.actNum > 2 && !UC.p().hasRelic(ArtOfWar.ID)) {
-                    reward = new CustomRelicReward(ArtOfWar.ID);
-                } else {
-                    reward = new IncreaseBlockReward(3);
-                }
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new SkillCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new RewardItem(AbstractDungeon.returnRandomPotion()), NORMAL_WEIGHT);
+        rewardList.add(() -> new IncreaseBlockReward(3), NORMAL_WEIGHT - 1);
+        if(!ChallengeSystem.spawnedRelicReward && !UC.p().hasRelic(ArtOfWar.ID))
+            rewardList.add(() -> new CustomRelicReward(ArtOfWar.ID), LOW_WEIGHT);
     }
 
     @Override

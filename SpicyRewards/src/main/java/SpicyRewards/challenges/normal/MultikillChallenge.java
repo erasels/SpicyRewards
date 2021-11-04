@@ -2,7 +2,6 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.rewards.data.AoECardReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
@@ -34,18 +33,10 @@ public class MultikillChallenge extends AbstractChallenge implements IUIRenderCh
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new AoECardReward();
-                break;
-            case 1:
-                reward = new UpgradeReward(AbstractCard.CardType.ATTACK, null);
-                break;
-            case 2:
-                reward = getRandomGeneralReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new AoECardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new UpgradeReward(AbstractCard.CardType.ATTACK, null), NORMAL_WEIGHT);
+        rewardList.add(this::getRandomGeneralReward, NORMAL_WEIGHT);
     }
 
     @Override

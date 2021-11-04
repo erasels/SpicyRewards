@@ -7,6 +7,7 @@ import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.ModifiedCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.util.UC;
+import SpicyRewards.util.WeightedList;
 import SpicyRewards.vfx.TextEffect;
 import basemod.helpers.CardBorderGlowManager;
 import com.badlogic.gdx.graphics.Color;
@@ -25,9 +26,13 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.ArrayList;
+import java.util.function.Supplier;
 
 public abstract class AbstractChallenge {
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(SpicyRewards.makeID("Rewards"));
+
+    //Weightings for rewards
+    protected static final int HIGH_WEIGHT = 5, NORMAL_WEIGHT = 3, LOW_WEIGHT = 1;
 
     public RewardItem reward;
     public String id, challengeText, rewardText, name;
@@ -35,6 +40,7 @@ public abstract class AbstractChallenge {
     public boolean shouldShowTip;
     public Tier tier;
     public Type type;
+    public WeightedList<Supplier<RewardItem>> rewardList = new WeightedList<>();
 
     public enum Tier {EASY, NORMAL, HARD}
 
@@ -67,7 +73,7 @@ public abstract class AbstractChallenge {
         }
     }
 
-    // Generate the reward of this challenge and check if the generated reward is faulty, if so, generate a new one
+    // Generate the reward of this challenge and check if the generated reward is faulty, if so, call the backup method
     public AbstractChallenge initReward() {
         if (reward == null) {
             int cardCounter, cardBlizz;
@@ -75,6 +81,9 @@ public abstract class AbstractChallenge {
             cardBlizz = AbstractDungeon.cardBlizzRandomizer;
 
             rollReward();
+            if(reward.type == RewardItem.RewardType.RELIC) {
+                ChallengeSystem.spawnedRelicReward = true;
+            }
 
             if(reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward) {
                 AbstractDungeon.cardRng.counter = cardCounter;
@@ -97,16 +106,28 @@ public abstract class AbstractChallenge {
             cardBlizz = AbstractDungeon.cardBlizzRandomizer;
 
             rollReward();
+            if(reward.type == RewardItem.RewardType.RELIC) {
+                ChallengeSystem.spawnedRelicReward = true;
+            }
 
             rerollReward = reward instanceof ModifiedCardReward && ((ModifiedCardReward) reward).badCardReward;
             if(rerollReward) {
                 AbstractDungeon.cardRng.counter = cardCounter;
                 AbstractDungeon.cardBlizzRandomizer = cardBlizz;
+
+                ChallengeSystem.spawnedRelicReward = false;
             }
         } while(rerollReward);
     }
 
-    protected abstract void rollReward();
+    protected abstract void fillRewardList();
+
+    protected void rollReward() {
+        if(!rewardList.isEmpty()) {
+            fillRewardList();
+        }
+        reward = rewardList.getRandom(ChallengeSystem.challengeRewardRng).get();
+    }
 
     public void addRewards(ArrayList<RewardItem> rew) {
         rew.add(reward);

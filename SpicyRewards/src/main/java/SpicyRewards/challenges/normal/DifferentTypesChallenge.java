@@ -2,7 +2,6 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.rewards.cardRewards.CycleCardReward;
 import SpicyRewards.rewards.data.UpgradedAnyReward;
@@ -38,18 +37,10 @@ public class DifferentTypesChallenge extends AbstractChallenge implements IUIRen
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new UpgradedAnyReward();
-                break;
-            case 1:
-                reward = new CycleCardReward();
-                break;
-            case 2:
-                reward = new TransformReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new UpgradedAnyReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new CycleCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new TransformReward(), NORMAL_WEIGHT);
     }
 
     @Override

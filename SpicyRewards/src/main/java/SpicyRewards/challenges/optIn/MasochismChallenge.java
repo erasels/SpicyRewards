@@ -39,27 +39,19 @@ public class MasochismChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(3);
-        switch (i) {
-            case 0:
-                reward = new SingleCardReward(new SadisticNature());
-                break;
-            case 1:
-                reward = new AnyWeakorVulnCardReward();
-                break;
-            case 2:
-                reward = new HealReward((int) (UC.p().maxHealth * 0.15f));
-                break;
-            case 3:
+    protected void fillRewardList() {
+        rewardList.add(() -> new AnyWeakorVulnCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new SingleCardReward(new SadisticNature()), NORMAL_WEIGHT);
+        rewardList.add(() -> new HealReward((int) (UC.p().maxHealth * 0.15f)), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> {
                 ArrayList<String> potentialRelics = new ArrayList<>(Arrays.asList(PaperFrog.ID, PaperCrane.ID, ChampionsBelt.ID, BagOfMarbles.ID, HandDrill.ID));
                 if(AbstractDungeon.actNum > 1) {
                     potentialRelics.add(OddMushroom.ID);
                 }
-                potentialRelics.removeIf(r -> UC.p().hasRelic(r));
                 String[] arr = new String[potentialRelics.size()];
-                reward = new CustomRelicReward(potentialRelics.toArray(arr));
-        }
+                return new CustomRelicReward(potentialRelics.toArray(arr));
+            }, NORMAL_WEIGHT);
     }
 
     @Override

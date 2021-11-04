@@ -2,9 +2,8 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.HealReward;
-import SpicyRewards.rewards.cardRewards.CycleCardReward;
+import SpicyRewards.rewards.data.SkillCardReward;
 import SpicyRewards.rewards.selectCardsRewards.IncreaseBlockReward;
 import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
 import SpicyRewards.util.UC;
@@ -34,22 +33,12 @@ public class PacifistChallenge  extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new CycleCardReward();
-                break;
-            case 1:
-                reward = new IncreaseDamageReward(4);
-                break;
-            case 2:
-                if(UC.p().currentHealth < UC.p().maxHealth/2f) {
-                    reward = new HealReward((int) (UC.p().maxHealth * 0.2f));
-                } else {
-                    reward = new IncreaseBlockReward(3);
-                }
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new SkillCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new IncreaseDamageReward(4), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new IncreaseBlockReward(3), NORMAL_WEIGHT - 1);
+        if(UC.p().currentHealth < UC.p().maxHealth/2f)
+            rewardList.add(() -> new HealReward((int) (UC.p().maxHealth * 0.16f)), NORMAL_WEIGHT);
     }
 
     @Override

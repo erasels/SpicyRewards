@@ -40,21 +40,12 @@ public class SlimeChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(3);
-        switch (i) {
-            case 0:
-                reward = new RetainCardReward();
-                break;
-            case 1:
-                reward = new CustomRelicReward(StickyGlove.ID, BagOfPreparation.ID, ChemicalX.ID, SelfFormingClay.ID, Omamori.ID);
-                break;
-            case 2:
-                reward = new RewardItem(new RetainPotion());
-                break;
-            case 3:
-                reward = new TransformReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RetainCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new TransformReward(), LOW_WEIGHT);
+        rewardList.add(() -> new RewardItem(new RetainPotion()), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(StickyGlove.ID, BagOfPreparation.ID, ChemicalX.ID, SelfFormingClay.ID, Omamori.ID), NORMAL_WEIGHT);
     }
 
     @Override

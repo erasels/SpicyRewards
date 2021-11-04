@@ -50,19 +50,11 @@ public class DoomCalendarChallenge extends AbstractChallenge implements IUIRende
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new CustomRelicReward(StoneCalendar.ID, MercuryHourglass.ID);
-                break;
-            case 1:
-                reward = new SingleCardReward(new TheBomb());
-                break;
-            case 2:
-                reward = new SevenCardReward();
-        }
-
+    protected void fillRewardList() {
+        rewardList.add(() -> new SingleCardReward(new TheBomb()), NORMAL_WEIGHT);
+        rewardList.add(() -> new SevenCardReward(), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(StoneCalendar.ID, MercuryHourglass.ID), NORMAL_WEIGHT);
     }
 
     @Override

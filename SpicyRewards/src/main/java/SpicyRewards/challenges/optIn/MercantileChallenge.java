@@ -38,18 +38,11 @@ public class MercantileChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new RewardItem(30 + (25 * AbstractDungeon.actNum));
-                break;
-            case 1:
-                reward = new CustomRelicReward(Courier.ID, MembershipCard.ID, MealTicket.ID, OldCoin.ID);
-                break;
-            case 2:
-                reward = new SingleCardReward(HandOfGreed.ID);
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RewardItem(30 + (25 * AbstractDungeon.actNum)), NORMAL_WEIGHT);
+        rewardList.add(() -> new SingleCardReward(HandOfGreed.ID), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(Courier.ID, MembershipCard.ID, MealTicket.ID, OldCoin.ID), NORMAL_WEIGHT);
     }
 
     @Override

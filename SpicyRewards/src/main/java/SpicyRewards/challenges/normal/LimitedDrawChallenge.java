@@ -40,6 +40,9 @@ public class LimitedDrawChallenge extends AbstractChallenge implements IUIRender
     }
 
     @Override
+    protected void fillRewardList() { }
+
+    @Override
     protected void rollReward() {
         int i = ChallengeSystem.challengeRewardRng.random(1);
         switch (i) {

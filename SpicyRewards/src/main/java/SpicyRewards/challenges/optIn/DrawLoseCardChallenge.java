@@ -2,7 +2,6 @@ package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
@@ -54,21 +53,11 @@ public class DrawLoseCardChallenge extends AbstractChallenge implements IUIRende
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(3);
-        switch (i) {
-            case 0:
-                reward = new NoDrawChoice();
-                break;
-            case 1:
-                reward = new SingleCardReward(new Scrawl());
-                break;
-            case 2:
-                reward = new MaxHpReward(6 + (drawLimit - (4 - AbstractDungeon.actNum)));
-                break;
-            case 3:
-                reward = new BigButNoDrawCardReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new NoDrawChoice(), NORMAL_WEIGHT);
+        rewardList.add(() -> new SingleCardReward(new Scrawl()), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new MaxHpReward(6 + (drawLimit - (4 - AbstractDungeon.actNum))), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new BigButNoDrawCardReward(), NORMAL_WEIGHT);
     }
 
     @Override

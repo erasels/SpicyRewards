@@ -4,7 +4,6 @@ import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
-import SpicyRewards.rewards.cardRewards.CycleCardReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.CoolBasicsCardReward;
 import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
@@ -17,9 +16,7 @@ import com.megacrit.cardcrawl.cards.blue.HelloWorld;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.relics.CeramicFish;
-import com.megacrit.cardcrawl.relics.EternalFeather;
-import com.megacrit.cardcrawl.relics.StrikeDummy;
+import com.megacrit.cardcrawl.relics.*;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -40,24 +37,12 @@ public class RarityChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(4);
-        switch (i) {
-            case 0:
-                reward = new CoolBasicsCardReward();
-                break;
-            case 1:
-                reward = new DuplicationReward(null, AbstractCard.CardRarity.COMMON);
-                break;
-            case 2:
-                reward = new CycleCardReward();
-                break;
-            case 3:
-                reward = new SingleCardReward(HelloWorld.ID);
-                break;
-            case 4:
-                reward = new CustomRelicReward(StrikeDummy.ID, CeramicFish.ID, EternalFeather.ID);
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new CoolBasicsCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new DuplicationReward(null, AbstractCard.CardRarity.COMMON), NORMAL_WEIGHT);
+        rewardList.add(() -> new SingleCardReward(HelloWorld.ID), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(StrikeDummy.ID, EternalFeather.ID, CeramicFish.ID, Whetstone.ID, WarPaint.ID), LOW_WEIGHT);
     }
 
     @Override

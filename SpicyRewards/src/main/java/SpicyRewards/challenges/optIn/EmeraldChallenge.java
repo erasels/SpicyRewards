@@ -5,6 +5,7 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.RareCardReward;
+import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotion;
 import com.megacrit.cardcrawl.actions.common.ApplyPowerAction;
 import com.megacrit.cardcrawl.actions.unique.IncreaseMaxHpAction;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -13,6 +14,7 @@ import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.monsters.MonsterGroup;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.MetallicizePower;
 import com.megacrit.cardcrawl.powers.RegenerateMonsterPower;
 import com.megacrit.cardcrawl.powers.StrengthPower;
@@ -40,15 +42,13 @@ public class EmeraldChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(1);
-        switch (i) {
-            case 0:
-                reward = new RareCardReward();
-                break;
-            case 1:
-                reward = new CustomRelicReward(AbstractRelic.RelicTier.RARE);
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RewardItem(130), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new RareCardReward(), NORMAL_WEIGHT);
+        if(SpicyRewards.hasWidepots)
+            rewardList.add(() -> new RewardItem(new WidePotion(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false))), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(AbstractRelic.RelicTier.RARE), NORMAL_WEIGHT);
     }
 
     @Override

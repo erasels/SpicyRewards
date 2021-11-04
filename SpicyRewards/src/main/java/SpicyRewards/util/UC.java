@@ -311,6 +311,11 @@ public class UC {
         return t;
     }
 
+    public static AbstractCard upgCard(AbstractCard c) {
+        c.upgrade();
+        return c;
+    }
+
     public static String get2DecString(float num) {
         if (num < 0) {
             num = 0;

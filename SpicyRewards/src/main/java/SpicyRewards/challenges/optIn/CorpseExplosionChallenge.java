@@ -14,7 +14,6 @@ import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.cards.green.CorpseExplosion;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
 import com.megacrit.cardcrawl.relics.GremlinHorn;
@@ -38,25 +37,14 @@ public class CorpseExplosionChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(3);
-        switch (i) {
-            case 0:
-                reward = new SingleCardReward(new CorpseExplosion());
-                break;
-            case 1:
-                if(AbstractDungeon.actNum > 2) {
-                    reward = new FatalChoiceReward();
-                } else {
-                    reward = new UpgradeReward();
-                }
-                break;
-            case 2:
-                reward = new UpgradedCardReward();
-                break;
-            case 3:
-                reward = new CustomRelicReward(DowsingRod.ID, GremlinHorn.ID);
-        }
+    protected void fillRewardList() {
+        if(UC.deck().findCardById(CorpseExplosion.ID) == null)
+            rewardList.add(() -> new SingleCardReward(new CorpseExplosion()), NORMAL_WEIGHT);
+        rewardList.add(() -> new FatalChoiceReward(), LOW_WEIGHT);
+        rewardList.add(() -> new UpgradeReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new UpgradedCardReward(), NORMAL_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(DowsingRod.ID, GremlinHorn.ID), NORMAL_WEIGHT + 1);
     }
 
     @Override

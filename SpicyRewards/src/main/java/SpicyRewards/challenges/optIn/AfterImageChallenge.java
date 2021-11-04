@@ -2,7 +2,6 @@ package SpicyRewards.challenges.optIn;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.potions.MomentumPotion;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.UpgradedSkillReward;
@@ -40,28 +39,14 @@ public class AfterImageChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(3);
-        switch (i) {
-            case 0:
-                AbstractCard c = new AfterImage();
-                c.upgrade();
-                reward = new SingleCardReward(c);
-                break;
-            case 1:
-                if(UC.p().masterDeck.size() >= 17) {
-                    reward = new RemoveReward();
-                } else {
-                    reward = new TransformReward();
-                }
-                break;
-            case 2:
-                AbstractPotion p = PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID, MomentumPotion.POTION_ID)), AbstractDungeon.potionRng));
-                reward = new RewardItem(p);
-                break;
-            case 3:
-                reward = new UpgradedSkillReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new SingleCardReward(UC.upgCard(new AfterImage())), UC.deck().findCardById(AfterImage.ID) != null? LOW_WEIGHT : NORMAL_WEIGHT);
+        if(UC.deck().size() >= 15)
+            rewardList.add(() -> new RemoveReward(), LOW_WEIGHT);
+        rewardList.add(() -> new TransformReward(), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new RewardItem(PotionHelper.getPotion(UC.getRandomItem(new ArrayList<>(Arrays.asList(BlockPotion.POTION_ID, BloodPotion.POTION_ID, DexterityPotion.POTION_ID, HeartOfIron.POTION_ID, SpeedPotion.POTION_ID, EssenceOfSteel.POTION_ID, MomentumPotion.POTION_ID)), AbstractDungeon.potionRng))),
+                NORMAL_WEIGHT);
+        rewardList.add(() -> new UpgradedSkillReward(), NORMAL_WEIGHT);
     }
 
     @Override

@@ -5,6 +5,7 @@ import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.challenges.optIn.DoomCalendarChallenge;
+import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.InnateCardReward;
 import SpicyRewards.rewards.data.UncommonCardReward;
 import com.badlogic.gdx.graphics.Color;
@@ -14,6 +15,11 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.localization.UIStrings;
+import com.megacrit.cardcrawl.potions.LiquidMemories;
+import com.megacrit.cardcrawl.relics.BottledFlame;
+import com.megacrit.cardcrawl.relics.BottledLightning;
+import com.megacrit.cardcrawl.relics.BottledTornado;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -35,15 +41,12 @@ public class RushChallenge extends AbstractChallenge implements IUIRenderChallen
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(1);
-        switch (i) {
-            case 0:
-                reward = new InnateCardReward();
-                break;
-            case 1:
-                reward = new UncommonCardReward();
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new InnateCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new UncommonCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new RewardItem(new LiquidMemories()), LOW_WEIGHT);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(BottledFlame.ID, BottledLightning.ID, BottledTornado.ID), LOW_WEIGHT);
     }
 
     @Override

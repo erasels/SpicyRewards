@@ -2,13 +2,11 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.data.BlockBreakCardChoice;
 import SpicyRewards.rewards.data.UpgradedCardReward;
-import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
-import com.megacrit.cardcrawl.cards.AbstractCard;
+import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotion;
 import com.megacrit.cardcrawl.cards.DamageInfo;
 import com.megacrit.cardcrawl.core.AbstractCreature;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
@@ -22,6 +20,8 @@ import com.megacrit.cardcrawl.monsters.exordium.GremlinTsundere;
 import com.megacrit.cardcrawl.monsters.exordium.JawWorm;
 import com.megacrit.cardcrawl.monsters.exordium.Lagavulin;
 import com.megacrit.cardcrawl.monsters.exordium.Looter;
+import com.megacrit.cardcrawl.potions.BlockPotion;
+import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -62,22 +62,12 @@ public class PerfectBreakChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new BlockBreakCardChoice();
-                break;
-            case 1:
-                reward = new UpgradedCardReward();
-                break;
-            case 2:
-                if (UC.p().masterDeck.size() >= 17) {
-                    reward = new RemoveReward(null, AbstractCard.CardRarity.COMMON);
-                } else {
-                    reward = new TransformReward();
-                }
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new BlockBreakCardChoice(), NORMAL_WEIGHT);
+        rewardList.add(() -> new UpgradedCardReward(), NORMAL_WEIGHT);
+        if(SpicyRewards.hasWidepots)
+            rewardList.add(() -> new RewardItem(new WidePotion(new BlockPotion())), NORMAL_WEIGHT);
+        rewardList.add(() -> new TransformReward(), NORMAL_WEIGHT - 1);
     }
 
     @Override

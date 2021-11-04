@@ -2,7 +2,6 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
 import SpicyRewards.rewards.selectCardsRewards.IncreaseDamageReward;
 import basemod.helpers.CardBorderGlowManager;
@@ -34,18 +33,10 @@ public class AttackStartChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new RewardItem(10 + AbstractDungeon.actNum * 7);
-                break;
-            case 1:
-                reward = new DuplicationReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.COMMON);
-                break;
-            case 2:
-                reward = new IncreaseDamageReward(3);
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RewardItem(13 + AbstractDungeon.actNum * 7), NORMAL_WEIGHT);
+        rewardList.add(() -> new DuplicationReward(AbstractCard.CardType.ATTACK, AbstractCard.CardRarity.COMMON), NORMAL_WEIGHT);
+        rewardList.add(() -> new IncreaseDamageReward(3), NORMAL_WEIGHT);
     }
 
     @Override

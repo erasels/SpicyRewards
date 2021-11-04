@@ -10,6 +10,7 @@ import SpicyRewards.rewards.data.UpgradedBlockReward;
 import SpicyRewards.rewards.selectCardsRewards.IncreaseBlockReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
+import com.evacipated.cardcrawl.mod.widepotions.potions.WidePotion;
 import com.megacrit.cardcrawl.actions.AbstractGameAction;
 import com.megacrit.cardcrawl.actions.common.GainBlockAction;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -17,7 +18,7 @@ import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.monsters.AbstractMonster;
-import com.megacrit.cardcrawl.potions.PotionSlot;
+import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.relics.Calipers;
 import com.megacrit.cardcrawl.relics.Orichalcum;
 import com.megacrit.cardcrawl.relics.Sozu;
@@ -42,36 +43,23 @@ public class DistributedBlockChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(4);
-        switch (i) {
-            case 0:
-                if(UC.p().potions.stream().anyMatch(p -> (p instanceof PotionSlot)) && !UC.p().hasRelic(Sozu.ID)) {
-                    reward = new RewardItem(new MomentumPotion());
-                } else {
-                    reward = new IncreaseBlockReward(2 + AbstractDungeon.actNum);
-                }
-                break;
-            case 1:
-                reward = new CustomRelicReward(Orichalcum.ID, ToxicEgg2.ID, Calipers.ID);
-                break;
-            case 2:
-                if(!UC.p().hasRelic(Sozu.ID)) {
-                    reward = new RewardItem(new MomentumPotion());
-                } else {
-                    reward = new IncreaseBlockReward(2 + AbstractDungeon.actNum);
-                }
-                break;
-            case 3:
-                reward = new UpgradeReward(AbstractCard.CardType.SKILL, null);
-                break;
-            case 4:
-                if(AbstractDungeon.actNum == 1) {
-                    reward = new DefectBlockCardReward();
-                } else {
-                    reward = new UpgradedBlockReward();
-                }
+    protected void fillRewardList() {
+        if(!UC.p().hasRelic(Sozu.ID)) {
+            AbstractPotion p = new MomentumPotion();
+            if(SpicyRewards.hasWidepots && AbstractDungeon.actNum >= 2) {
+                p = new WidePotion(p);
+            }
+            AbstractPotion finalP = p;
+            rewardList.add(() -> new RewardItem(finalP), HIGH_WEIGHT);
+        } else {
+            rewardList.add(() -> new IncreaseBlockReward(2 + AbstractDungeon.actNum), NORMAL_WEIGHT);
         }
+
+        rewardList.add(() -> new UpgradeReward(AbstractCard.CardType.SKILL, null), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new UpgradedBlockReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new DefectBlockCardReward(), NORMAL_WEIGHT - 1);
+        if(!ChallengeSystem.spawnedRelicReward)
+            rewardList.add(() -> new CustomRelicReward(Orichalcum.ID, ToxicEgg2.ID, Calipers.ID), NORMAL_WEIGHT);
     }
 
     //Queues the action before player and monster.loseBlock is called in GAM

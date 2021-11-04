@@ -2,7 +2,6 @@ package SpicyRewards.challenges.normal;
 
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
-import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.AnyPowerCardReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
@@ -36,18 +35,10 @@ public class PowerlessChallenge  extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                reward = new AnyPowerCardReward();
-                break;
-            case 1:
-                reward = new SingleCardReward(new DoubleTap());
-                break;
-            case 2:
-                reward = new UpgradeReward(null, AbstractCard.CardRarity.UNCOMMON);
-        }
+    protected void fillRewardList() {
+        rewardList.add(() -> new AnyPowerCardReward(), NORMAL_WEIGHT);
+        rewardList.add(() -> new SingleCardReward(new DoubleTap()), NORMAL_WEIGHT);
+        rewardList.add(() -> new UpgradeReward(null, AbstractCard.CardRarity.UNCOMMON), NORMAL_WEIGHT);
     }
 
     @Override

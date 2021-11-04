@@ -3,10 +3,7 @@ package SpicyRewards.challenges.normal;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
-import SpicyRewards.rewards.data.CommonCardReward;
-import SpicyRewards.rewards.data.SmallRareCardReward;
-import SpicyRewards.rewards.data.UncommonCardReward;
-import SpicyRewards.rewards.data.UpgradedCardReward;
+import SpicyRewards.rewards.data.*;
 import SpicyRewards.rewards.selectCardsRewards.DuplicationReward;
 import SpicyRewards.rewards.selectCardsRewards.UpgradeReward;
 import SpicyRewards.util.UC;
@@ -34,34 +31,30 @@ public class ChallengeYourselfChallenge extends AbstractChallenge {
     }
 
     @Override
-    protected void rollReward() {
-        int i = ChallengeSystem.challengeRewardRng.random(2);
-        switch (i) {
-            case 0:
-                if(AbstractDungeon.actNum < 2) {
-                    if(UC.p().currentHealth > UC.p().maxHealth/2f) {
-                        reward = new CommonCardReward();
-                    } else {
-                        reward = new UncommonCardReward();
-                    }
+    protected void fillRewardList() {
+        rewardList.add(() -> new RewardItem(30 + 15 * AbstractDungeon.actNum), NORMAL_WEIGHT);
+        rewardList.add(() -> {
+            if(AbstractDungeon.actNum < 2) {
+                if(UC.p().currentHealth > UC.p().maxHealth/2f) {
+                    return new CommonCardReward();
                 } else {
-                    if(UC.p().currentHealth > UC.p().maxHealth/2f) {
-                        reward = new UpgradedCardReward();
-                    } else {
-                        reward = new SmallRareCardReward();
-                    }
+                    return new UncommonCardReward();
                 }
-                break;
-            case 1:
-                reward = new RewardItem(30 + 15 * AbstractDungeon.actNum);
-                break;
-            case 2:
-                if(AbstractDungeon.actNum > 1) {
-                    reward = new UpgradeReward();
+            } else {
+                if(UC.p().currentHealth > UC.p().maxHealth/2f) {
+                    return new UpgradedCardReward();
                 } else {
-                    reward = new DuplicationReward();
+                    return new SmallRareCardReward();
                 }
-        }
+            }
+        }, NORMAL_WEIGHT);
+        rewardList.add(() -> {
+            if(AbstractDungeon.actNum > 1) {
+                return new UpgradeReward();
+            } else {
+                return new DuplicationReward();
+            }
+        }, NORMAL_WEIGHT);
     }
 
     @Override
