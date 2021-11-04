@@ -123,7 +123,7 @@ public abstract class AbstractChallenge {
     protected abstract void fillRewardList();
 
     protected void rollReward() {
-        if(!rewardList.isEmpty()) {
+        if(rewardList.isEmpty()) {
             fillRewardList();
         }
         reward = rewardList.getRandom(ChallengeSystem.challengeRewardRng).get();
