@@ -17,6 +17,7 @@ import com.megacrit.cardcrawl.potions.AbstractPotion;
 import com.megacrit.cardcrawl.powers.AbstractPower;
 import com.megacrit.cardcrawl.random.Random;
 import com.megacrit.cardcrawl.rewards.RewardItem;
+import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.util.ArrayList;
@@ -28,8 +29,9 @@ import java.util.stream.Collectors;
 public class ChallengeSystem {
     private static final float BASE_CHANCE = 0.05F;
     private static final float INC_CHANCE = 0.15F;
-    private static float spawnChance = BASE_CHANCE;
+    private static final float ELITE_ADD_CHANCE = 0.1F;
     private static final int MAX_CHALLENGE_SPAWN_AMOUNT = 3;
+    private static float spawnChance = BASE_CHANCE;
 
     public static final int CHALLENGE_AMT = 2, OPTIN_AMT = 3;
     public static HashMap<String, AbstractChallenge> allChallenges = new HashMap<>();
@@ -288,7 +290,11 @@ public class ChallengeSystem {
     }
 
     public static float getSpawnChance() {
-        return spawnChance;
+        float sc = spawnChance;
+        if(AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite) {
+            sc += ELITE_ADD_CHANCE;
+        }
+        return sc;
     }
 
     public static void resetSpawnChance() {

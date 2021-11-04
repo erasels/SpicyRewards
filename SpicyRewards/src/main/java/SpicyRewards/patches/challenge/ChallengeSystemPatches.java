@@ -30,7 +30,7 @@ public class ChallengeSystemPatches {
             if (!(AbstractDungeon.getCurrRoom() instanceof MonsterRoomBoss)) {
                 // Don't spawn challenges if Neow's Lament is active
                 AbstractRelic nl = UC.p().getRelic(NeowsLament.ID);
-                if (nl == null || nl.usedUp)
+                if (nl == null || nl.usedUp) {
                     if (ChallengeSystem.challengeRng.randomBoolean(ChallengeSystem.getSpawnChance()) || SpicyRewards.shouldAC()) {
                         //Reset spawn chance once encountered
                         SpicyRewards.logger.info(String.format("Challenges spawned, resetting challenge spawn chance from %f.", ChallengeSystem.getSpawnChance()));
@@ -49,6 +49,7 @@ public class ChallengeSystemPatches {
                         //Add power/system to top, to allow completing challenges on the ChallengeScreen
                         UC.doPow(UC.p(), new ChallengePower(UC.p()), true);
                     }
+                }
             }
         }
     }
