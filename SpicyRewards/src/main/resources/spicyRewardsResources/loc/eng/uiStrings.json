@@ -356,5 +356,12 @@
       "name": "Type Coverage",
       "render": "Remaining types: %s"
     }
+  },
+  "${ModID}:TimerChallenge": {
+    "TEXT_DICT": {
+      "desc": "Win the battle within %d seconds.",
+      "name": "Timer",
+      "render": "Time remaining: %s sec"
+    }
   }
 }

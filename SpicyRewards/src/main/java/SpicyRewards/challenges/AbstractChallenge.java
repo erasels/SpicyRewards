@@ -249,6 +249,8 @@ public abstract class AbstractChallenge {
         return true;
     }
 
+    public void update() {}
+
     protected RewardItem getRandomGeneralReward() {
         int i = ChallengeSystem.challengeRewardRng.random(3);
         switch (tier) {

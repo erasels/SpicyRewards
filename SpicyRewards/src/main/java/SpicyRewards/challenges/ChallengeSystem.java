@@ -125,6 +125,10 @@ public class ChallengeSystem {
         return true;
     }
 
+    public static void update() {
+        challenges.forEach(AbstractChallenge::update);
+    }
+
     //Called pre AbstractRoom battle UI render in ChallengeSystemPatches
     public static void renderChallengeUIs(SpriteBatch sb, float xOffset, float startY) {
         for(AbstractChallenge c : challenges) {

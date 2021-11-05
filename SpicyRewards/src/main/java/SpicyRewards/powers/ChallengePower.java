@@ -130,6 +130,12 @@ public class ChallengePower extends AbstractPower implements InvisiblePower, OnM
         return ChallengeSystem.canPlayCard(c);
     }
 
+    @Override
+    public void update(int slot) {
+        super.update(slot);
+        ChallengeSystem.update();
+    }
+
     @SpirePatch2(clz = GameActionManager.class, method = "getNextAction")
     private static class FixAtEndOfRoundWithMonsterSkip {
         @SpireInsertPatch(locator = PostMonsterApplyEndTurnPowersLocator.class)
