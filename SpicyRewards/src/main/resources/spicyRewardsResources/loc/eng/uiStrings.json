@@ -343,5 +343,11 @@
       "desc": "At the end of your turn, add a Shiv to your discard pile for every card in your hand.",
       "name": "No Shivgrets"
     }
+  },
+  "${ModID}:SmallHandsChallenge": {
+    "TEXT_DICT": {
+      "desc": "You may only have %d cards in your hand at once.",
+      "name": "Small Hands"
+    }
   }
 }
