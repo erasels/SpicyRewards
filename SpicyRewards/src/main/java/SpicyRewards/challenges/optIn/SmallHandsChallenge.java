@@ -7,9 +7,8 @@ import SpicyRewards.potions.RetainPotion;
 import SpicyRewards.relics.SpeedCharm;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.BigButNoDrawCardReward;
-import SpicyRewards.rewards.data.NoDrawChoice;
 import SpicyRewards.rewards.data.RareCardReward;
-import SpicyRewards.rewards.data.RetainCardReward;
+import SpicyRewards.rewards.selectCardsRewards.IncreaseBlockReward;
 import SpicyRewards.util.UC;
 import SpicyRewards.util.WidepotionDependencyHelper;
 import basemod.BaseMod;
@@ -46,9 +45,9 @@ public class SmallHandsChallenge extends AbstractChallenge {
 
     @Override
     protected void fillRewardList() {
+        rewardList.add(() -> new IncreaseBlockReward(5 + AbstractDungeon.actNum), LOW_WEIGHT);
         rewardList.add(() -> new BigButNoDrawCardReward(), LOW_WEIGHT);
-        rewardList.add(() -> new NoDrawChoice(), LOW_WEIGHT);
-        rewardList.add(() -> new RetainCardReward(), LOW_WEIGHT);
+        rewardList.add(() -> new RewardItem(50 + (25 * AbstractDungeon.actNum)), LOW_WEIGHT);
         rewardList.add(() -> new RareCardReward(), NORMAL_WEIGHT-1);
         if(SpicyRewards.hasWidepots)
             rewardList.add(() -> new RewardItem(WidepotionDependencyHelper.getWide(new RetainPotion())), NORMAL_WEIGHT);
