@@ -33,5 +33,12 @@
     "DESCRIPTIONS": [
       "At the start of combat, add a #ySlimed into your hand. The leftmost card in your hand is #yretained each turn."
     ]
+  },
+  "${ModID}:SpeedCharm": {
+    "NAME": "Speed Charm",
+    "FLAVOR": "With this in tow, the winds guide your step.",
+    "DESCRIPTIONS": [
+      "At the start of your turn, draw %d additional card."
+    ]
   }
 }
