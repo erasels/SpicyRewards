@@ -25,7 +25,7 @@ public class RarityChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Rarity");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
 
-    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(PowerlessChallenge.ID, AdvancedChallenge.ID));
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(PowerlessChallenge.ID, AdvancedChallenge.ID, TypeCoverageChallenge.ID));
 
     public RarityChallenge() {
         super(ID,

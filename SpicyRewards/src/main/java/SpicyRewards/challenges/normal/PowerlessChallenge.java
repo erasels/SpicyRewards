@@ -23,7 +23,7 @@ public class PowerlessChallenge  extends AbstractChallenge {
 
     private static final int MIN_POWERS = 3;
 
-    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(RarityChallenge.ID));
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(RarityChallenge.ID, TypeCoverageChallenge.ID));
 
     public PowerlessChallenge() {
         super(ID,

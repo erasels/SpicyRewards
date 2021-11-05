@@ -349,5 +349,12 @@
       "desc": "You may only have %d cards in your hand at once.",
       "name": "Small Hands"
     }
+  },
+  "${ModID}:TypeCoverageChallenge": {
+    "TEXT_DICT": {
+      "desc": "Play a Power, Attack and Skill in the same turn.",
+      "name": "Type Coverage",
+      "render": "Remaining types: %s"
+    }
   }
 }
