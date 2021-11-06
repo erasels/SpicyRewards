@@ -21,5 +21,6 @@ public class RandomizeHandAction extends AbstractGameAction {
                 c.freeToPlayOnce = false;
             }
         }
+        isDone = true;
     }
 }
