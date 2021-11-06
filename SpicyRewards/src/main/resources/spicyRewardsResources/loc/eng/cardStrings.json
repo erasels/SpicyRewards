@@ -14,5 +14,10 @@
   "${ModID}:PerfectedDefend": {
     "NAME": "Perfected Defend",
     "DESCRIPTION": "Gain !B! Block. NL Gains !M! additional Block for ALL your cards containing \"Defend\"."
+  },
+  "${ModID}:Befuddlement": {
+    "NAME": "Befuddlement",
+    "DESCRIPTION": "Randomize the cost of every card in your hand for this combat.",
+    "UPGRADE_DESCRIPTION": "Draw !M! card. NL Randomize the cost of every card in your hand for this combat."
   }
 }
