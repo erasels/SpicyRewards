@@ -371,7 +371,7 @@
       "name": "Snecko Deck-o"
     }
   },
-  "${ModID}:RngCost": {
+  "${ModID}:RngCostReward": {
     "TEXT": [
       "Select a card to randomize the cost of"
     ],
