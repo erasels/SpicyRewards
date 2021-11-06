@@ -363,5 +363,11 @@
       "name": "Timer",
       "render": "Time remaining: %s sec"
     }
+  },
+  "${ModID}:SneckoChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you draw a card, randomize its cost between %d and %d.",
+      "name": "Snecko Deck-o"
+    }
   }
 }
