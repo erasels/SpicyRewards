@@ -22,13 +22,14 @@ import com.megacrit.cardcrawl.relics.SneckoSkull;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SneckoChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("Snecko");
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int LOW_END = 0, TOP_END = 3;
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(ChameleonChallenge.ID));
 
     public SneckoChallenge() {
         super(ID,

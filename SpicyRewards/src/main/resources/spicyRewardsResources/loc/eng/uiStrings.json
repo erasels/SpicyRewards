@@ -360,7 +360,7 @@
   "${ModID}:TimerChallenge": {
     "TEXT_DICT": {
       "desc": "Win the battle within %d seconds.",
-      "name": "Timer",
+      "name": "Speedrun",
       "render": "Time remaining: %s sec"
     }
   },
@@ -378,6 +378,12 @@
       "FullText": "Randomize the cost of a card",
       "ModText": "Randomize the cost of a %s %s",
       "NoType": "card"
+    }
+  },
+  "${ModID}:ChameleonChallenge": {
+    "TEXT_DICT": {
+      "desc": "The first card you draw each turn is transformed for the rest of combat.",
+      "name": "Chamelyon Camouflage"
     }
   }
 }
