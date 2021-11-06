@@ -42,6 +42,10 @@ public class RewardSaveLoader implements BaseMod.LoadCustomReward {
         return new IncreaseBlockReward(getType(rewardSave.id), getRarity(rewardSave.id), rewardSave.amount);
     }
 
+    public static CustomReward onLoadRngCost(RewardSave rewardSave) {
+        return new RandomizeCardCostReward(getType(rewardSave.id), getRarity(rewardSave.id));
+    }
+
     public static CustomReward onLoadCardChoice(RewardSave rewardSave) {
         String[] s = rewardSave.id.split("\\|");
         ArrayList<AbstractCard> cards = new ArrayList<>();

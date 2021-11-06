@@ -24,4 +24,6 @@ public class NewRewardtypePatches {
     public static RewardItem.RewardType SR_INCATKREWARD;
     @SpireEnum
     public static RewardItem.RewardType SR_INCEDEFREWARD;
+    @SpireEnum
+    public static RewardItem.RewardType SR_RNGCOSTREWARD;
 }

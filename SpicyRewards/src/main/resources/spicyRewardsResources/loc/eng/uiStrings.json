@@ -369,5 +369,15 @@
       "desc": "Whenever you draw a card, randomize its cost between %d and %d.",
       "name": "Snecko Deck-o"
     }
+  },
+  "${ModID}:RngCost": {
+    "TEXT": [
+      "Select a card to randomize the cost of"
+    ],
+    "TEXT_DICT": {
+      "FullText": "Randomize the cost of a card",
+      "ModText": "Randomize the cost of a %s %s",
+      "NoType": "card"
+    }
   }
 }

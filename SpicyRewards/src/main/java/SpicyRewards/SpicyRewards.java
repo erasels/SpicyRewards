@@ -200,6 +200,11 @@ public class SpicyRewards implements
                 customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_INCEDEFREWARD, customReward)
         );
 
+        BaseMod.registerCustomReward(NewRewardtypePatches.SR_RNGCOSTREWARD,
+                RewardSaveLoader::onLoadRngCost,
+                customReward -> RewardSaveLoader.onSave(NewRewardtypePatches.SR_RNGCOSTREWARD, customReward)
+        );
+
         ChallengeSystem.populateTieredMaps();
 
         BaseMod.addSaveField("SR_SPAWNCHANCE", new CustomSavable<Float>() {

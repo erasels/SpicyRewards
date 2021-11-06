@@ -7,6 +7,7 @@ import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.data.HighCostCardReward;
+import SpicyRewards.rewards.selectCardsRewards.RandomizeCardCostReward;
 import SpicyRewards.util.UC;
 import SpicyRewards.util.WidepotionDependencyHelper;
 import com.megacrit.cardcrawl.cards.AbstractCard;
@@ -41,6 +42,7 @@ public class SneckoChallenge extends AbstractChallenge {
     @Override
     protected void fillRewardList() {
         //TODO: Add randomize card cost reward
+        rewardList.add(() -> new RandomizeCardCostReward(), NORMAL_WEIGHT - 1);
         if(SpicyRewards.hasWidepots) {
             rewardList.add(() -> new RewardItem(WidepotionDependencyHelper.getWide(new SneckoOil())), NORMAL_WEIGHT);
         } else {
