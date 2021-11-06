@@ -41,14 +41,13 @@ public class SneckoChallenge extends AbstractChallenge {
 
     @Override
     protected void fillRewardList() {
-        //TODO: Add randomize card cost reward
         rewardList.add(() -> new RandomizeCardCostReward(), NORMAL_WEIGHT - 1);
         if(SpicyRewards.hasWidepots) {
             rewardList.add(() -> new RewardItem(WidepotionDependencyHelper.getWide(new SneckoOil())), NORMAL_WEIGHT);
         } else {
             rewardList.add(() -> new RewardItem(new SneckoOil()), NORMAL_WEIGHT - 1);
         }
-        if(!ChallengeSystem.spawnedRelicReward && UC.p() instanceof TheSilent)
+        if(!ChallengeSystem.spawnedRelicReward && UC.p() instanceof TheSilent && !UC.p().hasRelic(SneckoSkull.ID))
             rewardList.add(() -> new CustomRelicReward(SneckoSkull.ID), NORMAL_WEIGHT);
         rewardList.add(() -> new SingleCardReward(new Befuddlement()), UC.deck().findCardById(Befuddlement.ID) == null? NORMAL_WEIGHT : LOW_WEIGHT);
         rewardList.add(() -> new HighCostCardReward(), NORMAL_WEIGHT);
