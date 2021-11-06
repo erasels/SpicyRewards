@@ -40,7 +40,7 @@ public class SneckoChallenge extends AbstractChallenge {
 
     @Override
     protected void fillRewardList() {
-        //Add randomize card cost reward
+        //TODO: Add randomize card cost reward
         if(SpicyRewards.hasWidepots) {
             rewardList.add(() -> new RewardItem(WidepotionDependencyHelper.getWide(new SneckoOil())), NORMAL_WEIGHT);
         } else {
