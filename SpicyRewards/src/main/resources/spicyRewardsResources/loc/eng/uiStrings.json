@@ -392,5 +392,11 @@
       "desc": "Whenever you draw an Attack, its damage decreases by %d.",
       "name": "Rusting Armaments"
     }
+  },
+  "${ModID}:NoDebuffChallenge": {
+    "TEXT_DICT": {
+      "desc": "Do not apply debuffs to any enemy.",
+      "name": "Pure Power"
+    }
   }
 }

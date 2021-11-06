@@ -3,6 +3,7 @@ package SpicyRewards.challenges.optIn;
 import SpicyRewards.SpicyRewards;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
+import SpicyRewards.challenges.normal.NoDebuffChallenge;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
@@ -27,7 +28,7 @@ public class MasochismChallenge extends AbstractChallenge {
     private static final UIStrings uiText = CardCrawlGame.languagePack.getUIString(ID + "Challenge");
     private static final int AMT = 7;
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(NoDebuffChallenge.ID));
 
     public MasochismChallenge() {
         super(ID,
