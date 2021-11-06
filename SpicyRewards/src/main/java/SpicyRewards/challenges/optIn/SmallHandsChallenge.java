@@ -23,6 +23,7 @@ import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.rooms.MonsterRoomElite;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 public class SmallHandsChallenge extends AbstractChallenge {
     public static final String ID = SpicyRewards.makeID("SmallHands");
@@ -31,7 +32,7 @@ public class SmallHandsChallenge extends AbstractChallenge {
 
     private int backupHandsize;
 
-    protected static ArrayList<String> exclusions = new ArrayList<>();
+    protected static ArrayList<String> exclusions = new ArrayList<>(Arrays.asList(DrawLessAttackChallenge.ID));
 
     public SmallHandsChallenge() {
         super(ID,

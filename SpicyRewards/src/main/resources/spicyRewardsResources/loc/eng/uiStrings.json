@@ -49,6 +49,7 @@
       "upgradedBlockCR": "Upgraded Block card reward",
       "blockBreakCC": "Block interaction card choice",
       "highCostCR": "2+ cost card reward",
+      "highDamageCR": "High damage card reward",
       "healingCC": "Upgraded Healing card choice",
       "sRareCR": "Small rare card reward",
       "skillCR": "Skill card reward",
@@ -384,6 +385,12 @@
     "TEXT_DICT": {
       "desc": "The first card you draw each turn is transformed for the rest of combat.",
       "name": "Chamelyon Camouflage"
+    }
+  },
+  "${ModID}:DrawLessAttackChallenge": {
+    "TEXT_DICT": {
+      "desc": "Whenever you draw an Attack, its damage decreases by %d.",
+      "name": "Rusting Armaments"
     }
   }
 }
