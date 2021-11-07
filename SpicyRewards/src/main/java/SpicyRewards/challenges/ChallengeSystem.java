@@ -50,7 +50,7 @@ public class ChallengeSystem {
     public static Random challengeRewardRng = new Random();
 
     public static void atBattleStart() {
-        for(AbstractChallenge c : challenges) {
+        for (AbstractChallenge c : challenges) {
             c.initAtBattleStart();
             c.atBattleStart();
         }
@@ -117,8 +117,8 @@ public class ChallengeSystem {
     }
 
     public static boolean canPlayCard(AbstractCard c) {
-        for(AbstractChallenge ch : challenges) {
-            if(!ch.canPlayCard(c)) {
+        for (AbstractChallenge ch : challenges) {
+            if (!ch.canPlayCard(c)) {
                 return false;
             }
         }
@@ -131,9 +131,9 @@ public class ChallengeSystem {
 
     //Called pre AbstractRoom battle UI render in ChallengeSystemPatches
     public static void renderChallengeUIs(SpriteBatch sb, float xOffset, float startY) {
-        for(AbstractChallenge c : challenges) {
+        for (AbstractChallenge c : challenges) {
             //Render only if challenge isn't failed and not done if side challenge (optins always count as being done)
-            if(!c.failed && (c.type == AbstractChallenge.Type.OPTIN || !c.done) && c instanceof IUIRenderChallenge && ((IUIRenderChallenge)c).shouldRender()) {
+            if (!c.failed && (c.type == AbstractChallenge.Type.OPTIN || !c.done) && c instanceof IUIRenderChallenge && ((IUIRenderChallenge) c).shouldRender()) {
                 ((IUIRenderChallenge) c).renderUI(sb, xOffset, startY);
                 startY -= FontHelper.getHeight(FontHelper.panelNameFont) + (10f * Settings.yScale);
             }
@@ -145,7 +145,7 @@ public class ChallengeSystem {
     }
 
     public static void clearChallenges() {
-        for(AbstractChallenge c : challenges) {
+        for (AbstractChallenge c : challenges) {
             c.dispose();
             c.onRemove();
         }
@@ -153,7 +153,7 @@ public class ChallengeSystem {
     }
 
     public static AbstractChallenge initChallenge(AbstractChallenge c) {
-        return c!=null?c.makeCopy().initReward() : null;
+        return c != null ? c.makeCopy().initReward() : null;
     }
 
     public static void generateChallenges(AbstractChallenge.Type type, int amount) {
@@ -212,7 +212,7 @@ public class ChallengeSystem {
         list.forEach(challenge -> wcs.add(challenge, calculateWeight(challenge)));
 
         //All challenges that can spawn have spawned more than MAX_CHALLENGE_SPAWN_AMOUNT times.
-        if(wcs.isEmpty()) {
+        if (wcs.isEmpty()) {
             SpicyRewards.logger.warn(String.format("All available challenges have spawned more than %d times, returning truly random challenge.", MAX_CHALLENGE_SPAWN_AMOUNT));
             list.forEach(challenge -> wcs.add(challenge, 1));
         }
@@ -233,8 +233,8 @@ public class ChallengeSystem {
 
     public static int getNormalChallengeSpawnAmount() {
         int i = CHALLENGE_AMT;
-        if(AbstractDungeon.actNum == 1) {
-            if(!challengeRng.randomBoolean()) {
+        if (AbstractDungeon.actNum == 1) {
+            if (!challengeRng.randomBoolean()) {
                 --i;
             }
         }
@@ -243,10 +243,13 @@ public class ChallengeSystem {
 
     public static int getOptinChallengeSpawnAmount() {
         int i = OPTIN_AMT;
-        if(AbstractDungeon.actNum == 1) {
-            if(!challengeRng.randomBoolean(0.25f)) {
+        if (!(AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite)) {
+            if (challengeRng.randomBoolean())
                 --i;
-            }
+        }
+
+        if (!challengeRng.randomBoolean(NumberUtils.min(0.9f, 0.33f * AbstractDungeon.actNum))) {
+            --i;
         }
         return i;
     }
@@ -256,8 +259,8 @@ public class ChallengeSystem {
     }
 
     public static boolean hasChallenge(String id) {
-        for(AbstractChallenge c : challenges) {
-            if(id.equals(c.id)) {
+        for (AbstractChallenge c : challenges) {
+            if (id.equals(c.id)) {
                 return true;
             }
         }
@@ -265,7 +268,7 @@ public class ChallengeSystem {
     }
 
     public static void addChallenge(AbstractChallenge c) {
-        if(c == null) {
+        if (c == null) {
             SpicyRewards.logger.warn("Tried to add challenge which was null!");
             return;
         }
@@ -296,7 +299,7 @@ public class ChallengeSystem {
 
     public static float getSpawnChance() {
         float sc = spawnChance;
-        if(AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite) {
+        if (AbstractDungeon.getCurrRoom() instanceof MonsterRoomElite) {
             sc += ELITE_ADD_CHANCE;
         }
         return sc;
