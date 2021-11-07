@@ -5,6 +5,7 @@ import SpicyRewards.actions.ChallengeScreenAction;
 import SpicyRewards.challenges.AbstractChallenge;
 import SpicyRewards.challenges.ChallengeSystem;
 import SpicyRewards.powers.ChallengePower;
+import SpicyRewards.tutorials.ChallengeTutorial;
 import SpicyRewards.util.UC;
 import basemod.ReflectionHacks;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -21,6 +22,8 @@ import com.megacrit.cardcrawl.rooms.MonsterRoomBoss;
 import com.megacrit.cardcrawl.saveAndContinue.SaveFile;
 import javassist.CannotCompileException;
 import javassist.CtBehavior;
+
+import java.io.IOException;
 
 public class ChallengeSystemPatches {
     @SpirePatch2(clz = AbstractPlayer.class, method = "applyPreCombatLogic")
@@ -48,6 +51,12 @@ public class ChallengeSystemPatches {
 
                         //Add power/system to top, to allow completing challenges on the ChallengeScreen
                         UC.doPow(UC.p(), new ChallengePower(UC.p()), true);
+
+                        if(!SpicyRewards.modConfig.getBool("SeenTutorial2")) {
+                            AbstractDungeon.ftue = new ChallengeTutorial(2);
+                            SpicyRewards.modConfig.setBool("SeenTutorial2", true);
+                            try { SpicyRewards.modConfig.save(); } catch (IOException e) { e.printStackTrace(); }
+                        }
                     }
                 }
             }

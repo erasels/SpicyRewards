@@ -11,6 +11,7 @@ import SpicyRewards.rewards.HealReward;
 import SpicyRewards.rewards.MaxHpReward;
 import SpicyRewards.rewards.cardRewards.SingleCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RewardSaveLoader;
+import SpicyRewards.tutorials.ChallengeTutorial;
 import SpicyRewards.ui.ChallengeButton;
 import SpicyRewards.util.SpawnChallengeConsoleCommand;
 import basemod.AutoAdd;
@@ -29,6 +30,7 @@ import com.evacipated.cardcrawl.modthespire.lib.SpireConfig;
 import com.evacipated.cardcrawl.modthespire.lib.SpireInitializer;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
+import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.helpers.FontHelper;
 import com.megacrit.cardcrawl.helpers.ImageMaster;
 import com.megacrit.cardcrawl.localization.*;
@@ -54,7 +56,7 @@ public class SpicyRewards implements
     public static final Logger logger = LogManager.getLogger(SpicyRewards.class.getName());
     public static final boolean hasMinty = Loader.isModLoaded("mintyspire");
     public static final boolean hasWidepots = Loader.isModLoaded("widepotions");
-    private static SpireConfig modConfig = null;
+    public static SpireConfig modConfig = null;
     public static ChallengeButton challengeBtn;
 
     public static void initialize() {
@@ -65,6 +67,8 @@ public class SpicyRewards implements
             defaults.put("AlwaysChallenge", Boolean.toString(false));
             defaults.put("GiveCard", Boolean.toString(false));
             defaults.put("PlayerTips", Boolean.toString(true));
+            defaults.put("SeenTutorial1", Boolean.toString(false));
+            defaults.put("SeenTutorial2", Boolean.toString(false));
             modConfig = new SpireConfig("SpicyRewards", "Config", defaults);
         } catch (Exception e) {
             e.printStackTrace();
@@ -274,6 +278,12 @@ public class SpicyRewards implements
         if (!CardCrawlGame.loadingSave) {
             ChallengeSystem.resetSpawnChance();
             ChallengeSystem.resetChallengeSpawns();
+
+            if(!modConfig.getBool("SeenTutorial1")) {
+                AbstractDungeon.ftue = new ChallengeTutorial(1);
+                modConfig.setBool("SeenTutorial1", true);
+                try { modConfig.save(); } catch (IOException e) { e.printStackTrace(); }
+            }
         }
     }
 

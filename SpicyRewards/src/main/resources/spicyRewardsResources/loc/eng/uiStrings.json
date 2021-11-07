@@ -398,5 +398,12 @@
       "desc": "Do not apply debuffs to any enemy.",
       "name": "Pure Power"
     }
+  },
+  "${ModID}:Tutorial": {
+    "TEXT": [
+      "Challenges and You",
+      "Whenever you enter a non-Boss combat, challenges may spawn. The chance increases for every combat you enter without a challenge spawning. NL You can see the chance on the challenge button in the top right.",
+      "Once a challenge has spawned, you'll get to select from a list of Opt-In challenges which bring great rewards but make combat harder. NL If you wish to review your challenges for the combat, you can click on the challenge button in the top right."
+    ]
   }
 }
