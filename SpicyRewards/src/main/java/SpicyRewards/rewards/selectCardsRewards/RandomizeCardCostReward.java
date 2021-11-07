@@ -40,6 +40,6 @@ public class RandomizeCardCostReward extends AbstractSelectCardReward {
     @Override
     protected void modifySelectedCard(AbstractCard c) {
         CardCrawlGame.sound.play("POWER_CONFUSION", 0.05F);
-        CardModifierManager.addModifier(c, new RandomizeCostCMod());
+        CardModifierManager.addModifier(c, new RandomizeCostCMod(c));
     }
 }
