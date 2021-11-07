@@ -9,10 +9,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
-import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
-import com.megacrit.cardcrawl.vfx.UpgradeShineEffect;
 
 import static SpicyRewards.SpicyRewards.makeID;
 
@@ -41,7 +39,7 @@ public class RandomizeCardCostReward extends AbstractSelectCardReward {
 
     @Override
     protected void modifySelectedCard(AbstractCard c) {
-        AbstractDungeon.effectsQueue.add(new UpgradeShineEffect(Settings.WIDTH / 2.0F, Settings.HEIGHT / 2.0F));
+        CardCrawlGame.sound.play("POWER_CONFUSION", 0.05F);
         CardModifierManager.addModifier(c, new RandomizeCostCMod());
     }
 }
