@@ -37,7 +37,7 @@ public class DrawLessAttackChallenge extends AbstractChallenge {
 
     @Override
     protected void fillRewardList() {
-        rewardList.add(() -> new IncreaseDamageReward(4 + AbstractDungeon.actNum), NORMAL_WEIGHT);
+        rewardList.add(() -> new IncreaseDamageReward(3 + AbstractDungeon.actNum), LOW_WEIGHT);
         rewardList.add(() -> new RemoveReward(AbstractCard.CardType.ATTACK, null), NORMAL_WEIGHT - 1);
         rewardList.add(() -> new HighDamageCardReward(), NORMAL_WEIGHT);
         if(!ChallengeSystem.spawnedRelicReward)
