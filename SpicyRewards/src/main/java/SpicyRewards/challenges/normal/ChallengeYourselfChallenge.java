@@ -32,7 +32,7 @@ public class ChallengeYourselfChallenge extends AbstractChallenge {
 
     @Override
     protected void fillRewardList() {
-        rewardList.add(() -> new RewardItem(30 + 15 * AbstractDungeon.actNum), NORMAL_WEIGHT);
+        rewardList.add(() -> new RewardItem(15 + 15 * AbstractDungeon.actNum), NORMAL_WEIGHT);
         rewardList.add(() -> {
             if(AbstractDungeon.actNum < 2) {
                 if(UC.p().currentHealth > UC.p().maxHealth/2f) {
