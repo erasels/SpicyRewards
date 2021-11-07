@@ -8,10 +8,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.CardGroup;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
+import com.megacrit.cardcrawl.core.Settings;
 import com.megacrit.cardcrawl.dungeons.AbstractDungeon;
 import com.megacrit.cardcrawl.localization.UIStrings;
 import com.megacrit.cardcrawl.rewards.RewardItem;
 import com.megacrit.cardcrawl.screens.select.GridCardSelectScreen;
+import com.megacrit.cardcrawl.vfx.cardManip.ShowCardBrieflyEffect;
 
 public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
     //The reward has been clicked and the select screen has been opened
@@ -93,6 +95,7 @@ public abstract class AbstractSelectCardReward extends AbstractSpicyReward {
                     for (AbstractCard card : UC.p().masterDeck.group) {
                         if (c.uuid == card.uuid) {
                             modifySelectedCard(card);
+                            AbstractDungeon.topLevelEffectsQueue.add(new ShowCardBrieflyEffect(card.makeStatEquivalentCopy(), Settings.WIDTH/2f, Settings.HEIGHT/2f));
                         }
                     }
                 }
