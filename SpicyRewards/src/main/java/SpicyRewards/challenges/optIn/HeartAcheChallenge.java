@@ -8,6 +8,7 @@ import SpicyRewards.rewards.data.SmallRareCardReward;
 import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.util.UC;
 import com.megacrit.cardcrawl.actions.common.MakeTempCardInDrawPileAction;
+import com.megacrit.cardcrawl.cards.AbstractCard;
 import com.megacrit.cardcrawl.cards.status.*;
 import com.megacrit.cardcrawl.core.CardCrawlGame;
 import com.megacrit.cardcrawl.core.Settings;
@@ -38,7 +39,7 @@ public class HeartAcheChallenge extends AbstractChallenge {
 
     @Override
     protected void fillRewardList() {
-        rewardList.add(() -> new RemoveReward(), NORMAL_WEIGHT - 1);
+        rewardList.add(() -> new RemoveReward(AbstractCard.CardType.SKILL, null), LOW_WEIGHT);
         rewardList.add(() -> new SmallRareCardReward(), NORMAL_WEIGHT);
         rewardList.add(() -> new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)), NORMAL_WEIGHT);
         if(!ChallengeSystem.spawnedRelicReward)
