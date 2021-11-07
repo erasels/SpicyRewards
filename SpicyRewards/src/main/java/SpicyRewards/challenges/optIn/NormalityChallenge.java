@@ -7,7 +7,6 @@ import SpicyRewards.challenges.IUIRenderChallenge;
 import SpicyRewards.relics.Pearl;
 import SpicyRewards.rewards.CustomRelicReward;
 import SpicyRewards.rewards.data.HighCostCardReward;
-import SpicyRewards.rewards.selectCardsRewards.RemoveReward;
 import SpicyRewards.rewards.selectCardsRewards.TransformReward;
 import SpicyRewards.util.UC;
 import com.badlogic.gdx.graphics.Color;
@@ -47,8 +46,7 @@ public class NormalityChallenge extends AbstractChallenge implements IUIRenderCh
 
     @Override
     protected void fillRewardList() {
-        rewardList.add(() -> new RemoveReward(), LOW_WEIGHT);
-        rewardList.add(() -> new TransformReward(), LOW_WEIGHT);
+        rewardList.add(() -> new TransformReward(), LOW_WEIGHT+1);
         rewardList.add(() -> new HighCostCardReward(), NORMAL_WEIGHT);
         rewardList.add(() -> new RewardItem(AbstractDungeon.returnRandomPotion(AbstractPotion.PotionRarity.RARE, false)), NORMAL_WEIGHT);
         if(!ChallengeSystem.spawnedRelicReward)
