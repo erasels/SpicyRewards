@@ -22,7 +22,7 @@ public class MomentumPotion extends AbstractSpicyPotion{
 
     @Override
     public void use(AbstractCreature abstractCreature) {
-        UC.doPow(new BlurPower(UC.p(), getPotency()));
+        UC.doPow(new BlurPower(UC.p(), potency));
     }
 
     @Override

@@ -22,7 +22,7 @@ public class RetainPotion extends AbstractSpicyPotion{
 
     @Override
     public void use(AbstractCreature abstractCreature) {
-        EquilibriumPower p = new EquilibriumPower(UC.p(), getPotency());
+        EquilibriumPower p = new EquilibriumPower(UC.p(), potency);
         p.name = CardCrawlGame.languagePack.getPowerStrings("Retain Hand").NAME;
         p.updateDescription();
         UC.doPow(p);

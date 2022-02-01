@@ -19,7 +19,7 @@ public class AntiExhaustPotion extends AbstractSpicyPotion{
 
     @Override
     public void use(AbstractCreature abstractCreature) {
-        UC.doPow(new AntiExhaustPower(getPotency()));
+        UC.doPow(new AntiExhaustPower(potency));
     }
 
     @Override
